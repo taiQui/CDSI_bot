@@ -24,7 +24,7 @@ let ArrayExam = [];
 //*********************//
 
 
-bot.login("NDkxNTg1NDA4MjM3NTY4MDIx.DoKYcQ.V31T50CvA1TC6pQ-3cd2bA7v1Lo");
+bot.login(process.env.BOT_TOKEN);
 let cleverbot = new Clvbot('dG686frlxTXoMdzL','OPrEDPXJvX2083V0JBJbQjxBhtusyS7q');
 cleverbot.setNick("HackerMen");
 
@@ -64,8 +64,8 @@ bot.on("message",(message)=>{
       emb.addField("!speak someSentence ","Hey bitch, speak with me",false);
       emb.addField("!exam","print exam",false);
       emb.addField("!addExam name description date ","add Exam",false);
-      emb.addField("!delexam ID ","delete exam with his ID",false);
-      emb.addField("!delmsg (number)","delete message with number or not ",false);
+      emb.addField("!delexam ID","delete exam with his ID",false);
+      emb.addField("!delmsg (number)","delete message with number or not",false);
       message.channel.send(emb);
       break;
     case "invit":
