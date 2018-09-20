@@ -162,10 +162,17 @@ bot.on("message",(message)=>{
         message.channel.send("!start hour minute");
         return;
       }
+      if(isNaN(parseInt(cmd[1])) || isNaN(parseInt(cmd[2]))){
+        message.channel.send("Not a number !");
+        return;
+      }
+
       let timeout = (parseInt(cmd[1])*3600) + (parseInt(cmd[2])*60);
+      console.log("time : "+timeout*1000+" seconde");
+
       setTimeout(()=>{
         message.channel.send("PAUSE !");
-      },timeout);
+      },(timeout*1000)/2;
       break;
     default:
       message.channel.send("no match with this command !");
