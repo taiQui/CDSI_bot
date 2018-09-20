@@ -106,6 +106,12 @@ bot.on("message",(message)=>{
         //   message.channel.send("No exam yet !");
         // } else {
           console.log("EXAM : PAS VIDE");
+          let i = checkIfEmpty();
+          if(i == true){
+            console.log("VIIIIIIDE");
+          } else {
+            console.log("NOOOOOOOOON VIDE");
+          }
           lineread.eachLine("exam.txt",function(line,last){
             let parse = line.split(",");
             console.log("EXAM : "+ line);
