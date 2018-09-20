@@ -101,19 +101,20 @@ bot.on("message",(message)=>{
       break;
     case "exam":
         var emb = new Discord.RichEmbed();
-        let empty = true;
-        lineread.eachLine(".exam.txt",function(line,last){
-          let parse = line.split(",");
-          empty = false;
-          emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
-        });
-        if(empty){
+        if(checkIfEmpty()){
           message.channel.send("No exam yet !");
+        } else {
+          lineread.eachLine(".exam.txt",function(line,last){
+            let parse = line.split(",");
+
+            emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
+          });
+          message.channel.send(emb);
         }
+
         // for(let i = 0; i < ArrayExam.length ; i++){
         //   emb.addField(ArrayExam[i].name,ArrayExam[i].id+" - "+ArrayExam[i].description+" - "+ArrayExam[i].date,false);
         // }
-        message.channel.send(emb);
 
       break;
     case "addexam":
@@ -160,7 +161,7 @@ bot.on("message",(message)=>{
             console.log("rename done !");
           });
         });
-
+        checkIfEmpty();
         message.channel.send("Exam deleted !");
       } else {
         message.channel.send("no match with this ID");
@@ -239,6 +240,23 @@ function isExisting(array,id){
     }
   }
   return -1;
+}
+
+function checkIfEmpty(){
+  let empty = true;
+  lineread.eachLine(".exam.txt",function(line,last){
+    if(line) empty = false;
+
+  });
+  if(empty){
+    fs.unlink(".exam.txt",(err)=>{
+      if(err)
+        return(console.log(err));
+      console.log("file deleted !");
+    });
+    return true;
+  }
+  return false;
 }
 
 //
