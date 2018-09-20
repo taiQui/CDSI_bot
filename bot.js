@@ -247,8 +247,12 @@ function checkIfEmpty(){
   lineread.eachLine(".exam.txt",function(line,last){
 
     console.log("CHECK IF EMPTY TEST : "+line);
-    if(line) empty = false;
-
+    if(line) {
+      console.log("PAS VIDE");
+      empty = false;
+    } else {
+      console.log("FICHIER VIDE");
+    }
   });
   if(empty){
     fs.unlink(".exam.txt",(err)=>{
