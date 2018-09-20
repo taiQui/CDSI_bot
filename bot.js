@@ -102,11 +102,12 @@ bot.on("message",(message)=>{
     case "exam":
         var emb = new Discord.RichEmbed();
         if(checkIfEmpty()){
+          console.log("EXAM : VIDE ");
           message.channel.send("No exam yet !");
         } else {
+          console.log("EXAM : PAS VIDE");
           lineread.eachLine(".exam.txt",function(line,last){
             let parse = line.split(",");
-
             emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
           });
           message.channel.send(emb);
