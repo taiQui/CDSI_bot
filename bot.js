@@ -101,7 +101,7 @@ bot.on("message",(message)=>{
       break;
     case "exam":
         var emb = new Discord.RichEmbed();
-        if(checkIfEmpty()){
+        if(checkIfEmpty() === true){
           console.log("EXAM : VIDE ");
           message.channel.send("No exam yet !");
         } else {
