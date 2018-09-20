@@ -1,6 +1,8 @@
 'use strict';
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+const request = require("request");
+const cheerio = require("cheerio");
 
 
 //some library
@@ -61,7 +63,7 @@ bot.on("message",(message)=>{
       emb.addField("!exam","print exam",false);
       emb.addField("!addExam name description date ","add Exam",false);
       emb.addField("!delexam ID","delete exam with his ID",false);
-      emb.addField("!delmsg (number)","delete message with number or not",false);
+      emb.addField("!start hour minute","say PAUSE when input time is on her half",false);
       message.channel.send(emb);
       break;
     case "invit":
@@ -174,6 +176,9 @@ bot.on("message",(message)=>{
         message.channel.send("PAUSE !");
       },(timeout/2)*1000);
       break;
+    case "insult":
+      message.channel.send(getInsult());
+      break;
     default:
       message.channel.send("no match with this command !");
       break;
@@ -195,4 +200,15 @@ function isExisting(array,id){
     }
   }
   return -1;
+}
+
+
+function getInsult(){
+  request({
+    uri: "http://insultron.fr",
+  },function(error,response,body){
+    let $ = cheerio.load(body);
+    let i = 0;
+    return($("p")[1].text());
+  });
 }
