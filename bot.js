@@ -113,8 +113,11 @@ bot.on("message",(message)=>{
               console.log(parse[i]);
             }
             emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
+            if(last){
+              emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
+              message.channel.send(emb);
+            }
           });
-          message.channel.send(emb);
         // }
 
         // for(let i = 0; i < ArrayExam.length ; i++){
