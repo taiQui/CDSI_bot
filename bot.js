@@ -109,6 +109,9 @@ bot.on("message",(message)=>{
           lineread.eachLine("exam.txt",function(line,last){
             let parse = line.split(",");
             console.log("EXAM : "+ line);
+            parse.forEach(msg=>{
+              console.log(msg);
+            });
             emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
           });
           message.channel.send(emb);
