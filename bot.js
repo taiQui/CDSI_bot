@@ -172,7 +172,7 @@ bot.on("message",(message)=>{
 
       setTimeout(()=>{
         message.channel.send("PAUSE !");
-      },(timeout*1000)/2;
+      },(timeout/2)*1000);
       break;
     default:
       message.channel.send("no match with this command !");
