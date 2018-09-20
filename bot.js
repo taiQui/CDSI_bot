@@ -26,7 +26,8 @@ let ArrayExam = [];
 //*********************//
 
 
-bot.login(process.env.BOT_TOKEN);
+// bot.login(process.env.BOT_TOKEN);
+bot.login("NDkxNTg1NDA4MjM3NTY4MDIx.DoUuQQ.yBofSKS4ygTs2L-R8cYg_C687GY");
 let cleverbot = new Clvbot('dG686frlxTXoMdzL','OPrEDPXJvX2083V0JBJbQjxBhtusyS7q');
 cleverbot.setNick("HackerMen");
 
@@ -177,7 +178,15 @@ bot.on("message",(message)=>{
       },(timeout/2)*1000);
       break;
     case "insult":
-      message.channel.send(getInsult());
+    request({
+      uri: "http://insultron.fr",
+    },function(error,response,body){
+      let $ = cheerio.load(body);
+      let i = 0;
+      let text = $("font").text();
+      console.log("text : "+text);
+      message.reply(text);
+    });
       break;
     default:
       message.channel.send("no match with this command !");
@@ -202,14 +211,7 @@ function isExisting(array,id){
   return -1;
 }
 
-
-function getInsult(){
-  request({
-    uri: "http://insultron.fr",
-  },function(error,response,body){
-    let $ = cheerio.load(body);
-    let i = 0;
-    console.log($("p"));
-
-  });
-}
+//
+// let promise = new Promise(function(resolve,reject){
+//   resolve(getInsult());
+// });
