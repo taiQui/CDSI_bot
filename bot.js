@@ -245,6 +245,8 @@ function isExisting(array,id){
 function checkIfEmpty(){
   let empty = true;
   lineread.eachLine(".exam.txt",function(line,last){
+
+    console.log("CHECK IF EMPTY TEST : "+line);
     if(line) empty = false;
 
   });
