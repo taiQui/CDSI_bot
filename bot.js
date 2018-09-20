@@ -124,6 +124,7 @@ bot.on("message",(message)=>{
       fs.writeFile(".exam.txt",newExam.name+","+newExam.description+","+newExam.date+","+newExam.id,function(err){
         if(err)
           return(console.log(err));
+        console.log("adding in file done !");
       });
       message.channel.send("Exam added !");
       break;
