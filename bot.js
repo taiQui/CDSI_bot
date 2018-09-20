@@ -4,6 +4,7 @@ const bot = new Discord.Client();
 const request = require("request");
 const cheerio = require("cheerio");
 const fs = require("fs");
+const lineread = require("line-reader");
 
 
 //some library
@@ -14,10 +15,14 @@ const Clvbot  = require("cleverbot.io");
 //some variable
 let prefix_com = "!";
 class Exam {
-  constructor(name,description,date){
+  constructor(name,description,date,id){
     let rand = -1;
-    while(rand < 0 && isExisting(rand = generateRandom()) >= 0){}
-    this.id = rand;
+    if(id == -1){
+      while(rand < 0 && isExisting(rand = generateRandom()) >= 0){}
+      this.id = rand;
+    } else {
+      this.id = id;
+    }
     this.name = name;
     this.description = description;
     this.date = date;
@@ -99,9 +104,13 @@ bot.on("message",(message)=>{
         message.channel.send("No exam yet");
       } else {
         var emb = new Discord.RichEmbed();
-        for(let i = 0; i < ArrayExam.length ; i++){
-          emb.addField(ArrayExam[i].name,ArrayExam[i].id+" - "+ArrayExam[i].description+" - "+ArrayExam[i].date,false);
-        }
+        lineread.eachLine(".exam.txt",function(line,last){
+          let parse = line.split(",");
+          emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
+        });
+        // for(let i = 0; i < ArrayExam.length ; i++){
+        //   emb.addField(ArrayExam[i].name,ArrayExam[i].id+" - "+ArrayExam[i].description+" - "+ArrayExam[i].date,false);
+        // }
         message.channel.send(emb);
       }
       break;
@@ -111,8 +120,8 @@ bot.on("message",(message)=>{
         message.channel.send("!addExam Name Description dd-mm-yyyy");
         return;
       }
-      let newExam = new Exam(cmd[1],cmd[2],cmd[3]);
-      fs.writeFile(".exam.txt",newExam,function(err){
+      let newExam = new Exam(cmd[1],cmd[2],cmd[3],-1);
+      fs.writeFile(".exam.txt",newExam.name+","+newExam.description+","+newExam.date+","+newExam.id,function(err){
         if(err)
           return(console.log(err));
       });
@@ -126,7 +135,29 @@ bot.on("message",(message)=>{
       }
 
       if(isExisting(ArrayExam,parseInt(cmd[2]))){
-        ArrayExam.splice(isExisting(ArrayExam,parseInt(cmd[2])),1);
+
+        lineread.eachLine(".exam.txt",function(line,last){
+          let parse = line.split(",");
+          if(parse[3] == parseInt(cmd[2])){
+            console.log("trouvé le même ID !");
+          } else {
+            fs.write(".examaux.txt",line,function(err){
+              if(err)
+                return(console.log(err));
+            });
+          }
+          fs.unlink(".exam.txt",(err)=>{
+            if(err)
+              return(console.log(err));
+            console.log("file deleted !");
+          });
+          fs.rename(".examaux.txt",".exam.txt",function(err){
+            if(err)
+              return(console.log(err));
+            console.log("rename done !");
+          });
+        });
+
         message.channel.send("Exam deleted !");
       } else {
         message.channel.send("no match with this ID");
