@@ -126,7 +126,7 @@ bot.on("message",(message)=>{
       let newExam = new Exam(cmd[1],cmd[2],cmd[3],-1);
       fs.writeFile(".exam.txt",newExam.name+","+newExam.description+","+newExam.date+","+newExam.id,function(err){
         if(err)
-          return(console.log(err));
+          return("ERROR 0 : "+console.log(err));
         console.log("adding in file done !");
       });
       message.channel.send("Exam added !");
@@ -147,17 +147,17 @@ bot.on("message",(message)=>{
           } else {
             fs.write(".examaux.txt",line,function(err){
               if(err)
-                return(console.log(err));
+                return("ERROR 1 : "+console.log(err));
             });
           }
           fs.unlink(".exam.txt",(err)=>{
             if(err)
-              return(console.log(err));
+              return("ERROR 2 : "+console.log(err));
             console.log("file deleted !");
           });
           fs.rename(".examaux.txt",".exam.txt",function(err){
             if(err)
-              return(console.log(err));
+              return("ERROR 3 : "+console.log(err));
             console.log("rename done !");
           });
         });
@@ -251,8 +251,8 @@ function checkIfEmpty(){
   if(empty){
     fs.unlink(".exam.txt",(err)=>{
       if(err)
-        return(console.log(err));
-      console.log("file deleted !");
+        return("---------------\nERROR checkIfEmpty : "console.log(err));
+      console.log("file deleted in check file !");
     });
     return true;
   }
