@@ -101,17 +101,17 @@ bot.on("message",(message)=>{
       break;
     case "exam":
         var emb = new Discord.RichEmbed();
-        if(checkIfEmpty() === true){
-          console.log("EXAM : VIDE ");
-          message.channel.send("No exam yet !");
-        } else {
+        // if(checkIfEmpty() === true){
+        //   console.log("EXAM : VIDE ");
+        //   message.channel.send("No exam yet !");
+        // } else {
           console.log("EXAM : PAS VIDE");
           lineread.eachLine("exam.txt",function(line,last){
             let parse = line.split(",");
             emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
           });
           message.channel.send(emb);
-        }
+        // }
 
         // for(let i = 0; i < ArrayExam.length ; i++){
         //   emb.addField(ArrayExam[i].name,ArrayExam[i].id+" - "+ArrayExam[i].description+" - "+ArrayExam[i].date,false);
