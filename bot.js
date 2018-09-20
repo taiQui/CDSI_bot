@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const request = require("request");
 const cheerio = require("cheerio");
+const fs = require("fs");
 
 
 //some library
@@ -111,15 +112,10 @@ bot.on("message",(message)=>{
         return;
       }
       let newExam = new Exam(cmd[1],cmd[2],cmd[3]);
-      ArrayExam.push(newExam);
-      let file = fopen(".exam.txt","w");
-      if(!file){
-        console.log("error to open file");
-        return;
-      }
-      fwrite(file,newExam);
-      console.log("write sucessfully");
-      fclose(file);
+      fs.writeFile(".exam.txt",newExam,function(err){
+        if(err)
+          return(console.log(err));
+      });
       message.channel.send("Exam added !");
       break;
     case "delexam":
