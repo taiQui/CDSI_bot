@@ -28,10 +28,6 @@ bot.login(process.env.BOT_TOKEN);
 let cleverbot = new Clvbot('dG686frlxTXoMdzL','OPrEDPXJvX2083V0JBJbQjxBhtusyS7q');
 cleverbot.setNick("HackerMen");
 
-bot.on("guildMemberAdd",(member) => {
-  member.guild.channels.get("Welcome").send(`"${member.user.username}" join server .. Time to hack !`);
-});
-
 bot.on("ready",()=>{
   console.log("I'm here")
   bot.user.setGame("Hacking in progress !");
@@ -113,6 +109,14 @@ bot.on("message",(message)=>{
       }
       let newExam = new Exam(cmd[1],cmd[2],cmd[3]);
       ArrayExam.push(newExam);
+      let file = fopen(".exam.txt","w");
+      if(!file){
+        console.log("error to open file");
+        return;
+      }
+      fwrite(file,newExam);
+      console.log("write sucessfully");
+      fclose(file);
       message.channel.send("Exam added !");
       break;
     case "delexam":
@@ -151,6 +155,17 @@ bot.on("message",(message)=>{
             message.channel.send("You don't have right to delete msg !");
           }
       }
+      break;
+    case "start":
+      if(!cmd[1] && !cmd[2]){
+        message.channel.send("Arg missed !");
+        message.channel.send("!start hour minute");
+        return;
+      }
+      let timeout = (parseInt(cmd[1])*3600) + (parseInt(cmd[2])*60);
+      setTimeout(()=>{
+        message.channel.send("PAUSE !");
+      },timeout);
       break;
     default:
       message.channel.send("no match with this command !");
