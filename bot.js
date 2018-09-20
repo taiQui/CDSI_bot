@@ -251,7 +251,7 @@ function checkIfEmpty(){
   if(empty){
     fs.unlink(".exam.txt",(err)=>{
       if(err)
-        return("---------------\nERROR checkIfEmpty : "console.log(err));
+        return("ERROR checkIfEmpty : "+console.log(err));
       console.log("file deleted in check file !");
     });
     return true;
