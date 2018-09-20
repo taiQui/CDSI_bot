@@ -100,19 +100,21 @@ bot.on("message",(message)=>{
       });
       break;
     case "exam":
-      if(ArrayExam.length === 0){
-        message.channel.send("No exam yet");
-      } else {
         var emb = new Discord.RichEmbed();
+        let empty = true;
         lineread.eachLine(".exam.txt",function(line,last){
           let parse = line.split(",");
+          empty = false;
           emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
         });
+        if(empty){
+          message.channel.send("No exam yet !");
+        }
         // for(let i = 0; i < ArrayExam.length ; i++){
         //   emb.addField(ArrayExam[i].name,ArrayExam[i].id+" - "+ArrayExam[i].description+" - "+ArrayExam[i].date,false);
         // }
         message.channel.send(emb);
-      }
+
       break;
     case "addexam":
       if(cmd.length < 3){
