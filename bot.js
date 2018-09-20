@@ -209,7 +209,7 @@ function getInsult(){
   },function(error,response,body){
     let $ = cheerio.load(body);
     let i = 0;
-    console.log($("p")[1]);
-    
+    console.log($("p"));
+
   });
 }
