@@ -62,7 +62,7 @@ bot.on("message",(message)=>{
   switch(cmd[0].toLowerCase()){
     case "help":
       console.log("hello");
-      var emb = new Discord.RichEmbed();
+      let emb = new Discord.RichEmbed();
       emb.addField("!help","print this",false);
       emb.addField("!dice","throw dice with 6 sides",false);
       emb.addField("!invit","create invit to this server",false);
