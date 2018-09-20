@@ -168,7 +168,7 @@ bot.on("message",(message)=>{
       }
 
       let timeout = (parseInt(cmd[1])*3600) + (parseInt(cmd[2])*60);
-      console.log("time : "+timeout*1000+" seconde");
+      console.log("time : "+timeout+" seconde");
 
       setTimeout(()=>{
         message.channel.send("PAUSE !");
