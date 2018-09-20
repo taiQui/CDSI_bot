@@ -26,8 +26,8 @@ let ArrayExam = [];
 //*********************//
 
 
-// bot.login(process.env.BOT_TOKEN);
-bot.login("NDkxNTg1NDA4MjM3NTY4MDIx.DoUuQQ.yBofSKS4ygTs2L-R8cYg_C687GY");
+bot.login(process.env.BOT_TOKEN);
+
 let cleverbot = new Clvbot('dG686frlxTXoMdzL','OPrEDPXJvX2083V0JBJbQjxBhtusyS7q');
 cleverbot.setNick("HackerMen");
 
