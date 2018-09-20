@@ -106,7 +106,7 @@ bot.on("message",(message)=>{
           message.channel.send("No exam yet !");
         } else {
           console.log("EXAM : PAS VIDE");
-          lineread.eachLine(".exam.txt",function(line,last){
+          lineread.eachLine("exam.txt",function(line,last){
             let parse = line.split(",");
             emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
           });
@@ -125,7 +125,7 @@ bot.on("message",(message)=>{
         return;
       }
       let newExam = new Exam(cmd[1],cmd[2],cmd[3],-1);
-      fs.writeFile(".exam.txt",newExam.name+","+newExam.description+","+newExam.date+","+newExam.id,function(err){
+      fs.writeFile("exam.txt",newExam.name+","+newExam.description+","+newExam.date+","+newExam.id,function(err){
         if(err)
           return("ERROR 0 : "+console.log(err));
         console.log("adding in file done !");
@@ -141,22 +141,22 @@ bot.on("message",(message)=>{
 
       if(isExisting(ArrayExam,parseInt(cmd[2]))){
 
-        lineread.eachLine(".exam.txt",function(line,last){
+        lineread.eachLine("exam.txt",function(line,last){
           let parse = line.split(",");
           if(parse[3] == parseInt(cmd[2])){
             console.log("trouvé le même ID !");
           } else {
-            fs.write(".examaux.txt",line,function(err){
+            fs.write("examaux.txt",line,function(err){
               if(err)
                 return("ERROR 1 : "+console.log(err));
             });
           }
-          fs.unlink(".exam.txt",(err)=>{
+          fs.unlink("exam.txt",(err)=>{
             if(err)
               return("ERROR 2 : "+console.log(err));
             console.log("file deleted !");
           });
-          fs.rename(".examaux.txt",".exam.txt",function(err){
+          fs.rename("examaux.txt","exam.txt",function(err){
             if(err)
               return("ERROR 3 : "+console.log(err));
             console.log("rename done !");
@@ -245,7 +245,7 @@ function isExisting(array,id){
 
 function checkIfEmpty(){
   let empty = true;
-  lineread.eachLine(".exam.txt",function(line,last){
+  lineread.eachLine("exam.txt",function(line,last){
 
     console.log("CHECK IF EMPTY TEST : "+line);
     if(line) {
@@ -256,7 +256,7 @@ function checkIfEmpty(){
     }
   });
   if(empty){
-    fs.unlink(".exam.txt",(err)=>{
+    fs.unlink("exam.txt",(err)=>{
       if(err)
         return("ERROR checkIfEmpty : "+console.log(err));
       console.log("file deleted in check file !");
