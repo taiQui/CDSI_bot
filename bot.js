@@ -229,7 +229,7 @@ bot.on("message",(message)=>{
         });
       } else {
         let guildmember = getID(cmd[1],message);
-        if(guildmember == -1 {
+        if(guildmember == -1) {
           return;
         }
         request({
