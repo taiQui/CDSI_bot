@@ -291,8 +291,7 @@ function checkIfEmpty(){
 }
 
 
-function getID(namenmessage){
-  if (name) {
+function getID(name,message){
     let collectionMember = message.guild.members;
     let tabMember = collectionMember.array();
     for (let i = 0; i < tabMember.length; i++) {
