@@ -114,7 +114,6 @@ bot.on("message",(message)=>{
             }
             embExam.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
             if(last){
-              embExam.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
               message.channel.send(embExam);
             }
           });
@@ -132,7 +131,7 @@ bot.on("message",(message)=>{
         return;
       }
       let newExam = new Exam(cmd[1],cmd[2],cmd[3],-1);
-      fs.appendFile("exam.txt",newExam.name+","+newExam.description+","+newExam.date+","+newExam.id,function(err){
+      fs.appendFile("exam.txt","\n"+newExam.name+","+newExam.description+","+newExam.date+","+newExam.id,function(err){
         if(err)
           return("ERROR 0 : "+console.log(err));
         console.log("adding in file done !");
