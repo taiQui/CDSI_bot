@@ -225,7 +225,7 @@ bot.on("message",(message)=>{
           let i = 0;
           let text = $("font").text();
           console.log("text : "+text);
-          message.reply(text);
+          message.channel.send(text);
         });
       } else {
         let guildmember = getID(cmd[1],message);
