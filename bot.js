@@ -65,7 +65,7 @@ bot.on("message",(message)=>{
       let embHelp = new Discord.RichEmbed();
       embHelp.addField("!help","print this",false);
       embHelp.addField("!dice","throw dice with 6 sides",false);
-      emb.addField("!speak someSentence ","Hey bitch, speak with me",false);
+      embHelp.addField("!speak someSentence ","Hey bitch, speak with me",false);
       embHelp.addField("!invit","create invit to this server",false);
       //embHelp.addField("!exam","print exam",false);
       //embHelp.addField("!addExam name description date ","add Exam",false);
