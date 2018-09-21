@@ -52,7 +52,7 @@ class Pendu {
         return;
       }
       if (msg.content.startsWith(prefix_com)) {
-        msg.channel.send("Tu es en plein jeux, envoie \"STOP\n au 3616 pour arreter le jeux");
+        msg.channel.send("You are in game, send \"STOP\n to stop this game");
         setTimeout(function(message) {
           msg.channel.fetchMessages({
             limit: 2
@@ -68,20 +68,20 @@ class Pendu {
         return
       } // si c'est un bot qui ecrit
       if (msg.content === "STOP") {
-        msg.channel.send("Jeu terminer ... 🖕 ");
+        msg.channel.send("End ... 🖕 ");
         this.Pendu_inGame = false;
         return;
       }
       if (msg.content === "HELP") {
-        msg.channel.send("taper \"STOP\" pour arreter le jeux")
+        msg.channel.send("send \"STOP\" to stop")
       }
       if (msg.content.length > 1) {
         if (msg.content === this.mots) {
-          msg.channel.send("T'as trouver le bon mot ... :ok_hand: ");
+          msg.channel.send("you find right word ! ... :ok_hand: ");
           this.Pendu_inGame = false;
           return;
         } else {
-          msg.channel.send("Une lettre par une lettre s'il te plait !");
+          msg.channel.send("letter by letter !");
           setTimeout(function(message) {
             msg.channel.fetchMessages({
               limit: 1
@@ -152,7 +152,7 @@ class Pendu {
           this.lettersaid += letter + " ";
           if (this.currentLvl === this.lvl10) {
             var emb = new Discord.RichEmbed();
-            emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + " \n\n " + "PERDU ! \nLe mot etait : " + this.mots, false);
+            emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + " \n\n " + "LOSE ! \nThe word was : " + this.mots, false);
             this.Pendu_gameMessage.edit(emb);
             this.Pendu_inGame = false;
           } else {
@@ -163,13 +163,13 @@ class Pendu {
 
         } else if ((!this.mots.includes(msg.content)) && this.lettersaid.includes(msg.content)) {
           var emb = new Discord.RichEmbed();
-          emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + "\n\n " + "Tu as déjà dis : " + letter, false);
+          emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + "\n\n " + "You win ! : " + letter, false);
           this.Pendu_gameMessage.edit(emb);
 
         }
       }
       if (this.devinemot === this.mots) {
-        msg.channel.send("T'as trouver le bon mot ... :ok_hand: ");
+        msg.channel.send("You find right word ! ... :ok_hand: ");
         this.Pendu_inGame = false;
         this.stop();
         return;

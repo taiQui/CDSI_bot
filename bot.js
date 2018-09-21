@@ -79,6 +79,7 @@ bot.on("message",(message)=>{
       //embHelp.addField("!delexam ID","delete exam with his ID",false);
       embHelp.addField("!insult [Exactname]","insult",false);
       embHelp.addField("!start hour minute","say PAUSE when input time is on her half",false);
+      embHelp.addField("!pendu","play !",false);
       message.channel.send(embHelp);
       break;
     case "invit":
@@ -293,7 +294,7 @@ bot.on("message",(message)=>{
                 let tab = msg.array();
                 Pendu.Pendu_gameMessage = tab[0];
 
-            }).catch(console.error);  
+            }).catch(console.error);
           });
           //message.channel.send(devinemot + "\n\n"+ currentLvl + "\n\n "+ lettersaid );
 
