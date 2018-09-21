@@ -155,7 +155,6 @@ class Pendu {
             emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + " \n\n " + "PERDU ! \nLe mot etait : " + this.mots, false);
             this.Pendu_gameMessage.edit(emb);
             this.Pendu_inGame = false;
-            this.stop();
           } else {
             var emb = new Discord.RichEmbed();
             emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + " \n\n ", false);
