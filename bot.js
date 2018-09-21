@@ -36,7 +36,7 @@ let Pendu = new penduFile.Pendu(bot);
 //*********************//
 
 
-bot.login(process.env.BOT_TOKEN);
+bot.login(process.env.BOT_TO  KEN);
 
 
 
@@ -291,8 +291,9 @@ bot.on("message",(message)=>{
             limit: 1
           }).then(msg => {
             let tab = msg.array();
-
-            Pendu.Pendu_gameMessage = tab[0];
+            setTimeout(function(){
+              Pendu.Pendu_gameMessage = tab[0];
+            },500);
           }).catch(console.error);
 
           Pendu.Pendu_inGame = true;
