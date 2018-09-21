@@ -217,15 +217,32 @@ bot.on("message",(message)=>{
       },(timeout/2)*1000);
       break;
     case "insult":
-    request({
-      uri: "http://insultron.fr",
-    },function(error,response,body){
-      let $ = cheerio.load(body);
-      let i = 0;
-      let text = $("font").text();
-      console.log("text : "+text);
-      message.reply(text);
-    });
+      if(!cmd[1]){
+        request({
+          uri: "http://insultron.fr",
+        },function(error,response,body){
+          let $ = cheerio.load(body);
+          let i = 0;
+          let text = $("font").text();
+          console.log("text : "+text);
+          message.reply(text);
+        });
+      } else {
+        let guildmember = getID(cmd[1],message);
+        if(guildmember == -1 {
+          return;
+        }
+        request({
+          uri: "http://insultron.fr",
+        },function(error,response,body){
+          let $ = cheerio.load(body);
+          let i = 0;
+          let text = $("font").text();
+          console.log("text : "+text);
+
+          message.channel.send(guildmember.id+", "+text);
+        });
+      }
       break;
     default:
       message.channel.send("no match with this command !");
@@ -273,6 +290,30 @@ function checkIfEmpty(){
   return false;
 }
 
+
+function getID(namenmessage){
+  if (name) {
+    let collectionMember = message.guild.members;
+    let tabMember = collectionMember.array();
+    for (let i = 0; i < tabMember.length; i++) {
+      console.log("tab[" + i + "] = " + tabMember[i].user.username);
+    }
+    let trouver = false;
+    let i = 0;
+    while (i < tabMember.length && !trouver) {
+      if (tabMember[i].user.username === name) {
+        trouver = true;
+        console.log("trouver");
+      } else {
+        i++;
+      }
+    }
+    if (trouver === false) {
+      message.channel.send("Pas trouver de personne avec ce nom");
+      return -1;
+    }
+    return(tabMember[i]);
+}
 //
 // let promise = new Promise(function(resolve,reject){
 //   resolve(getInsult());
