@@ -282,18 +282,21 @@ bot.on("message",(message)=>{
           for (let i = 0; i < Pendu.mots.length; i++) {
             Pendu.devinemot += "@";
           }
+          message.channel.send("Bienvenue dans le jeu du PENDU");
           var emb = new Discord.RichEmbed();
           emb.addField("Pendu", Pendu.devinemot + "\n\n" + Pendu.currentLvl + "\n\n " + Pendu.lettersaid, false);
-          message.channel.send(emb);
+          message.channel.send(emb).then(()=>{
+            message.channel.fetchMessages({
+              limit: 1
+            }).then(msg => {
+
+                let tab = msg.array();
+                Pendu.Pendu_gameMessage = tab[0];
+
+            }).catch(console.error);  
+          });
           //message.channel.send(devinemot + "\n\n"+ currentLvl + "\n\n "+ lettersaid );
-          message.channel.fetchMessages({
-            limit: 1
-          }).then(msg => {
-            setTimeout(function(){
-              let tab = msg.array();
-              Pendu.Pendu_gameMessage = tab[0];
-            },500);
-          }).catch(console.error);
+
 
           Pendu.Pendu_inGame = true;
         });
