@@ -290,8 +290,8 @@ bot.on("message",(message)=>{
           message.channel.fetchMessages({
             limit: 1
           }).then(msg => {
-            let tab = msg.array();
             setTimeout(function(){
+              let tab = msg.array();
               Pendu.Pendu_gameMessage = tab[0];
             },500);
           }).catch(console.error);
