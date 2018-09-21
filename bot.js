@@ -36,7 +36,7 @@ let Pendu = new penduFile.Pendu(bot);
 //*********************//
 
 
-bot.login(process.env.BOT_TO  KEN);
+bot.login(process.env.BOT_TOKEN);
 
 
 
