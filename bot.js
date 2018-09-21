@@ -5,6 +5,7 @@ const request = require("request");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const lineread = require("line-reader");
+const penduFile = require("./pendu.js")
 
 
 //some library
@@ -29,10 +30,15 @@ class Exam {
   }
 }
 let ArrayExam = [];
+let Pendu = new penduFile.Pendu(bot);
+
+
 //*********************//
 
 
 bot.login(process.env.BOT_TOKEN);
+
+
 
 let cleverbot = new Clvbot('dG686frlxTXoMdzL','OPrEDPXJvX2083V0JBJbQjxBhtusyS7q');
 cleverbot.setNick("HackerMen");
@@ -40,6 +46,7 @@ cleverbot.setNick("HackerMen");
 bot.on("ready",()=>{
   console.log("I'm here")
   bot.user.setGame("Hacking in progress !");
+  Pendu.start(prefix_com);
 });
 
 
@@ -104,7 +111,7 @@ bot.on("message",(message)=>{
     //     let embExam = new Discord.RichEmbed();
     //     // if(checkIfEmpty() === true){
     //     //   console.log("EXAM : VIDE ");
-    //     //   message.channel.send("No exam yet !");
+    //     //   messagebot.login("NDkxNTg1NDA4MjM3NTY4MDIx.DoVZDQ.H2EqSWS-o-UzCpeF4UXFuGLXfv8");.channel.send("No exam yet !");
     //     // } else {
     //       console.log("EXAM : PAS VIDE");
     //       lineread.eachLine("exam.txt",function(line,last){
@@ -178,7 +185,7 @@ bot.on("message",(message)=>{
     //   break;
     case "delmsg":
         if(!cmd[1]){
-          if (message.member.hasPermission("MANAGE_MESSAGES")) {
+          if (message.member.hasPermission("MANAGEPendu_MESSAGES")) {
             message.channel.fetchMessages()
             .then(function(list){
               message.channel.bulkDelete(list);
@@ -249,6 +256,50 @@ bot.on("message",(message)=>{
         });
       }
       break;
+    case "pendu":
+
+      if (Pendu.Pendu_inGame && message.author.id !== Pendu.Pendu_GamePlayer) {
+        message.channel.send("Quelqu'un est deja entrain de joué");
+      } else {
+
+
+        fs.readFile("pendu.txt", function(err, data) {
+          if (err) throw err;
+          let lines = data.toString().split('\n');
+
+          Pendu.mots = lines[Math.floor(Math.random() * lines.length)];
+
+
+
+          Pendu.mots = Pendu.mots.substring(0, Pendu.mots.length);
+          console.log("mots : " + Pendu.mots);
+          console.log("mots : " + Pendu.mots.length);
+          Pendu.Pendu_GamePlayer = message.author.id;
+          Pendu.currentLvl = Pendu.lvl0;
+          Pendu.Pendu_gameServer = message.channel.name;
+          Pendu.devinemot = "";
+          Pendu.lettersaid = "";
+          for (let i = 0; i < Pendu.mots.length; i++) {
+            Pendu.devinemot += "@";
+          }
+          message.channel.send("Bienvenue dans le jeu du PENDU");
+          var emb = new Discord.RichEmbed();
+          emb.addField("Pendu", Pendu.devinemot + "\n\n" + Pendu.currentLvl + "\n\n " + Pendu.lettersaid, false);
+          message.channel.send(emb);
+          //message.channel.send(devinemot + "\n\n"+ currentLvl + "\n\n "+ lettersaid );
+          message.channel.fetchMessages({
+            limit: 1
+          }).then(msg => {
+            let tab = msg.array();
+
+            Pendu.Pendu_gameMessage = tab[0];
+          }).catch(console.error);
+
+          Pendu.Pendu_inGame = true;
+        });
+      }
+      break;
+
     default:
       message.channel.send("no match with this command !");
       break;
