@@ -240,7 +240,7 @@ bot.on("message",(message)=>{
           let text = $("font").text();
           console.log("text : "+text);
 
-          message.channel.send(guildmember.id+", "+text);
+          guildmember.user.send(text);
         });
       }
       break;
