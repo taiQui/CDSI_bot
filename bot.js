@@ -189,10 +189,10 @@ bot.on("message",(message)=>{
           // sinon on supprime le nombre de message quil y'a dans la commande
       } else {
           if (message.member.hasPermission("MANAGE_MESSAGES")) {
-            message.channel.fetchMessages({limit: (parseInt(commande[1]) + 1) })
+            message.channel.fetchMessages({limit: (parseInt(cmd[1]) + 1) })
             .then(function(list){
               message.channel.bulkDelete(list);
-            }, function(err){message.channel.send("I fail to delete " + commande[1]+"msg !")});
+            }, function(err){message.channel.send("I fail to delete " + cmd[1]+"msg !")});
           } else {
             message.channel.send("You don't have right to delete msg !");
           }
