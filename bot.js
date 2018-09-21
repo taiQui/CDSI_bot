@@ -229,7 +229,7 @@ bot.on("message",(message)=>{
         });
       } else {
         if(message.channel.type == "dm"){
-          message.channel.reply("We are just together ... dont insult people !");
+          message.channel.send("We are just together ... dont insult people !");
         }
         let guildmember = getID(cmd[1],message);
         if(guildmember == -1) {
