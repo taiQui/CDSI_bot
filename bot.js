@@ -62,16 +62,16 @@ bot.on("message",(message)=>{
   switch(cmd[0].toLowerCase()){
     case "help":
       console.log("hello");
-      let emb = new Discord.RichEmbed();
-      emb.addField("!help","print this",false);
-      emb.addField("!dice","throw dice with 6 sides",false);
-      emb.addField("!invit","create invit to this server",false);
+      let embHelp = new Discord.RichEmbed();
+      embHelp.addField("!help","print this",false);
+      embHelp.addField("!dice","throw dice with 6 sides",false);
       emb.addField("!speak someSentence ","Hey bitch, speak with me",false);
-      emb.addField("!exam","print exam",false);
-      emb.addField("!addExam name description date ","add Exam",false);
-      emb.addField("!delexam ID","delete exam with his ID",false);
-      emb.addField("!start hour minute","say PAUSE when input time is on her half",false);
-      message.channel.send(emb);
+      embHelp.addField("!invit","create invit to this server",false);
+      embHelp.addField("!exam","print exam",false);
+      embHelp.addField("!addExam name description date ","add Exam",false);
+      embHelp.addField("!delexam ID","delete exam with his ID",false);
+      embHelp.addField("!start hour minute","say PAUSE when input time is on her half",false);
+      message.channel.send(embHelp);
       break;
     case "invit":
       message.channel.createInvite(false,3600,0,false,"invit").then(function (invit){
@@ -100,7 +100,7 @@ bot.on("message",(message)=>{
       });
       break;
     case "exam":
-        let emb = new Discord.RichEmbed();
+        let embExam = new Discord.RichEmbed();
         // if(checkIfEmpty() === true){
         //   console.log("EXAM : VIDE ");
         //   message.channel.send("No exam yet !");
@@ -112,10 +112,10 @@ bot.on("message",(message)=>{
             for(let i = 0; i < parse.length ; i ++){
               console.log(parse[i]);
             }
-            emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
+            embExam.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
             if(last){
-              emb.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
-              message.channel.send(emb);
+              embExam.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
+              message.channel.send(embExam);
             }
           });
         // }
