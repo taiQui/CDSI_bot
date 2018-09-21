@@ -67,9 +67,10 @@ bot.on("message",(message)=>{
       embHelp.addField("!dice","throw dice with 6 sides",false);
       emb.addField("!speak someSentence ","Hey bitch, speak with me",false);
       embHelp.addField("!invit","create invit to this server",false);
-      embHelp.addField("!exam","print exam",false);
-      embHelp.addField("!addExam name description date ","add Exam",false);
-      embHelp.addField("!delexam ID","delete exam with his ID",false);
+      //embHelp.addField("!exam","print exam",false);
+      //embHelp.addField("!addExam name description date ","add Exam",false);
+      //embHelp.addField("!delexam ID","delete exam with his ID",false);
+      embHelp.addField("!insult [Exactname]","insult",false);
       embHelp.addField("!start hour minute","say PAUSE when input time is on her half",false);
       message.channel.send(embHelp);
       break;
@@ -99,82 +100,82 @@ bot.on("message",(message)=>{
         });
       });
       break;
-    case "exam":
-        let embExam = new Discord.RichEmbed();
-        // if(checkIfEmpty() === true){
-        //   console.log("EXAM : VIDE ");
-        //   message.channel.send("No exam yet !");
-        // } else {
-          console.log("EXAM : PAS VIDE");
-          lineread.eachLine("exam.txt",function(line,last){
-            let parse = line.split(",");
-            console.log("EXAM : "+ line);
-            for(let i = 0; i < parse.length ; i ++){
-              console.log(parse[i]);
-            }
-            embExam.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
-            if(last){
-              message.channel.send(embExam);
-            }
-          });
-        // }
-
-        // for(let i = 0; i < ArrayExam.length ; i++){
-        //   emb.addField(ArrayExam[i].name,ArrayExam[i].id+" - "+ArrayExam[i].description+" - "+ArrayExam[i].date,false);
-        // }
-
-      break;
-    case "addexam":
-      if(cmd.length < 3){
-        message.channel.send("Arg missed !");
-        message.channel.send("!addExam Name Description dd-mm-yyyy");
-        return;
-      }
-      let newExam = new Exam(cmd[1],cmd[2],cmd[3],-1);
-      fs.appendFile("exam.txt","\n"+newExam.name+","+newExam.description+","+newExam.date+","+newExam.id,function(err){
-        if(err)
-          return("ERROR 0 : "+console.log(err));
-        console.log("adding in file done !");
-      });
-      message.channel.send("Exam added !");
-      break;
-    case "delexam":
-      if(cmd.length < 2){
-        message.channel.send("Arg missed !");
-        message.channel.send("!delExam id");
-        return;
-      }
-
-      if(isExisting(ArrayExam,parseInt(cmd[2]))){
-
-        lineread.eachLine("exam.txt",function(line,last){
-          let parse = line.split(",");
-          if(parse[3] == parseInt(cmd[2])){
-            console.log("trouvé le même ID !");
-          } else {
-            fs.write("examaux.txt",line,function(err){
-              if(err)
-                return("ERROR 1 : "+console.log(err));
-            });
-          }
-          fs.unlink("exam.txt",(err)=>{
-            if(err)
-              return("ERROR 2 : "+console.log(err));
-            console.log("file deleted !");
-          });
-          fs.rename("examaux.txt","exam.txt",function(err){
-            if(err)
-              return("ERROR 3 : "+console.log(err));
-            console.log("rename done !");
-          });
-        });
-        checkIfEmpty();
-        message.channel.send("Exam deleted !");
-      } else {
-        message.channel.send("no match with this ID");
-        return;
-      }
-      break;
+    // case "exam":
+    //     let embExam = new Discord.RichEmbed();
+    //     // if(checkIfEmpty() === true){
+    //     //   console.log("EXAM : VIDE ");
+    //     //   message.channel.send("No exam yet !");
+    //     // } else {
+    //       console.log("EXAM : PAS VIDE");
+    //       lineread.eachLine("exam.txt",function(line,last){
+    //         let parse = line.split(",");
+    //         console.log("EXAM : "+ line);
+    //         for(let i = 0; i < parse.length ; i ++){
+    //           console.log(parse[i]);
+    //         }
+    //         embExam.addField(parse[0],parse[3]+" - "+parse[1]+" - "+parse[2],false);
+    //         if(last){
+    //           message.channel.send(embExam);
+    //         }
+    //       });
+    //     // }
+    //
+    //     // for(let i = 0; i < ArrayExam.length ; i++){
+    //     //   emb.addField(ArrayExam[i].name,ArrayExam[i].id+" - "+ArrayExam[i].description+" - "+ArrayExam[i].date,false);
+    //     // }
+    //
+    //   break;
+    // case "addexam":
+    //   if(cmd.length < 3){
+    //     message.channel.send("Arg missed !");
+    //     message.channel.send("!addExam Name Description dd-mm-yyyy");
+    //     return;
+    //   }
+    //   let newExam = new Exam(cmd[1],cmd[2],cmd[3],-1);
+    //   fs.appendFile("exam.txt","\n"+newExam.name+","+newExam.description+","+newExam.date+","+newExam.id,function(err){
+    //     if(err)
+    //       return("ERROR 0 : "+console.log(err));
+    //     console.log("adding in file done !");
+    //   });
+    //   message.channel.send("Exam added !");
+    //   break;
+    // case "delexam":
+    //   if(cmd.length < 2){
+    //     message.channel.send("Arg missed !");
+    //     message.channel.send("!delExam id");
+    //     return;
+    //   }
+    //
+    //   if(isExisting(ArrayExam,parseInt(cmd[2]))){
+    //
+    //     lineread.eachLine("exam.txt",function(line,last){
+    //       let parse = line.split(",");
+    //       if(parse[3] == parseInt(cmd[2])){
+    //         console.log("trouvé le même ID !");
+    //       } else {
+    //         fs.write("examaux.txt",line,function(err){
+    //           if(err)
+    //             return("ERROR 1 : "+console.log(err));
+    //         });
+    //       }
+    //       fs.unlink("exam.txt",(err)=>{
+    //         if(err)
+    //           return("ERROR 2 : "+console.log(err));
+    //         console.log("file deleted !");
+    //       });
+    //       fs.rename("examaux.txt","exam.txt",function(err){
+    //         if(err)
+    //           return("ERROR 3 : "+console.log(err));
+    //         console.log("rename done !");
+    //       });
+    //     });
+    //     checkIfEmpty();
+    //     message.channel.send("Exam deleted !");
+    //   } else {
+    //     message.channel.send("no match with this ID");
+    //     return;
+    //   }
+    //   break;
     case "delmsg":
         if(!cmd[1]){
           if (message.member.hasPermission("MANAGE_MESSAGES")) {
