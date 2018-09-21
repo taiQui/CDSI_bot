@@ -229,7 +229,9 @@ bot.on("message",(message)=>{
         });
       } else {
         if(message.channel.type == "dm"){
+          console.log("c'est un MP");
           message.channel.send("We are just together ... dont insult people !");
+          return;
         }
         let guildmember = getID(cmd[1],message);
         if(guildmember == -1) {
