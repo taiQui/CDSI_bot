@@ -98,7 +98,7 @@ class Pendu {
       if (this.Pendu_inGame) { // si le jeu du pendu est lancé
 
         //console.log("message biatch : "+ Pendu_gameMessage.content);
-        let letter = msg.content;
+        var letter = msg.content;
         console.log("lettre : " + letter);
 
         if (this.mots.includes(msg.content) && (!this.devinemot.includes(msg.content))) {
