@@ -1,6 +1,3 @@
-
-
-
 const Discord = require('discord.js');
 class Pendu {
   constructor(bot){
