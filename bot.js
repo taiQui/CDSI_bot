@@ -284,9 +284,10 @@ bot.on("message",(message)=>{
             Pendu.devinemot += "@";
           }
           message.channel.send("Bienvenue dans le jeu du PENDU");
-          var emb = new Discord.RichEmbed();
+          let emb = new Discord.RichEmbed();
           emb.addField("Pendu", Pendu.devinemot + "\n\n" + Pendu.currentLvl + "\n\n " + Pendu.lettersaid, false);
           message.channel.send(emb).then(()=>{
+            console.log("message envoyé")
             message.channel.fetchMessages({
               limit: 1
             }).then(msg => {
