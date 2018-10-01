@@ -292,10 +292,10 @@ bot.on("message",(message)=>{
             }).then(msg => {
 
                 let tab = msg.array();
+                console.log("tab[0] = "+tab[0]);
                 Pendu.Pendu_gameMessage = tab[0];
-
-            }).catch(console.error);
-          });
+                console.log("message : "+Pendu.Pendu_gameMessage);
+            }).catch(console.error)});
           //message.channel.send(devinemot + "\n\n"+ currentLvl + "\n\n "+ lettersaid );
 
 
