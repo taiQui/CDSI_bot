@@ -114,6 +114,11 @@ class Pendu {
           emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid, false);
           this.Pendu_gameMessage.edit(emb);
         } else if ((!this.mots.includes(msg.content)) && (!this.lettersaid.includes(msg.content))) {
+          if((!this.mots.includes(msg.content)) && (this.lettersaid.includes(msg.content))){
+            var emb = new discord.RichEmbed();
+            emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + "\n\n " + "You already said this letter ! : " + letter, false);
+            this.Pendu_gameMessage.edit(emb);
+          }
           switch (this.currentLvl) {
             case this.lvl0:
               this.currentLvl = this.lvl1;
