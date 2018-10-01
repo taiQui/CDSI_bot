@@ -160,7 +160,7 @@ class Pendu {
 
         } else if ((!this.mots.includes(msg.content)) && this.lettersaid.includes(msg.content)) {
           var emb = new discord.RichEmbed();
-          emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + "\n\n " + "You win ! : " + letter, false);
+          emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + "\n\n " + "You already said this letter ! : " + letter, false);
           this.Pendu_gameMessage.edit(emb);
 
         }
