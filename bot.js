@@ -65,7 +65,7 @@ bot.on("message",(message)=>{
     console.log(elt);
   });
   console.log("size : "+cmd.length);
-
+  console.log("message envoyer par : "+message.author.username);
   switch(cmd[0].toLowerCase()){
     case "help":
       console.log("hello");
@@ -254,6 +254,7 @@ bot.on("message",(message)=>{
           console.log("text : "+text);
 
           guildmember.user.send(text);
+          message.reply("A sweet word was sent to"+cmd[1]+" !");
         });
       }
       break;
@@ -284,7 +285,7 @@ bot.on("message",(message)=>{
             Pendu.devinemot += "@";
           }
           message.channel.send("Bienvenue dans le jeu du PENDU");
-          let emb = new Discord.RichEmbed();
+          var emb = new Discord.RichEmbed();
           emb.addField("Pendu", Pendu.devinemot + "\n\n" + Pendu.currentLvl + "\n\n " + Pendu.lettersaid, false);
           message.channel.send(emb).then(()=>{
             console.log("message envoyé")
@@ -369,7 +370,7 @@ function getID(name,message){
       }
     }
     if (trouver === false) {
-      message.channel.send("Pas trouver de personne avec ce nom");
+      message.channel.send("no one find with this name !");
       return -1;
     }
     return(tabMember[i]);
