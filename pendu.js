@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const discord = require('discord.js');
 class Pendu {
   constructor(bot){
     this.lvl0 = "";
@@ -110,7 +110,7 @@ class Pendu {
             }
           }
           this.lettersaid += letter + " ";
-          var emb = new Discord.RichEmbed();
+          var emb = new discord.RichEmbed();
           emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid, false);
           this.Pendu_gameMessage.edit(emb);
         } else if ((!this.mots.includes(msg.content)) && (!this.lettersaid.includes(msg.content))) {
@@ -148,18 +148,18 @@ class Pendu {
           }
           this.lettersaid += letter + " ";
           if (this.currentLvl === this.lvl10) {
-            var emb = new Discord.RichEmbed();
+            var emb = new discord.RichEmbed();
             emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + " \n\n " + "LOSE ! \nThe word was : " + this.mots, false);
             this.Pendu_gameMessage.edit(emb);
             this.Pendu_inGame = false;
           } else {
-            var emb = new Discord.RichEmbed();
+            var emb = new discord.RichEmbed();
             emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + " \n\n ", false);
             this.Pendu_gameMessage.edit(emb);
           }
 
         } else if ((!this.mots.includes(msg.content)) && this.lettersaid.includes(msg.content)) {
-          var emb = new Discord.RichEmbed();
+          var emb = new discord.RichEmbed();
           emb.addField("Pendu", this.devinemot + "\n\n" + this.currentLvl + "\n\n" + this.lettersaid + "\n\n " + "You win ! : " + letter, false);
           this.Pendu_gameMessage.edit(emb);
 
