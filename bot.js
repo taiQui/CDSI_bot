@@ -5,7 +5,10 @@ const request = require("request");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const lineread = require("line-reader");
-const penduFile = require("./pendu.js")
+const penduFile = require("./pendu.js");
+
+// const CasinoFile = require("./money.js");
+const VoteFile = require("./vote.js")
 
 
 //some library
@@ -31,7 +34,9 @@ class Exam {
 }
 let ArrayExam = [];
 let Pendu = new penduFile.Pendu(bot);
-
+// var Casino = new CasinoFile.Casino(bot);
+let voteArray = [];
+let vote = new VoteFile.Vote(bot);
 
 //*********************//
 
@@ -47,6 +52,7 @@ bot.on("ready",()=>{
   console.log("I'm here")
   bot.user.setGame("Hacking in progress !");
   Pendu.start(prefix_com);
+  // Casino = new CasinoFile.Casino(bot);
 });
 
 
@@ -64,6 +70,12 @@ bot.on("message",(message)=>{
   cmd.forEach(elt=>{
     console.log(elt);
   });
+  var fullcmd ="";
+  for(let i = 0; i < cmd.length ; i++){
+    if(i >= 1){
+      fullcmd += cmd[i] + " ";
+    }
+  }
   console.log("size : "+cmd.length);
   console.log("message envoyer par : "+message.author.username);
   switch(cmd[0].toLowerCase()){
@@ -79,6 +91,9 @@ bot.on("message",(message)=>{
       //embHelp.addField("!delexam ID","delete exam with his ID",false);
       embHelp.addField("!insult [Exactname]","insult",false);
       embHelp.addField("!start hour minute","say PAUSE when input time is on her half",false);
+      embHelp.addField("!vote:question","add Question for vote",false);
+      embHelp.addField("!vote:answer","add one answer for vote",false);
+      embHelp.addField("!vote:start","start vote !");
       embHelp.addField("!pendu","play !",false);
       message.channel.send(embHelp);
       break;
@@ -91,12 +106,6 @@ bot.on("message",(message)=>{
       message.channel.send("throwing dice : " + Math.round(Math.random() * (7 - 1) + 1));
       break;
     case "speak":
-      let fullcmd ="";
-      for(let i = 0; i < cmd.length ; i++){
-        if(i >= 1){
-          fullcmd += cmd[i] + " ";
-        }
-      }
       console.log(fullcmd);
       cleverbot.create(function (err, session) {
         cleverbot.ask(fullcmd, function (err, response) {
@@ -254,7 +263,7 @@ bot.on("message",(message)=>{
           console.log("text : "+text);
 
           guildmember.user.send(text);
-          message.reply("A sweet word was sent to"+cmd[1]+" !");
+          message.reply("A sweet word was sent to "+cmd[1]+" !");
         });
       }
       break;
@@ -305,7 +314,34 @@ bot.on("message",(message)=>{
         });
       }
       break;
+    // case "roll":
+    //   Casino.message = message;
+    //   Casino.Roulette();
+    //   break;
+    // case "jackpot":
+    //   Casino.jackpot(message,1);
+    //   break;
+    case "vote:question":
+      if(!cmd[1]){
+        message.channel.send("Arg missed !");
+        message.channel.send("!vote:question Question");
+        return;
+      }
 
+      vote.setQuestion(fullcmd);
+      break;
+    case "vote:answer":
+      if(!cmd[1]) {
+        message.channel.send("Arg missed !");
+        message.channel.send("!vote:answer answer");
+        return;
+      }
+      vote.setAnswer(fullcmd);
+      break;
+    case "vote:start":
+      vote.setChannel(message.channel);
+      vote.start(message);
+      break
     default:
       message.channel.send("no match with this command !");
       break;
