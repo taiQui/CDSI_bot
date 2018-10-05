@@ -7,7 +7,7 @@ const fs = require("fs");
 const lineread = require("line-reader");
 const penduFile = require("./pendu.js");
 
-// const CasinoFile = require("./money.js");
+const CasinoFile = require("./money.js");
 const VoteFile = require("./vote.js")
 
 
@@ -34,7 +34,7 @@ class Exam {
 }
 let ArrayExam = [];
 let Pendu = new penduFile.Pendu(bot);
-// var Casino = new CasinoFile.Casino(bot);
+var Casino = new CasinoFile.Casino(bot);
 let voteArray = [];
 let vote = new VoteFile.Vote(bot);
 
@@ -45,14 +45,14 @@ bot.login(process.env.BOT_TOKEN);
 
 
 
-let cleverbot = new Clvbot('dG686frlxTXoMdzL','OPrEDPXJvX2083V0JBJbQjxBhtusyS7q');
+let cleverbot = new Clvbot(process.env.CLVB_ID,process.env.CLVBT_PSSWD);
 cleverbot.setNick("HackerMen");
 
 bot.on("ready",()=>{
   console.log("I'm here")
   bot.user.setGame("Hacking in progress !");
+  Casino.init();
   Pendu.start(prefix_com);
-  // Casino = new CasinoFile.Casino(bot);
 });
 
 
@@ -93,8 +93,13 @@ bot.on("message",(message)=>{
       embHelp.addField("!start hour minute","say PAUSE when input time is on her half",false);
       embHelp.addField("!vote:question","add Question for vote",false);
       embHelp.addField("!vote:answer","add one answer for vote",false);
+      embHelp.addField("!vote:time","change time you need to vote",false);
       embHelp.addField("!vote:start","start vote !");
       embHelp.addField("!pendu","play !",false);
+      embHelp.addField("!coin","print number of your coin");
+      embHelp.addField("!jackpot","print jackpot");
+      embHelp.addField("!nextcoin","print when you will get next 100 coin");
+      embHelp.addField("!roll","play like in casino");
       message.channel.send(embHelp);
       break;
     case "invit":
@@ -314,13 +319,19 @@ bot.on("message",(message)=>{
         });
       }
       break;
-    // case "roll":
-    //   Casino.message = message;
-    //   Casino.Roulette();
-    //   break;
-    // case "jackpot":
-    //   Casino.jackpot(message,1);
-    //   break;
+    case "roll":
+      Casino.setMessage(message);
+      Casino.Roulette(message.author.id+message.guild.id);
+      break;
+    case "jackpot":
+      Casino.jackpotfonc(message,1);
+      break;
+    case "coin":
+      Casino.coin(message.author.id,message.guild.id,message);
+      break;
+    case "nextcoin":
+      Casino.nextCoin(message.author.id+message.guild.id,message);
+      break;
     case "vote:question":
       if(!cmd[1]){
         message.channel.send("Arg missed !");
@@ -337,6 +348,14 @@ bot.on("message",(message)=>{
         return;
       }
       vote.setAnswer(fullcmd);
+      break;
+    case "vote:time":
+    if(!cmd[1]){
+      message.channel.send("Arg missed !");
+      message.channel.send("!vote:answer answer");
+      return;
+    }
+      vote.setTime(cmd[1]);
       break;
     case "vote:start":
       vote.setChannel(message.channel);
