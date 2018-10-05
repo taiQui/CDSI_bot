@@ -14,6 +14,7 @@
     "cleverbot.io": "^1.0.4",
     "discord.js": "^11.4.2",
     "line-reader": "^0.4.0",
+    "pouchdb": "^7.0.0",
     "request": "^2.88.0",
     "snekfetch": "^4.0.4"
   }
