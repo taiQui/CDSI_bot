@@ -59,6 +59,7 @@ bot.on("ready",()=>{
 
 
 bot.on("message",(message)=>{
+  checkInsult(message);
   //if message sent by bot
   if(message.author.equals(bot.user)) { return }
   //if message doesn't begin by prefix
@@ -384,6 +385,11 @@ bot.on("message",(message)=>{
   }
 });
 
+function checkInsult(message){
+  if(message.content.includes("bot")&&(message.content.includes("merde") || message.content.includes("carton") || message.content.includes("con") || message.content.includes("nul")) ){
+    message.reply("STFU stop insult !");
+  }
+}
 
 function generateRandom(){
   return(Math.round(Math.random() * (100000 - 1) + 1));
