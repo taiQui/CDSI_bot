@@ -5,8 +5,9 @@ const request = require("request");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const lineread = require("line-reader");
-const penduFile = require("./pendu.js");
 
+
+const penduFile = require("./pendu.js");
 const CasinoFile = require("./money.js");
 const VoteFile = require("./vote.js")
 
@@ -362,7 +363,18 @@ bot.on("message",(message)=>{
       vote.setChannel(message.channel);
       vote.start(message);
       break
-
+    // case "trad":
+    // request({
+    //   uri: "https://translate.google.fr/?hl=fr#fr/en/"+fullcmd,
+    // },function(error,response,body){
+    //   let $ = cheerio.load(body);
+    //   // console.log(body);
+    //   let i = 0;
+    //   let text = $("span").text();
+    //
+    //   console.log("text : "+text);
+    // });
+      // break;
     default:
       message.channel.send("no match with this command !");
       break;

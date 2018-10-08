@@ -66,7 +66,7 @@ class Casino {
           }
           return database.put({
             _id: res._id,
-            coin: res.coin+100*count
+            coin: res.coin+100*count,
             lastdate: date
           }).then(console.log("ajout dans on le connait ")).catch(err => {
             console.log("rater ajout dans on le connait");
