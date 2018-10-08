@@ -13,7 +13,6 @@
     "cheerio": "^1.0.0-rc.2",
     "cleverbot.io": "^1.0.4",
     "discord.js": "^11.4.2",
-    "google-translate": "^2.2.0",
     "line-reader": "^0.4.0",
     "pouchdb": "^7.0.0",
     "request": "^2.88.0",
