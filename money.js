@@ -65,8 +65,9 @@ class Casino {
             // console.log("passage boucle");
           }
           return database.put({
-            _id: tabMember[j].user.id + tabGuild[i].id,
-            coin: res._coin+100*count
+            _id: res._id,
+            coin: res.coin+100*count
+            lastdate: date
           }).then(console.log("ajout dans on le connait ")).catch(err => {
             console.log("rater ajout dans on le connait");
             console.log(err);
