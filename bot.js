@@ -47,7 +47,7 @@ bot.login(process.env.BOT_TOKEN);
 
 
 
-let cleverbot = new Clvbot(process.env.CLVB_ID,process.env.CLVBT_PSSWD);
+let cleverbot = new Clvbot(process.env.CLVB_ID,process.env.CLVB_PSSWD);
 cleverbot.setNick("HackerMen");
 
 bot.on("ready",()=>{
