@@ -386,7 +386,7 @@ bot.on("message",(message)=>{
 });
 
 function checkInsult(message){
-  if(message.content.includes("bot")&&(message.content.includes("merde") || message.content.includes("carton") || message.content.includes("con") || message.content.includes("nul")) ){
+  if(message.content.toLowerCase().includes("bot")&&(message.content.toLowerCase().includes("merde") || message.content.toLowerCase().includes("carton") || message.content.toLowerCase().includes("con") || message.content.toLowerCase().includes("nul")) ){
     message.reply("STFU stop insult !");
   }
 }
