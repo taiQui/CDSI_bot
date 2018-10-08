@@ -9,7 +9,7 @@ const penduFile = require("./pendu.js");
 
 const CasinoFile = require("./money.js");
 const VoteFile = require("./vote.js")
-const translate = require("google-translate-api");
+
 
 
 //some library
@@ -362,18 +362,7 @@ bot.on("message",(message)=>{
       vote.setChannel(message.channel);
       vote.start(message);
       break
-    case "trad":
-      if(!cmd[1]){
-        message.channel.send("Arg missed !");
-        message.channel.send("!trad text to translate");
-        return;
-      }
-      translate(fullcmd,{to:en}).then(trans=>{
-        message.channel.send(trans.text);
-      }).catch(err=>{
-        console.log("case trad ERR :  "+err);
-      });
-      break;
+
     default:
       message.channel.send("no match with this command !");
       break;
