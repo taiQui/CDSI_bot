@@ -28,7 +28,7 @@ class Exam {
       this.id = rand;
     } else {
       this.id = id;
-    }
+    }env
     this.name = name;
     this.description = description;
     this.date = date;

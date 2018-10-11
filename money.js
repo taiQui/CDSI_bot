@@ -144,7 +144,7 @@ class Casino {
       old.setDate(old.getDate()+1);
       let time = dateDiff(now,old);
       console.log("nextcoin - time : "+time);
-      msg.channel.send("You get next 100 coin in "+Math.abs(time.hour)+"hours "+Math.abs(time.min)+" minutes "+Math.abs(time.sec)+" seconds.");
+      msg.channel.send("You get next 100 coin in "+(24-Math.abs(time.hour))+"hours "+(60-Math.abs(time.min))+" minutes "+(60-Math.abs(time.sec))+" seconds.");
     }).catch(err=>{
       console.log("nextCoin - ERR : "+err);
       msg.channel.send("You are not on database yet, wait 1 days");
@@ -215,7 +215,6 @@ class Casino {
                   database.get(guildid).then(guilddb=>{
                     database.put({
                       _id : data._id,
-                      _rev : data._rev,
                       coin : (data.coin + this.reward)
                     }).then(()=>{
                       //console.log("ROULETTE - ajout a la base de donnée");
