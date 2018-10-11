@@ -363,7 +363,7 @@ bot.on("message",(message)=>{
     case "vote:start":
       vote.setChannel(message.channel);
       vote.start(message);
-      break
+      break;
     // case "trad":
     // request({
     //   uri: "https://translate.google.fr/?hl=fr#fr/en/"+fullcmd,
@@ -377,27 +377,27 @@ bot.on("message",(message)=>{
     // });
       // break;
     case "rm":
-    request({
-      uri: "https://www.root-me.org/"+cmd[1]+"?lang=fr",
-    },function(error,response,body){
-      let $ = cheerio.load(body);
-      let i = 0;
-      let text = $(".spip");
-       console.log("text : "+text+"a");
-      // console.log("size : "+text.length);
-      if(text == ""){
-        message.channel.send("Utilisateur "+cmd[1]+" non trouvé");
-        return;
-      }
-      let span = text.text().split("span");
-      let score = span[0].split("\n");
-      // score.forEach(a=>{
-      //   console.log(j + ": "+a);
-      //   j++;
-      // });
-      message.channel.send(cmd[1] +" - "+ score[3]);
-    });
-      break;
+      request({
+        uri: "https://www.root-me.org/"+cmd[1]+"?lang=fr",
+      },function(error,response,body){
+        let $ = cheerio.load(body);
+        let i = 0;
+        let text = $(".spip");
+         console.log("text : "+text+"a");
+        // console.log("size : "+text.length);
+        if(text == ""){
+          message.channel.send("Utilisateur "+cmd[1]+" non trouvé");
+          return;
+        }
+        let span = text.text().split("span");
+        let score = span[0].split("\n");
+        // score.forEach(a=>{
+        //   console.log(j + ": "+a);
+        //   j++;
+        // });
+        message.channel.send(cmd[1] +" - "+ score[3]);
+      });
+        break;
     default:
       message.channel.send("no match with this command !");
       break;
