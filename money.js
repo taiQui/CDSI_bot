@@ -143,8 +143,8 @@ class Casino {
       let old = new Date(data.lastdate);
       old.setDate(old.getDate()+1);
       let time = dateDiff(now,old);
-      //console.log("nextcoin - time : "+time);
-      msg.channel.send("You get next 100 coin in "+time.hour+"hours "+time.min+" minutes "+time.sec+" seconds.");
+      console.log("nextcoin - time : "+time);
+      msg.channel.send("You get next 100 coin in "+Math.abs(time.hour)+"hours "+Math.abs(time.min)+" minutes "+Math.abs(time.sec)+" seconds.");
     }).catch(err=>{
       console.log("nextCoin - ERR : "+err);
       msg.channel.send("You are not on database yet, wait 1 days");
