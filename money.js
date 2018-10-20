@@ -66,14 +66,15 @@ class Casino {
           }
           return database.put({
             _id: res._id,
+            _rev: res._rev,
             coin: res.coin+100*count,
             lastdate: date
-          }).then(console.log("ajout dans on le connait ")).catch(err => {
-            console.log("rater ajout dans on le connait");
-            console.log(err);
+          },{force: true}).then(console.log("Modification quotidienne reussis ")).catch(err => {
+            console.log("BailOUT MODIF QUOTI : ERR :"+err);
+
           });
         }).then(() => {
-          console.log("on la bien ajouté quand on le connaisait");
+          // console.log("on la bien ajouté quand on le connaisait");
         }).catch(function(err) {
           console.log("bailOut - on le trouve pas");
           console.log("bailOut - ERROR : "+err);
@@ -81,11 +82,13 @@ class Casino {
             _id: tabMember[j].user.id + tabGuild[i].id,
             lastdate: new Date(),
             coin: 100
-          }).then(console.log(" bailOut - Ajout dans on le connait pas ")).catch(console.log("bailOut - rater ajout dans on le connait pas"));
+          }).then(console.log(" bailOut - Ajout nouveau joueur")).catch(err=>{
+            console.log("bailOut err Ajout nouveau joueur - ERR : "+err);
+          });
         }).then(()=>{
-          console.log("bailOut - on a reussis ");
+          // console.log("bailOut - on a reussis ");
         }).catch((err)=>{
-          console.log("bailOut - Erreur on a pas reussi a l'ajouté");
+          // console.log("bailOut - Erreur on a pas reussi a l'ajouté");
         });
       }
       console.log("ID GUILD : "+tabGuild[i].id);
@@ -219,13 +222,15 @@ class Casino {
                   database.get(guildid).then(guilddb=>{
                     database.put({
                       _id : data._id,
+                      _rev: data._rev,
                       coin : (data.coin + this.reward)
-                    }).then(()=>{
+                    },{force: true}).then(()=>{
                       //console.log("ROULETTE - ajout a la base de donnée");
                       database.put({
                         _id: guildid,
+                        _rev: guilddb._rev,
                         valeur: 500
-                      }).then(()=>{
+                      },{force: true}).then(()=>{
                         //console.log("ROULETTE - jackpot remis a zero");
                       });
                     });
@@ -249,13 +254,14 @@ class Casino {
                     _id: data._id,
                     _rev: data._rev,
                     coin: data.coin
-                  }).then(/*console.log("ajout validé")*/).catch("FAIL");
+                  },{force: true}).then(/*console.log("ajout validé")*/).catch("FAIL");
 
                   database.get(guildid).then(jackpotdb=>{
                     database.put({
                       _id: jackpotdb._id,
+                      _rev: jackpotdb._rev,
                       valeur: jackpotdb.valeur+=20
-                    }).then(()=>{
+                    },{force: true}).then(()=>{
                       jackpot += 20;
                     }).catch(err=>{
                       console.log("roulette - ERR : "+err);
