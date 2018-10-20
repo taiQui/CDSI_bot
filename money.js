@@ -90,7 +90,7 @@ class Casino {
       }
       database.get(tabGuild[i].id).then(data => {
         console.log("on la trouver au debut");
-        jackpot = data._valeur;
+        jackpot = data.valeur;
       }).catch(function(err) {
         console.log("pas de jackpot au debut");
         database.put({
