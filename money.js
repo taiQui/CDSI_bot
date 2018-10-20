@@ -91,14 +91,14 @@ class Casino {
       console.log("ID GUILD : "+tabGuild[i].id);
       database.get(tabGuild[i].id).then(data => {
         console.log("jackpot trouvé au commencement");
-        jackpot = data.valeur;
+        console.log("JACKPOT : "+data.valeur);
       }).catch(function(err) {
         console.log("pas de jackpot au debut");
         console.log("JACKPOT PAS TROUVER : ERR : "+err);
         database.put({
           _id: tabGuild[i].id,
           valeur: 500
-        }).then(jackpot => {
+        }).then(jack => {
           jackpot = 500;
           console.log("valeur jackpot assuré");
         });
@@ -117,6 +117,7 @@ class Casino {
 
 
   jackpotfonc(message,flag){
+    console.log("JACKPOTFONC - ID  : "+message.guild.id);
     database.get(message.guild.id).then((res)=>{
       if(flag === 1){
         message.reply("Jackpot : "+res.valeur);
