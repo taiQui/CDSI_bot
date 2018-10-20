@@ -335,7 +335,7 @@ bot.on("message",(message)=>{
     case "nextcoin":
       Casino.nextCoin(message.author.id+message.guild.id,message);
       break;
-    case "bailOut":
+    case "bailout":
       Casino.bailOut();
       break;
     case "vote:question":
