@@ -92,6 +92,7 @@ class Casino {
       database.get(tabGuild[i].id).then(data => {
         console.log("jackpot trouvé au commencement");
         console.log("JACKPOT : "+data.valeur);
+        jackpot = data.valeur;
       }).catch(function(err) {
         console.log("pas de jackpot au debut");
         console.log("JACKPOT PAS TROUVER : ERR : "+err);
@@ -237,7 +238,8 @@ class Casino {
                     this.reward = null;
 
                   },3000);
-                  jackpot +=20;
+
+
                   //console.log("guildid 2 : "+guildid);
                   //console.log("AJOUT");
                   //console.log("--data_id : "+data._id);
@@ -252,13 +254,14 @@ class Casino {
                   database.get(guildid).then(jackpotdb=>{
                     database.put({
                       _id: jackpotdb._id,
-                      _rev: jackpotdb._rev,
                       valeur: jackpotdb.valeur+=20
                     }).then(()=>{
                       jackpot += 20;
                     }).catch(err=>{
                       console.log("roulette - ERR : "+err);
                     });
+                  }).catch(err=>{
+                    console.log("ROULETTE jackpot ERR : "+err);
                   });
                 }
               }
