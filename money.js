@@ -88,11 +88,13 @@ class Casino {
           console.log("bailOut - Erreur on a pas reussi a l'ajouté");
         });
       }
+      console.log("ID GUILD : "+tabGuild[i].id);
       database.get(tabGuild[i].id).then(data => {
-        console.log("on la trouver au debut");
+        console.log("jackpot trouvé au commencement");
         jackpot = data.valeur;
       }).catch(function(err) {
         console.log("pas de jackpot au debut");
+        console.log("JACKPOT PAS TROUVER : ERR : "+err);
         database.put({
           _id: tabGuild[i].id,
           valeur: 500
