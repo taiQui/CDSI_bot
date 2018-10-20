@@ -53,7 +53,7 @@ class Casino {
       let collecMember = tabGuild[i].members;
       let tabMember = collecMember.array();
       for (let j = 0; j < tabMember.length; j++){
-        console.log("id pour database : "+tabMember[j].user.id + tabGuild[i].id);
+        // console.log("id pour database : "+tabMember[j].user.id + tabGuild[i].id);
         database.get(tabMember[j].user.id + tabGuild[i].id).then((res) => {
           // console.log("bailOut - On le trouve ");
           let count = 0;
@@ -77,6 +77,8 @@ class Casino {
           // console.log("on la bien ajouté quand on le connaisait");
         }).catch(function(err) {
           console.log("bailOut - on le trouve pas");
+          console.log("id pour database : "+tabMember[j].user.id + tabGuild[i].id);
+          console.log("name : "+tabMember[j].user.name);
           console.log("bailOut - ERROR : "+err);
           return database.put({
             _id: tabMember[j].user.id + tabGuild[i].id,
