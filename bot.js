@@ -1,20 +1,20 @@
 'use strict';
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const request = require("request");
-const cheerio = require("cheerio");
-const fs = require("fs");
-const lineread = require("line-reader");
 
 
 const penduFile = require("./pendu.js");
 const CasinoFile = require("./money.js");
-const VoteFile = require("./vote.js")
+const VoteFile = require("./vote.js");
 
 
 
 //some library
 const Clvbot  = require("cleverbot.io");
+const request = require("request");
+const cheerio = require("cheerio");
+const fs = require("fs");
+const lineread = require("line-reader");
 //**********************//
 
 
@@ -335,6 +335,9 @@ bot.on("message",(message)=>{
     case "nextcoin":
       Casino.nextCoin(message.author.id+message.guild.id,message);
       break;
+    case "bailOut":
+      Casino.bailOut();
+      break;
     case "vote:question":
       if(!cmd[1]){
         message.channel.send("Arg missed !");
@@ -364,18 +367,6 @@ bot.on("message",(message)=>{
       vote.setChannel(message.channel);
       vote.start(message);
       break;
-    // case "trad":
-    // request({
-    //   uri: "https://translate.google.fr/?hl=fr#fr/en/"+fullcmd,
-    // },function(error,response,body){
-    //   let $ = cheerio.load(body);
-    //   // console.log(body);
-    //   let i = 0;
-    //   let text = $("span").text();
-    //
-    //   console.log("text : "+text);
-    // });
-      // break;
     case "rm":
       request({
         uri: "https://www.root-me.org/"+cmd[1]+"?lang=fr",
@@ -397,7 +388,7 @@ bot.on("message",(message)=>{
         // });
         message.channel.send(cmd[1] +" - "+ score[3]);
       });
-        break;
+      break;
     default:
       message.channel.send("no match with this command !");
       break;
