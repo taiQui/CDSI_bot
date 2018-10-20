@@ -53,7 +53,7 @@ class Casino {
       let collecMember = tabGuild[i].members;
       let tabMember = collecMember.array();
       for (let j = 0; j < tabMember.length; j++){
-        // console.log("id pour database : "+tabMember[j].user.id + tabGuild[i].id);
+        console.log("id pour database : "+tabMember[j].user.id + tabGuild[i].id);
         database.get(tabMember[j].user.id + tabGuild[i].id).then((res) => {
           // console.log("bailOut - On le trouve ");
           let count = 0;
@@ -254,7 +254,9 @@ class Casino {
                     _id: data._id,
                     _rev: data._rev,
                     coin: data.coin
-                  },{force: true}).then(/*console.log("ajout validé")*/).catch("FAIL");
+                  },{force: true}).then(/*console.log("ajout validé")*/).catch(err=>{
+                    console.log("ROULETTE raté : -20 argent ERR : "+err);
+                  });
 
                   database.get(guildid).then(jackpotdb=>{
                     database.put({
