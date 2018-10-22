@@ -68,7 +68,7 @@ class Casino {
             _id: res._id,
             _rev: res._rev,
             coin: res.coin+100*count,
-            lastdate: date
+            lastdate: new Date()
           },{force: true}).then(console.log("Modification quotidienne reussis ")).catch(err => {
             console.log("BailOUT MODIF QUOTI : ERR :"+err);
 
@@ -159,6 +159,7 @@ class Casino {
       msg.channel.send("You are not on database yet, wait 1 days");
     });
   }
+
 
   Roulette(iddb){
     // jackpot(this.message,0);
