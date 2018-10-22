@@ -64,6 +64,7 @@ class Casino {
             count++;
             // console.log("passage boucle");
           }
+          console.log("count : "+count);
           return database.put({
             _id: res._id,
             _rev: res._rev,
