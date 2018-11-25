@@ -103,6 +103,7 @@ bot.on("message",(message)=>{
       embHelp.addField("!jackpot","print jackpot");
       embHelp.addField("!nextcoin","print when you will get next 100 coin");
       embHelp.addField("!roll","play like in casino");
+      embHelp.addField("!rm(stat) [Pseudo RootMe]","Print root-me's point, if rmstat : print statistique");
       message.channel.send(embHelp);
       break;
     case "invit":
@@ -388,6 +389,65 @@ bot.on("message",(message)=>{
         // });
         message.channel.send(cmd[1] +" - "+ score[3]);
       });
+      break;
+    case "rmstat":
+    request({
+      uri: "https://www.root-me.org/"+cmd[1]+"?inc=score&lang=fr",
+    },function(error,response,body){
+      let $ = cheerio.load(body);
+      let i = 0;
+      let title = $("h4");
+      let pt = $(".gris");
+      let number = $(".tl");
+
+      // console.log("title : "+title);
+      // ICI !!!!
+      let titlesplit = title.text().split("<h4>")[0].split("\n");
+      let titleclean = [];
+      let compt = 0;
+      for(let i = 0; i < titlesplit.length ; i++){
+        // console.log("i : "+i+ " :: "+fulltitle[i]);
+        if(compt===2){
+          // console.log("added ! ");
+          titleclean.push(titlesplit[i]);
+          compt=0;
+        } else {
+          compt++;
+        }
+      }
+      let ptsplit = pt.text().split("<span")[0].split("\n");
+      compt = 0;
+      let cleanpt = [];
+      for(let j = 0; j < ptsplit.length; j++){
+        // console.log(" i : "+j + " :: "+ptsplit2[j]);
+        if(j>=17){
+          if(compt<2 || compt ===2){
+            // console.log("added ! ");
+            cleanpt.push(ptsplit[j]);
+            if(compt ===2){
+              compt = 0;
+            }
+          }
+          compt++;
+        }
+      }
+
+      let numberpt = number.text().split("&")[0].split(">")[0].split("\n")[1];
+      let rangString = number.text().split("&")[0].split(">")[0].split("\n")[8];
+      let place = number.text().split("&")[0].split(">")[0].split("\n")[6];
+      let nbchallsuccess = number.text().split("&")[0].split(">")[0].split("\n")[3];
+      let embRm = new Discord.RichEmbed();
+      embRm.addField(cmd[1]+" - "+numberpt,"rang : "+rangString+" : "+place+"\nChallenge successed : "+nbchallsuccess,false);
+      compt = 0;
+      for(let i = 0; i < titleclean.length; i++){
+        embRm.addField(titleclean[i]+" "+cleanpt[compt+1],cleanpt[compt]+" successed.");
+        compt+=2;
+      }
+      message.channel.send(embRm);
+
+
+
+    });
       break;
     default:
       message.channel.send("no match with this command !");
