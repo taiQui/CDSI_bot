@@ -400,8 +400,9 @@ bot.on("message",(message)=>{
       let pt = $(".gris");
       let number = $(".tl");
 
-      if (pt == "" || title == ""){
+      if (pt == "" || title == "" || number == ""){
         message.channel.send("User "+cmd[1]+" not found ! ");
+        return;
       }
 
       // console.log("title : "+title);
