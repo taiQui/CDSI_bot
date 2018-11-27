@@ -378,7 +378,7 @@ bot.on("message",(message)=>{
          console.log("text : "+text+"a");
         // console.log("size : "+text.length);
         if(text == ""){
-          message.channel.send("Utilisateur "+cmd[1]+" non trouvé");
+          message.channel.send("User "+cmd[1]+" not found !");
           return;
         }
         let span = text.text().split("span");
@@ -399,6 +399,10 @@ bot.on("message",(message)=>{
       let title = $("h4");
       let pt = $(".gris");
       let number = $(".tl");
+
+      if (pt == "" || title == ""){
+        message.channel.send("User "+cmd[1]+" not found ! ");
+      }
 
       // console.log("title : "+title);
       // ICI !!!!
