@@ -39,12 +39,13 @@ let Pendu = new penduFile.Pendu(bot);
 var Casino = new CasinoFile.Casino(bot);
 let voteArray = [];
 let vote = new VoteFile.Vote(bot);
+var HolidayMode = false;
+var clock;
 
 //*********************//
 
 
 bot.login(process.env.BOT_TOKEN);
-
 
 
 let cleverbot = new Clvbot(process.env.CLVB_ID,process.env.CLVB_PSSWD);
@@ -55,6 +56,29 @@ bot.on("ready",()=>{
   bot.user.setGame("Hacking in progress !");
   Casino.init();
   Pendu.start(prefix_com);
+  var time = WaitEnough();
+  var day;
+  var d = new Date();
+  if(time[1]==1){
+    time = time[0]*3600*1000;
+    day = d.getDay()+1;
+  } else {
+    time = time[0]*60*1000;
+    day = d.getDay();
+  }
+  console.log("time to wait ",time/1000);
+  setTimeout(function(){
+    console.log("executing");
+    edt(null,day,bot.channels.get("519610855927709716"));
+    clock = setInterval(function(){
+      var dat = new Date();
+      if(HolidayMode != true){
+        if(dat.getDay()>= 1 && dat.getDay() <= 5){
+          edt(null,dat.getDay(),bot.channels.get("519610855927709716"));
+        }
+      }
+    },(3600*24)*1000);
+  },time);
 });
 
 
@@ -450,9 +474,33 @@ bot.on("message",(message)=>{
       }
       message.channel.send(embRm);
 
-
-
     });
+      break;
+    case "edt":
+      if((Number.isInteger(parseInt(cmd[1]))) && cmd[1]){
+        if(parseInt(cmd[1])>=1 && parseInt(cmd[1])<= 5){
+          edt(message,parseInt(cmd[1]),null);
+          return;
+        } else {
+          message.channel.send("not valid day ! [1-5] ");
+        }
+      } else if(!cmd[1]) {
+        edt(message,null,null);
+      } else {
+        message.channel.send("not a number ! ");
+        return;
+      }
+      break;
+    case "holiday":
+      if(!cmd[1]){
+        message.channel.send("Arg missed ! ");
+        return;
+      }
+      if(cmd[1] === "true"){
+        HolidayMode = true;
+      } else if( cmd[1] === "false"){
+        HolidayMode = false;
+      }
       break;
     default:
       message.channel.send("no match with this command !");
@@ -532,3 +580,144 @@ function getID(name,message){
 // let promise = new Promise(function(resolve,reject){
 //   resolve(getInsult());
 // });
+
+function edt(message,jour,oclock){
+  request({
+    uri: "https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml",
+    followAllRedirects: true
+  },function(error,response,body){
+    var _lt = body.match(/LT-[0-9]+-[a-zA-Z0-9]+-cas\.uphf\.fr/g)[0];
+    var _exec =body.match(/execution" value="[a-zA-Z0-9]+/g)[0].split("=")[1].replace("\"","");
+    var _evt = "submit";
+    var _ipadress = body.match(/ipAddress" value="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/g)[0].split("=")[1].replace("\"","");
+    var _useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1"
+    var _submit ="Connexion";
+    var sessionid = body.match(/jsessionid=[a-zA-Z0-9]+/g)[0].split("=")[1];
+    var form_data = {
+      'username': process.env.ISTVUSER,
+      'password': process.env.ISTVPASS,
+      'lt': _lt,
+      'execution': _exec,
+      '_eventId': 'submit',
+      'ipAddress': _ipadress,
+      'userAgent': _useragent,
+      'submit': 'Connexion'
+    }
+    var header ={
+      'Host': 'cas.uphf.fr',
+      'Referer': 'https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1',
+      'Cookie': response.headers['set-cookie'],
+      'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.9'
+    }
+    var  option = {
+        jar: true,
+        uri : 'https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml',
+        method: 'POST',
+        headers: header,
+        form: form_data
+    };
+
+
+
+    request(option,function(err,resp,bodyy){
+      if(err){
+        console.log("err : "+err);
+        exit();
+      }
+      console.log("status : "+resp.statusCode);
+      request(resp.headers['location'], function(error, response, html) {
+            var test = html.match(/<td class="blank_column"><b>(.|\n|\r)*<tr class="even_row"><td class="blank_column" colspan="58">/gi);
+            var test1 = test[0].split("<td class=\"blank_column\" colspan=\"58\">");
+            for(let i = 0; i < test1.length; i++){
+              if(test1[i] == ""){
+                test1.splice(i,1);
+              }
+            }
+            var embedt = new Discord.RichEmbed();
+            for(let i = 0; i < test1.length -1 ; i++){
+              var Day = test1[i].match(/blank_column"><b>[a-zA-Z0-9. -]+/g);
+              // console.log("--------------------------- "+Day[0]+"\n\n");
+              var Heure = test1[i].match(/(TD|TP|CM)"><tbody><tr><td><b>([0-9:-]+)/g);
+              var Type = test1[i].match(/info_bulle"><br\/><br\/><b>[A-Z0-9 ]+\./g);
+              var Cour = test1[i].match(/content_bulle"><u>[a-zA-Z0-9- ()]+/g);
+              var location = test1[i].match(/rouge'>[A-Z0-9() -]+/g);
+              var prof = test1[i].match(/vert'>[A-Za-z ]+/g);
+              // if(Heure != null)
+              // // console.log("heure : "+Heure+" : "+Heure.length);
+              // if(Type != null)
+              // // console.log("type : "+Type+" : "+Type.length);
+              // if(Cour != null)
+              // // console.log("cours : "+Cour+" : "+Cour.length);
+              // if(location != null)
+              // // console.log("location : "+location+" : "+location.length);
+              // if(prof != null)
+              // // console.log("prof : "+prof+" : "+prof.length);
+              if(jour != null){
+                if(jour-1 === i){
+                  embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
+                }
+              } else {
+                embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
+              }
+              if(Heure != null){
+                for(let j = 0; j < Heure.length; j++){
+                  // console.log("ite : "+j);
+                  if(prof[j] != null){
+                    if(jour != null){
+                      if(jour-1 === i){
+                        embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec "+prof[j].split(">")[1]);
+                      }
+                    } else {
+                      embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec "+prof[j].split(">")[1]);
+                    }
+
+                  }  else {
+                    if(jour != null){
+                      if(jour-1 === i){
+                        embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec un prof non specifié sur l'edt");
+                      }
+                    } else {
+                      embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec un prof non specifié sur l'edt");
+                    }
+
+                  }
+                }
+              } else {
+                if(jour != null){
+                  if(jour-1 === i){
+                    embedt.addField("no class found !","ez");
+                  }
+                } else {
+                  embedt.addField("no class found !","ez");
+                }
+
+              }
+            }
+            if(oclock === null){
+              message.channel.send(embedt);
+            } else {
+              oclock.send(embedt);
+            }
+        });
+    });
+  });
+}
+
+function WaitEnough(){
+  var d = new Date();
+  var compt = 0;
+  if(d.getHours()!=6){
+    while(d.getHours()!= 6){
+      d.setHours(d.getHours()+1);
+      compt++;
+    }
+    return([compt,1]);
+  } else {
+    while(d.getMinutes()!= 1){
+      d.setMinutes(d.getMinutes()+1);
+      compt++;
+    }
+    return([compt,2]);
+  }
+}
