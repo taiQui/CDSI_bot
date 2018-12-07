@@ -693,7 +693,6 @@ function edt(message,jour,oclock){
                 }
 
               }
-              embedt.addField("-----------------------","-----------------------");
             }
             if(oclock === null){
               message.channel.send(embedt);
