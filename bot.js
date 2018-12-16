@@ -700,19 +700,19 @@ function edt(message,jour,oclock){
             }
             if(oclock === null){
               if(jour != null){
-                if(jour-1 === i){
-                  message.channel.send(embedt);
-                }
+                  if(embedt.fields.length > 0)
+                    message.channel.send(embedt);
               } else {
-                message.channel.send(embedt);
+                  if(embedt.fields.length > 0)
+                    message.channel.send(embedt);
               }
             } else {
               if(jour != null){
-                if(jour -1 === i){
+                  if(embedt.fields.length > 0)
                     oclock.send(embedt);
-                }
               } else {
-                oclock.send(embedt);
+                  if(embedt.fields.length > 0)
+                    oclock.send(embedt);
               }
             }
         });
