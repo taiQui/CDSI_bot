@@ -637,8 +637,8 @@ function edt(message,jour,oclock){
               }
             }
             var embedt = new Discord.RichEmbed();
-            var co = 0;
-            for(let i = 0; i < test1.length -1 ; i++){
+            var i = 0;
+            while(i < test1.length -1 ){
               var Day = test1[i].match(/blank_column"><b>[a-zA-Z0-9. -]+/g);
               // console.log("--------------------------- "+Day[0]+"\n\n");
               var Heure = test1[i].match(/(TD|TP|CM)"><tbody><tr><td><b>([0-9:-]+)/g);
@@ -696,12 +696,11 @@ function edt(message,jour,oclock){
                 }
 
               }
-              co+=1;
-              console.log("co : "+co+" i : "+i);
+              i++;
             }
             if(oclock === null){
               if(jour != null){
-                if(jour-1 === co){
+                if(jour-1 === i){
                   message.channel.send(embedt);
                 }
               } else {
@@ -709,7 +708,7 @@ function edt(message,jour,oclock){
               }
             } else {
               if(jour != null){
-                if(jour -1 === co){messagemessage
+                if(jour -1 === i){
                     oclock.send(embedt);
                 }
               } else {
