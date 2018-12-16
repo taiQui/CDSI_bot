@@ -658,7 +658,7 @@ function edt(message,jour,oclock){
               // // console.log("prof : "+prof+" : "+prof.length);
               if(jour != null){
                 if(jour-1 === i){
-                  embedt.addField(Day[0].split("<b>")[1],"----------------------------message---");
+                  embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
                 }
               } else {
                 embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
