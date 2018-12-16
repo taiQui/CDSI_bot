@@ -695,9 +695,21 @@ function edt(message,jour,oclock){
               }
             }
             if(oclock === null){
-              message.channel.send(embedt);
+              if(jour != null){
+                if(jour-1 === i){
+                  message.channel.send(embedt);
+                }
+              } else {
+                message.channel.send(embedt);
+              }
             } else {
-              oclock.send(embedt);
+              if(jour != null){
+                if(jour -1 === i){
+                    oclock.send(embedt);
+                }
+              } else {
+                oclock.send(embedt);
+              }
             }
         });
     });
