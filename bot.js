@@ -66,7 +66,7 @@ bot.on("ready",()=>{
     time = time[0]*60*1000;
     day = d.getDay();
   }
-  console.log("time to wait ",time/1000);
+  console.log("time to wait "+time/1000+" second");
   setTimeout(function(){
     console.log("executing");
     edt(null,day,bot.channels.get("519610855927709716"));
@@ -74,7 +74,9 @@ bot.on("ready",()=>{
       var dat = new Date();
       if(HolidayMode != true){
         if(dat.getDay()>= 1 && dat.getDay() <= 5){
-          edt(null,dat.getDay(),bot.channels.get("519610855927709716"));
+          if(verifDay(dat.getDay())){
+            edt(null,dat.getDay(),bot.channels.get("519610855927709716"));
+          }
         }
       }
     },(3600*24)*1000);
@@ -320,7 +322,7 @@ bot.on("message",(message)=>{
           console.log("mots : " + Pendu.mots.length);
           Pendu.Pendu_GamePlayer = message.author.id;
           Pendu.currentLvl = Pendu.lvl0;
-          Pendu.Pendu_gameServer = message.channel.name;
+          Pendu.Pendu_gameServer = message.channel.name;message
           Pendu.devinemot = "";
           Pendu.lettersaid = "";
           for (let i = 0; i < Pendu.mots.length; i++) {
@@ -426,7 +428,7 @@ bot.on("message",(message)=>{
 
       if (pt == "" || title == "" || number == ""){
         message.channel.send("User "+cmd[1]+" not found ! ");
-        return;
+        return;message
       }
 
       // console.log("title : "+title);
@@ -536,7 +538,7 @@ function checkIfEmpty(){
 
     console.log("CHECK IF EMPTY TEST : "+line);
     if(line) {
-      console.log("PAS VIDE");
+      console.log("PAS VIDE");message
       empty = false;
     } else {
       console.log("FICHIER VIDE");
@@ -655,7 +657,7 @@ function edt(message,jour,oclock){
               // // console.log("prof : "+prof+" : "+prof.length);
               if(jour != null){
                 if(jour-1 === i){
-                  embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
+                  embedt.addField(Day[0].split("<b>")[1],"----------------------------message---");
                 }
               } else {
                 embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
@@ -704,7 +706,7 @@ function edt(message,jour,oclock){
               }
             } else {
               if(jour != null){
-                if(jour -1 === i){
+                if(jour -1 === i){messagemessage
                     oclock.send(embedt);
                 }
               } else {
@@ -732,4 +734,9 @@ function WaitEnough(){
     }
     return([compt,2]);
   }
+}
+
+function verifDay(date1){
+  var date = new Date();
+  return((date.getDay() === date1)&&(date.getDay() >=1 && date.getDay()<=5));
 }
