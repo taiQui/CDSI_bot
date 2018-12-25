@@ -72,7 +72,7 @@ bot.on("ready",()=>{
     edt(null,day,bot.channels.get("519610855927709716"));
     clock = setInterval(function(){
       var dat = new Date();
-      if(HolidayMode != true){
+      if(HolidayMode === false){
         if(dat.getDay()>= 1 && dat.getDay() <= 5){
           if(verifDay(dat.getDay())){
             edt(null,dat.getDay(),bot.channels.get("519610855927709716"));
@@ -500,8 +500,10 @@ bot.on("message",(message)=>{
       }
       if(cmd[1] === "true"){
         HolidayMode = true;
+        message.channel.send("holiday now set to "+HolidayMode);
       } else if( cmd[1] === "false"){
         HolidayMode = false;
+        message.channel.send("holiday now set to "+HolidayMode);
       }
       break;
     default:
