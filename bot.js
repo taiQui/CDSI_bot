@@ -710,8 +710,9 @@ function edt(message,jour,oclock){
               }
             } else {
               if(jour != null){
-                  if(embedt.fields.length > 0)
-                    oclock.send(embedt);
+                  if(jour === new Date().getDay())
+                    if(embedt.fields.length > 0)
+                      oclock.send(embedt);
               } else {
                   if(embedt.fields.length > 0)
                     oclock.send(embedt);
