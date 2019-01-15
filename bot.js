@@ -640,6 +640,7 @@ function edt(message,jour,oclock){
             }
             var embedt = new Discord.RichEmbed();
             var i = 0;
+            var red = 0;
             while(i < test1.length -1 ){
               var Day = test1[i].match(/blank_column"><b>[a-zA-Z0-9. -]+/g);
               // console.log("--------------------------- "+Day[0]+"\n\n");
@@ -668,6 +669,14 @@ function edt(message,jour,oclock){
               if(Heure != null){
                 for(let j = 0; j < Heure.length; j++){
                   // console.log("ite : "+j);
+                  if(location[j]== undefined){
+                    var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
+                    // console.log('------------------------');
+                    // console.log(ez);
+
+                    location[j] = ez[red].split('<br/>')[1].split('</span>')[0];
+                    red+=1;
+                  }
                   if(prof[j] != null){
                     if(jour != null){
                       if(jour-1 === i){
