@@ -644,7 +644,7 @@ function edt(message,jour,oclock){
             while(i < test1.length -1 ){
               var Day = test1[i].match(/blank_column"><b>[a-zA-Z0-9. -]+/g);
               // console.log("--------------------------- "+Day[0]+"\n\n");
-              var Heure = test1[i].match(/(TD|TP|CM)"><tbody><tr><td><b>([0-9:-]+)/g);
+              var Heure = test1[i].match(/(TD|TP|CM|AUTRE)"><tbody><tr><td><b>([0-9:-]+)/g);
               var Type = test1[i].match(/info_bulle"><br\/><br\/><b>[A-Z0-9 ]+\./g);
               var Cour = test1[i].match(/content_bulle"><u>[a-zA-Z0-9- ()]+/g);
               var location = test1[i].match(/rouge'>[A-Z0-9() -]+/g);
