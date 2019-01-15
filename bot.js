@@ -669,12 +669,13 @@ function edt(message,jour,oclock){
               if(Heure != null){
                 for(let j = 0; j < Heure.length; j++){
                   // console.log("ite : "+j);
-                  if(location[j]== undefined){
+                  if(location[j]=== undefined){
                     var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
                     // console.log('------------------------');
                     // console.log(ez);
 
-                    location[j] = ez[red].split('<br/>')[1].split('</span>')[0];
+                    location[j] = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
+
                     red+=1;
                   }
                   if(prof[j] != null){
