@@ -765,6 +765,10 @@ function WaitEnough(){
   }
 }
 
+function rep(message){
+  message.reply('Time Up !');
+}
+
 function verifDay(date1){
   var date = new Date();
   return((date.getDay() === date1)&&(date.getDay() >=1 && date.getDay()<=5));
