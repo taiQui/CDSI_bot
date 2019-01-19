@@ -506,6 +506,20 @@ bot.on("message",(message)=>{
         message.channel.send("holiday now set to "+HolidayMode);
       }
       break;
+    case "timer":
+      if(!cmd[1]){
+        message.channel.send('Arg missed ! => !time HH:MM:SS');
+        return;
+      }
+      if(cmd[1].split(':')[0].length != 2 || cmd[1].split(':')[1].length != 2 || cmd[1].split(':')[2].length != 2 || isNaN(parseInt(cmd[1].split(':')[0])) || isNaN(parseInt(cmd[1].split(':')[1])) || isNaN(parseInt(cmd[1].split(':')[2]))){
+        message.channel.send('Fail with arg ! => !time HH:MM:SS');
+        return;
+      }
+      setTimeout(function(){
+        rep(message);
+      },(parseInt(cmd[1].split(':')[0]*3600)+parseInt(cmd[1].split(':')[1]*60)+parseInt(cmd[1].split(':')[2]))*1000);
+      message.channel.send('Timer start !');
+      break;
     default:
       message.channel.send("no match with this command !");
       break;
