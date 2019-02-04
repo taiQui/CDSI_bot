@@ -692,7 +692,7 @@ function edt(message,jour,oclock){
 
                     red+=1;
                   }
-                  if(prof[j] != null){
+                  if(prof != null){
                     if(jour != null){
                       if(jour-1 === i){
                         embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec "+prof[j].split(">")[1]);
