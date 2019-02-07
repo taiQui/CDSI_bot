@@ -730,6 +730,10 @@ function verifDay(date1){
 function DateParsing(message,jour,oclock,html){
   console.log('-------------------\n\n\n\n');
   var test = html.match(/<td class="blank_column"><b>(.|\n|\r)*<tr class="even_row"><td class="blank_column" colspan="58">/gi);
+  if(test === null){
+    message.channel.send('Error ! not loaded or no class !');
+    return;
+  }
   var test1 = test[0].split("<td class=\"blank_column\" colspan=\"58\">");
   for(let i = 0; i < test1.length; i++){
     if(test1[i] == ""){
@@ -764,6 +768,7 @@ function DateParsing(message,jour,oclock,html){
     } else {
       embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
     }
+    console.log('HEURE :'+Heure);
     if(Heure != null){
       for(let j = 0; j < Heure.length; j++){
         // console.log("ite : "+j);
