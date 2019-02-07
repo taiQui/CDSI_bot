@@ -69,13 +69,13 @@ bot.on("ready",()=>{
   console.log("time to wait "+time/1000+" second");
   setTimeout(function(){
     console.log("executing");
-    edt(null,day,bot.channels.get("519610855927709716"));
+    edt(null,day,bot.channels.get("519610855927709716"),-1);
     clock = setInterval(function(){
       var dat = new Date();
       if(HolidayMode === false){
         if(dat.getDay()>= 1 && dat.getDay() <= 5){
           if(verifDay(dat.getDay())){
-            edt(null,dat.getDay(),bot.channels.get("519610855927709716"));
+            edt(null,dat.getDay(),bot.channels.get("519610855927709716"),-1);
           }
         }
       }
@@ -481,13 +481,13 @@ bot.on("message",(message)=>{
     case "edt":
       if((Number.isInteger(parseInt(cmd[1]))) && cmd[1]){
         if(parseInt(cmd[1])>=1 && parseInt(cmd[1])<= 5){
-          edt(message,parseInt(cmd[1]),null);
+          edt(message,parseInt(cmd[1]),null,-1);
           return;
         } else {
           message.channel.send("not valid day ! [1-5] ");
         }
       } else if(!cmd[1]) {
-        edt(message,null,null);
+        edt(message,null,null,-1);
       } else {
         message.channel.send("not a number ! ");
         return;
@@ -519,6 +519,20 @@ bot.on("message",(message)=>{
         rep(message);
       },(parseInt(cmd[1].split(':')[0]*3600)+parseInt(cmd[1].split(':')[1]*60)+parseInt(cmd[1].split(':')[2]))*1000);
       message.channel.send('Timer start !');
+      break;
+    case "edtnext":
+      if(!cmd[1]){
+
+      } else {
+        if(isNaN(cmd[1])){
+          message.channel.send('Not a valid Number !');
+          return;
+        }
+        if(parseInt(cmd[1])> 15){
+          message.channel.send('Not a valid number - [1-15]');
+        }
+        edt(message,null,null,parseInt(cmd[1]));
+      }
       break;
     default:
       message.channel.send("no match with this command !");
@@ -599,7 +613,7 @@ function getID(name,message){
 //   resolve(getInsult());
 // });
 
-function edt(message,jour,oclock){
+function edt(message,jour,oclock,next){
   request({
     uri: "https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml",
     followAllRedirects: true
@@ -644,105 +658,43 @@ function edt(message,jour,oclock){
         exit();
       }
       console.log("status : "+resp.statusCode);
-      request(resp.headers['location'], function(error, response, html) {
-            var test = html.match(/<td class="blank_column"><b>(.|\n|\r)*<tr class="even_row"><td class="blank_column" colspan="58">/gi);
-            var test1 = test[0].split("<td class=\"blank_column\" colspan=\"58\">");
-            for(let i = 0; i < test1.length; i++){
-              if(test1[i] == ""){
-                test1.splice(i,1);
-              }
-            }
-            var embedt = new Discord.RichEmbed();
-            var i = 0;
-            var red = 0;
-            while(i < test1.length -1 ){
-              var Day = test1[i].match(/blank_column"><b>[a-zA-Z0-9. -]+/g);
-              // console.log("--------------------------- "+Day[0]+"\n\n");
-              var Heure = test1[i].match(/(TD|TP|CM|AUTRE)"><tbody><tr><td><b>([0-9:-]+)/g);
-              var Type = test1[i].match(/info_bulle"><br\/><br\/><b>[A-Z0-9 ]+\./g);
-              var Cour = test1[i].match(/content_bulle"><u>[a-zA-Z0-9- ()]+/g);
-              var location = test1[i].match(/rouge'>[A-Z0-9() -]+/g);
-              var prof = test1[i].match(/vert'>[A-Za-z ]+/g);
-              // if(Heure != null)
-              // // console.log("heure : "+Heure+" : "+Heure.length);
-              // if(Type != null)
-              // // console.log("type : "+Type+" : "+Type.length);
-              // if(Cour != null)
-              // // console.log("cours : "+Cour+" : "+Cour.length);
-              // if(location != null)
-              // // console.log("location : "+location+" : "+location.length);
-              // if(prof != null)
-              // // console.log("prof : "+prof+" : "+prof.length);
-              if(jour != null){
-                if(jour-1 === i){
-                  embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
-                }
-              } else {
-                embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
-              }
-              if(Heure != null){
-                for(let j = 0; j < Heure.length; j++){
-                  // console.log("ite : "+j);
-                  if(location[j]=== undefined){
-                    var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
-                    // console.log('------------------------');
-                    // console.log(ez);
-
-                    location[j] = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
-
-                    red+=1;
-                  }
-                  if(prof != null){
-                    if(jour != null){
-                      if(jour-1 === i){
-                        embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec "+prof[j].split(">")[1]);
-                      }
-                    } else {
-                      embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec "+prof[j].split(">")[1]);
-                    }
-
-                  }  else {
-                    if(jour != null){
-                      if(jour-1 === i){
-                        embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec un prof non specifié sur l'edt");
-                      }
-                    } else {
-                      embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec un prof non specifié sur l'edt");
-                    }
-
-                  }
-                }
-              } else {
-                if(jour != null){
-                  if(jour-1 === i){
-                    embedt.addField("no class found !","ez");
-                  }
-                } else {
-                  embedt.addField("no class found !","ez");
-                }
-
-              }
-              i++;
-            }
-            if(oclock === null){
-              if(jour != null){
-                  if(embedt.fields.length > 0)
-                    message.channel.send(embedt);
-              } else {
-                  if(embedt.fields.length > 0)
-                    message.channel.send(embedt);
-              }
-            } else {
-              if(jour != null){
-                  if(jour === new Date().getDay())
-                    if(embedt.fields.length > 0)
-                      oclock.send(embedt);
-              } else {
-                  if(embedt.fields.length > 0)
-                    oclock.send(embedt);
-              }
-            }
+      if(next !== -1){
+        request(resp.headers['location'], function(error, response, html) {
+          
+          DateParsing(message,jour,oclock,html);
         });
+      } else {
+        var header ={
+          'Host': 'vtmob.uphf.fr',
+          'Referer': 'https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1',
+          'Cookie': response.headers['set-cookie'],
+          'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.9'
+        }
+        var formdata = {
+          'org.apache.myfaces.trinidad.faces.FORM':'form_week',
+          '_noJavaScript':'false',
+          'javax.faces.ViewState':'!'+next,
+          'form_week:_idcl':'form_week:btn_next'
+        }
+        var  option = {
+            jar: true,
+            followAllRedirects: true,
+            uri : 'https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml',
+            method: 'POST',
+            headers: header,
+            form: formdata
+        };
+        request(option,function(erro,response,body){
+          // console.log("\n\n\n\n\n\n");
+          // console.log('HTML : '+body);
+          request(option,function(errno,res,html){
+            DateParsing(message,jour,oclock,html);
+          });
+          // console.log(erro);
+          // console.log(response);
+        });
+      }
     });
   });
 }
@@ -772,4 +724,105 @@ function rep(message){
 function verifDay(date1){
   var date = new Date();
   return((date.getDay() === date1)&&(date.getDay() >=1 && date.getDay()<=5));
+}
+
+function DateParsing(message,jour,oclock,html){
+  console.log('-------------------\n\n\n\n');
+  var test = html.match(/<td class="blank_column"><b>(.|\n|\r)*<tr class="even_row"><td class="blank_column" colspan="58">/gi);
+  var test1 = test[0].split("<td class=\"blank_column\" colspan=\"58\">");
+  for(let i = 0; i < test1.length; i++){
+    if(test1[i] == ""){
+      test1.splice(i,1);
+    }
+  }
+  var embedt = new Discord.RichEmbed();
+  var i = 0;
+  var red = 0;
+  while(i < test1.length -1 ){
+    var Day = test1[i].match(/blank_column"><b>[a-zA-Z0-9. -]+/g);
+    // console.log("--------------------------- "+Day[0]+"\n\n");
+    var Heure = test1[i].match(/(TD|TP|CM|AUTRE)"><tbody><tr><td><b>([0-9:-]+)/g);
+    var Type = test1[i].match(/info_bulle"><br\/><br\/><b>[A-Z0-9 ]+\./g);
+    var Cour = test1[i].match(/content_bulle"><u>[a-zA-Z0-9- ()]+/g);
+    var location = test1[i].match(/rouge'>[A-Z0-9() -]+/g);
+    var prof = test1[i].match(/vert'>[A-Za-z ]+/g);
+    // if(Heure != null)
+    // // console.log("heure : "+Heure+" : "+Heure.length);
+    // if(Type != null)
+    // // console.log("type : "+Type+" : "+Type.length);
+    // if(Cour != null)
+    // // console.log("cours : "+Cour+" : "+Cour.length);
+    // if(location != null)
+    // // console.log("location : "+location+" : "+location.length);
+    // if(prof != null)
+    // // console.log("prof : "+prof+" : "+prof.length);
+    if(jour != null){
+      if(jour-1 === i){
+        embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
+      }
+    } else {
+      embedt.addField(Day[0].split("<b>")[1],"-------------------------------");
+    }
+    if(Heure != null){
+      for(let j = 0; j < Heure.length; j++){
+        // console.log("ite : "+j);
+        if(location[j]=== undefined){
+          var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
+          // console.log('------------------------');
+          // console.log(ez);
+
+          location[j] = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
+
+          red+=1;
+        }
+        if(prof != null){
+          if(jour != null){
+            if(jour-1 === i){
+              embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec "+prof[j].split(">")[1]);
+            }
+          } else {
+            embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec "+prof[j].split(">")[1]);
+          }
+
+        }  else {
+          if(jour != null){
+            if(jour-1 === i){
+              embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec un prof non specifié sur l'edt");
+            }
+          } else {
+            embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec un prof non specifié sur l'edt");
+          }
+
+        }
+      }
+    } else {
+      if(jour != null){
+        if(jour-1 === i){
+          embedt.addField("no class found !","ez");
+        }
+      } else {
+        embedt.addField("no class found !","ez");
+      }
+
+    }
+    i++;
+  }
+  if(oclock === null){
+    if(jour != null){
+        if(embedt.fields.length > 0)
+          message.channel.send(embedt);
+    } else {
+        if(embedt.fields.length > 0)
+          message.channel.send(embedt);
+    }
+  } else {
+    if(jour != null){
+        if(jour === new Date().getDay())
+          if(embedt.fields.length > 0)
+            oclock.send(embedt);
+    } else {
+        if(embedt.fields.length > 0)
+          oclock.send(embedt);
+    }
+  }
 }
