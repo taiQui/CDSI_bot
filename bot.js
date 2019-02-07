@@ -675,7 +675,7 @@ function edt(message,jour,oclock,next){
         var formdata = {
           'org.apache.myfaces.trinidad.faces.FORM':'form_week',
           '_noJavaScript':'false',
-          'javax.faces.ViewState':'!'+next,
+          'javax.faces.ViewState':'!'+next.toString(),
           'form_week:_idcl':'form_week:btn_next'
         }
         var  option = {
