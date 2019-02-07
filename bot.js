@@ -528,8 +528,9 @@ bot.on("message",(message)=>{
           message.channel.send('Not a valid Number !');
           return;
         }
-        if(parseInt(cmd[1])> 15){
+        if(parseInt(cmd[1])>15 || parseInt(cmd[1])<=0){
           message.channel.send('Not a valid number - [1-15]');
+          return;
         }
         edt(message,null,null,parseInt(cmd[1]));
       }
@@ -658,9 +659,9 @@ function edt(message,jour,oclock,next){
         exit();
       }
       console.log("status : "+resp.statusCode);
-      if(next !== -1){
+      if(next == -1){
         request(resp.headers['location'], function(error, response, html) {
-          
+
           DateParsing(message,jour,oclock,html);
         });
       } else {
