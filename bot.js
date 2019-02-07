@@ -522,7 +522,7 @@ bot.on("message",(message)=>{
       break;
     case "edtnext":
       if(!cmd[1]){
-
+        edt(message,null,null,1);
       } else {
         if(isNaN(cmd[1])){
           message.channel.send('Not a valid Number !');
