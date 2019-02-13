@@ -768,11 +768,11 @@ function edt(message,jour,oclock,next){
       }
       console.log("status : "+resp.statusCode);
       if(next === -1){
-        // console.log('request url : '+resp.headers['location']);
-        // request('https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml', function(error, response, html) {
-
-          DateParsing(message,jour,oclock,bodyy);
-        // });
+        console.log('request url : '+resp.headers['location']);
+        request(resp.headers['location'], function(error, response, html) {
+          console.log('html : '+html);
+          DateParsing(message,jour,oclock,html);
+        });
       } else {
         var header ={
           'Host': 'vtmob.uphf.fr',
@@ -830,6 +830,7 @@ function WaitEnough(){
 function rep(message){
   message.reply('Time Up !');
 }
+typo
 function verifDay(date1){
   var date = new Date();
   return((date.getDay() === date1)&&(date.getDay() >=1 && date.getDay()<=5));
