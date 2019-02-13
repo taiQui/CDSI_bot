@@ -614,118 +614,6 @@ function getID(name,message){
 //   resolve(getInsult());
 // });
 
-function edt(message,jour,oclock,next){
-  request({
-    uri: "https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml",
-    followAllRedirects: true
-  },function(error,response,body){
-    var _lt = body.match(/LT-[0-9]+-[a-zA-Z0-9]+-cas\.uphf\.fr/g)[0];
-    var _exec =body.match(/execution" value="[a-zA-Z0-9]+/g)[0].split("=")[1].replace("\"","");
-    var _evt = "submit";
-    var _ipadress = body.match(/ipAddress" value="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/g)[0].split("=")[1].replace("\"","");
-    var _useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1"
-    var _submit ="Connexion";
-    var sessionid = body.match(/jsessionid=[a-zA-Z0-9]+/g)[0].split("=")[1];
-    var form_data = {
-      'username': process.env.ISTVUSER,
-      'password': process.env.ISTVPASS,
-      'lt': _lt,
-      'execution': _exec,
-      '_eventId': 'submit',
-      'ipAddress': _ipadress,
-      'userAgent': _useragent,
-      'submit': 'Connexion'
-    }
-    var header ={
-      'Host': 'cas.uphf.fr',
-      'Referer': 'https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml',
-      'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1',
-      'Cookie': response.headers['set-cookie'],
-      'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.9'
-    }
-    var  option = {
-        jar: true,
-        uri : 'https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml',
-        method: 'POST',
-        headers: header,
-        form: form_data
-    };
-
-
-
-    request(option,function(err,resp,bodyy){
-      if(err){
-        console.log("err : "+err);
-        exit();
-      }
-      console.log("status : "+resp.statusCode);
-      if(next == -1){
-        request(resp.headers['location'], function(error, response, html) {
-
-          DateParsing(message,jour,oclock,html);
-        });
-      } else {
-        var header ={
-          'Host': 'vtmob.uphf.fr',
-          'Referer': 'https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml',
-          'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1',
-          'Cookie': response.headers['set-cookie'],
-          'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.9'
-        }
-        var formdata = {
-          'org.apache.myfaces.trinidad.faces.FORM':'form_week',
-          '_noJavaScript':'false',
-          'javax.faces.ViewState':'!'+next.toString(),
-          'form_week:_idcl':'form_week:btn_next'
-        }
-        var  option = {
-            jar: true,
-            followAllRedirects: true,
-            uri : 'https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml',
-            method: 'POST',
-            headers: header,
-            form: formdata
-        };
-        request(option,function(erro,response,body){
-          // console.log("\n\n\n\n\n\n");
-          // console.log('HTML : '+body);
-          request(option,function(errno,res,html){
-            DateParsing(message,jour,oclock,html);
-          });
-          // console.log(erro);
-          // console.log(response);
-        });
-      }
-    });
-  });
-}
-
-function WaitEnough(){
-  var d = new Date();
-  var compt = 0;
-  if(d.getHours()!=6){
-    while(d.getHours()!= 6){
-      d.setHours(d.getHours()+1);
-      compt++;
-    }
-    return([compt,1]);
-  } else {
-    while(d.getMinutes()!= 1){
-      d.setMinutes(d.getMinutes()+1);
-      compt++;
-    }
-    return([compt,2]);
-  }
-}
-
-function rep(message){
-  message.reply('Time Up !');
-}
-
-function verifDay(date1){
-  var date = new Date();
-  return((date.getDay() === date1)&&(date.getDay() >=1 && date.getDay()<=5));
-}
 
 function DateParsing(message,jour,oclock,html){
   console.log('-------------------\n\n\n\n');
@@ -831,4 +719,119 @@ function DateParsing(message,jour,oclock,html){
           oclock.send(embedt);
     }
   }
+}
+
+
+function edt(message,jour,oclock,next){
+  request({
+    uri: "https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml",
+    followAllRedirects: true
+  },function(error,response,body){
+    var _lt = body.match(/LT-[0-9]+-[a-zA-Z0-9]+-cas\.uphf\.fr/g)[0];
+    var _exec =body.match(/execution" value="[a-zA-Z0-9]+/g)[0].split("=")[1].replace("\"","");
+    var _evt = "submit";
+    var _ipadress = body.match(/ipAddress" value="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/g)[0].split("=")[1].replace("\"","");
+    var _useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1"
+    var _submit ="Connexion";
+    var sessionid = body.match(/jsessionid=[a-zA-Z0-9]+/g)[0].split("=")[1];
+    var form_data = {
+      'username': process.env.ISTVUSER,
+      'password': process.env.ISTVPASS,
+      'lt': _lt,
+      'execution': _exec,
+      '_eventId': 'submit',
+      'ipAddress': _ipadress,
+      'userAgent': _useragent,
+      'submit': 'Connexion'
+    }
+    var header ={
+      'Host': 'cas.uphf.fr',
+      'Referer': 'https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1',
+      'Cookie': response.headers['set-cookie'],
+      'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.9'
+    }
+    var  option = {
+        jar: true,
+        uri : 'https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml',
+        method: 'POST',
+        headers: header,
+        form: form_data
+    };
+
+
+
+    request(option,function(err,resp,bodyy){
+      if(err){
+        console.log("err : "+err);
+        exit();
+      }
+      console.log("status : "+resp.statusCode);
+      if(next === -1){
+        console.log('request url : '+resp.headers['location']);
+        request(resp.headers['location'], function(error, response, html) {
+
+          DateParsing(message,jour,oclock,html);
+        });
+      } else {
+        var header ={
+          'Host': 'vtmob.uphf.fr',
+          'Referer': 'https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1',
+          'Cookie': response.headers['set-cookie'],
+          'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.9'
+        }
+        var formdata = {
+          'org.apache.myfaces.trinidad.faces.FORM':'form_week',
+          '_noJavaScript':'false',
+          'javax.faces.ViewState':'!'+next.toString(),
+          'form_week:_idcl':'form_week:btn_next'
+        }
+        var  option = {
+            jar: true,
+            followAllRedirects: true,
+            uri : 'https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml',
+            method: 'POST',
+            headers: header,
+            form: formdata
+        };
+        request(option,function(erro,response,body){
+          // console.log("\n\n\n\n\n\n");
+          // console.log('HTML : '+body);
+          request(option,function(errno,res,html){
+            DateParsing(message,jour,oclock,html);
+          });
+          // console.log(erro);
+          // console.log(response);
+        });
+      }
+    });
+  });
+}
+
+function WaitEnough(){
+  var d = new Date();
+  var compt = 0;
+  if(d.getHours()!=6){
+    while(d.getHours()!= 6){
+      d.setHours(d.getHours()+1);
+      compt++;
+    }
+    return([compt,1]);
+  } else {
+    while(d.getMinutes()!= 1){
+      d.setMinutes(d.getMinutes()+1);
+      compt++;
+    }
+    return([compt,2]);
+  }
+}
+
+function rep(message){
+  message.reply('Time Up !');
+}
+
+function verifDay(date1){
+  var date = new Date();
+  return((date.getDay() === date1)&&(date.getDay() >=1 && date.getDay()<=5));
 }
