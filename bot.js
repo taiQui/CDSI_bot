@@ -768,11 +768,11 @@ function edt(message,jour,oclock,next){
       }
       console.log("status : "+resp.statusCode);
       if(next === -1){
-        console.log('request url : '+resp.headers['location']);
-        request('https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml', function(error, response, html) {
+        // console.log('request url : '+resp.headers['location']);
+        // request('https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml', function(error, response, html) {
 
-          DateParsing(message,jour,oclock,html);
-        });
+          DateParsing(message,jour,oclock,bodyy);
+        // });
       } else {
         var header ={
           'Host': 'vtmob.uphf.fr',
