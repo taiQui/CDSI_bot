@@ -515,8 +515,12 @@ bot.on("message",(message)=>{
         message.channel.send('Fail with arg ! => !time HH:MM:SS');
         return;
       }
+      msg = ""
+      for(let j = 2; j <= cmd.length;j++){
+        msg+=cmd[j]
+      }
       setTimeout(function(){
-        rep(message);
+        rep(message,msg);
       },(parseInt(cmd[1].split(':')[0]*3600)+parseInt(cmd[1].split(':')[1]*60)+parseInt(cmd[1].split(':')[2]))*1000);
       message.channel.send('Timer start !');
       break;
@@ -827,8 +831,11 @@ function WaitEnough(){
   }
 }
 
-function rep(message){
-  message.reply('Time Up !');
+function rep(message,msg){
+  if(msg)
+    message.reply('Time Up ! - '+msg);
+  else
+    message.reply('Time Up !');
 }
 
 function verifDay(date1){
