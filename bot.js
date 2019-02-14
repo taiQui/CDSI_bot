@@ -515,7 +515,7 @@ bot.on("message",(message)=>{
         message.channel.send('Fail with arg ! => !time HH:MM:SS');
         return;
       }
-      msg = ""
+      var msg = ""
       for(let j = 2; j <= cmd.length;j++){
         msg+=cmd[j]
       }
