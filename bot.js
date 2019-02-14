@@ -516,7 +516,7 @@ bot.on("message",(message)=>{
         return;
       }
       var msg = ""
-      for(let j = 2; j <= cmd.length;j++){
+      for(let j = 2; j < cmd.length;j++){
         msg+=cmd[j]
       }
       setTimeout(function(){
