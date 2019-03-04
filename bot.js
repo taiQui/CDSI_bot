@@ -665,14 +665,16 @@ function DateParsing(message,jour,oclock,html){
     if(Heure != null){
       for(let j = 0; j < Heure.length; j++){
         // console.log("ite : "+j);
-        if(location[j]=== undefined){
-          var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
-          // console.log('------------------------');
-          // console.log(ez);
+        if (location !== null) {
+          if(location[j]=== undefined){
+            var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
+            // console.log('------------------------');
+            // console.log(ez);
 
-          location[j] = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
+            location[j] = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
 
-          red+=1;
+            red+=1;
+          }
         }
         if(prof != null){
           if(jour != null){
