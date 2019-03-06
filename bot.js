@@ -664,6 +664,32 @@ function DateParsing(message,jour,oclock,html){
     console.log('HEURE :'+Heure);
     if(Heure != null){
       for(let j = 0; j < Heure.length; j++){
+        try {
+          Coursaux = Cour[j].split("<u>")[1];
+        }catch(err){
+          Coursaux = "undefined";
+        }
+        try{
+          Heureaux = Heure[j].split("<b>")[1];
+        }catch(err){
+          Heureaux = "undefined";
+        }
+        try{
+          Typeaux = Type[j].split("<b>")[1];
+        }catch(err){
+          Typeaux = "undefined";
+        }
+        try{
+          Locationaux = location[j].split(">")[1];
+        }catch(err){
+          Locationaux = "undefined";
+        }
+        try{
+          Profaux = prof[j].split(">")[1];
+        }catch(err){
+          Profaux = "undefined";
+        }
+
         // console.log("ite : "+j);
         if (location !== null) {
           if(location[j]=== undefined){
@@ -676,22 +702,33 @@ function DateParsing(message,jour,oclock,html){
             red+=1;
           }
         }
+        if (prof !== null) {
+          if(Profaux === "undefined"){
+            var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
+            // console.log('------------------------');
+            // console.log(ez);
+
+            Profaux = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
+            Profaux = Profaux.split(">")[1]
+            red+=1;
+          }
+        }
         if(prof != null){
           if(jour != null){
             if(jour-1 === i){
-              embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec "+prof[j].split(">")[1]);
+              embedt.addField(Coursaux,Heureaux+" "+Typeaux+" en "+Locationaux+" avec "+Profaux);
             }
           } else {
-            embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec "+prof[j].split(">")[1]);
+            embedt.addField(Coursaux,Heureaux+" "+Typeaux+" en "+Locationaux+" avec "+Profaux);
           }
 
         }  else {
           if(jour != null){
             if(jour-1 === i){
-              embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec un prof non specifié sur l'edt");
+              embedt.addField(Coursaux,Heureaux+" "+Typeaux+" en "+Locationaux+" avec un prof non specifié sur l'edt");
             }
           } else {
-            embedt.addField(Cour[j].split("<u>")[1],Heure[j].split("<b>")[1]+" "+Type[j].split("<b>")[1]+" en "+location[j].split(">")[1]+" avec un prof non specifié sur l'edt");
+            embedt.addField(Coursaux,Heureaux+" "+Typeaux+" en "+Locationaux+" avec un prof non specifié sur l'edt");
           }
 
         }
