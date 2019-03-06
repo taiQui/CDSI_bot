@@ -664,11 +664,11 @@ function DateParsing(message,jour,oclock,html){
     console.log('HEURE :'+Heure);
     if(Heure != null){
       for(let j = 0; j < Heure.length; j++){
-        Coursaux = "";
-        Heureaux = "";
-        Typeaux = "";
-        Locationaux = "";
-        Profaux = "";
+        var Coursaux = "";
+        var Heureaux = "";
+        var Typeaux = "";
+        var Locationaux = "";
+        var Profaux = "";
         try {
           Coursaux = Cour[j].split("<u>")[1];
         }catch(err){
