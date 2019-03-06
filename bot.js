@@ -697,13 +697,13 @@ function DateParsing(message,jour,oclock,html){
 
         // console.log("ite : "+j);
         if (location !== null) {
-          if(location[j]=== undefined){
+          if(Locationaux === "undefined"){
             var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
             // console.log('------------------------');
             // console.log(ez);
 
-            location[j] = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
-
+            Locationaux = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
+            Locationaux = Locationaux.split(">")[1];
             red+=1;
           }
         }
