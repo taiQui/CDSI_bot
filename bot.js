@@ -273,6 +273,10 @@ bot.on("message",(message)=>{
         request({
           uri: "http://insultron.fr",
         },function(error,response,body){
+          if(error){
+            message.channel.send('Not insult today - be friendly instead !');
+            return;
+          }
           let $ = cheerio.load(body);
           let i = 0;
           let text = $("font").text();
@@ -292,6 +296,10 @@ bot.on("message",(message)=>{
         request({
           uri: "http://insultron.fr",
         },function(error,response,body){
+          if(error){
+            message.channel.send('Not insult today - be friendly instead !');
+            return;
+          }
           let $ = cheerio.load(body);
           let i = 0;
           let text = $("font").text();
