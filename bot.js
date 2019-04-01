@@ -720,10 +720,14 @@ function DateParsing(message,jour,oclock,html){
             var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
             // console.log('------------------------');
             console.log(ez);
-
-            Profaux = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
-            Profaux = Profaux.split(">")[1]
-            red+=1;
+            try{
+              Profaux = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
+              Profaux = Profaux.split(">")[1]
+              red+=1;
+            }catch(err){
+              console.log('err prof - ez : '+ez);
+              console.log('err prof - ref : '+red);
+            }
           }
         }
         if(prof != null){
