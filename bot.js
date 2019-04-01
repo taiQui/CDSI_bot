@@ -719,7 +719,7 @@ function DateParsing(message,jour,oclock,html){
           if(Profaux === "undefined"){
             var ez = test1[i].match(/style="color:[a-z]*;"><br\/>[A-Z0-9]*<\/span>/g);
             // console.log('------------------------');
-            // console.log(ez);
+            console.log(ez);
 
             Profaux = "a>"+ez[red].split('<br/>')[1].split('</span>')[0];
             Profaux = Profaux.split(">")[1]
