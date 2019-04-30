@@ -442,7 +442,7 @@ bot.on("message",(message)=>{
       let i = 0;
       let title = $("h4");
       let pt = $(".gris");
-      let numbelet embHelp = new Discord.RichEmbed();r = $(".tl");
+      let number = $(".tl");
 
       if (pt == "" || title == "" || number == ""){
         message.channel.send("User "+cmd[1]+" not found ! ");
