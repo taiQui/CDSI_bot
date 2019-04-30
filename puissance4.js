@@ -313,9 +313,9 @@ class Puissance4 {
     console.log("puissance 4 status : " + this.P4_inGame);
     let tour = "";
     if (this.P4_tourjoueur1 === true) {
-      tour = " c'est au joueur 1 de jouer.";
+      tour = " c'est au joueur 1 de jouer. ::small_orange_diamond: ";
     } else {
-      tour = " c'est au joueur 2 de jouer.";
+      tour = " c'est au joueur 2 de jouer. :small_blue_diamond:";
     }
     if (this.P4_inGame === true) {
       //console.log("p4_gameMessage contenue : "+P4_gameMessage);
