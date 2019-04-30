@@ -578,7 +578,7 @@ bot.on("message",(message)=>{
       message.channel.fetchMessages({
         limit: 1
       }).then(msg => {
-        P4 = new puissance4File.Puissance4(bot);
+        P4 = new Puissance4File.Puissance4(bot);
         P4.init(p1,p2,message.channel.name,msg.array()[0]);
         P4.printGrid(message);
       });
