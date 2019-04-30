@@ -664,7 +664,25 @@ function getID(name,message){
 // let promise = new Promise(function(resolve,reject){
 //   resolve(getInsult());
 // });
-
+function getIdPerson(message, name) {
+  let collectionMember = message.guild.members;
+  let tabMember = collectionMember.array();
+  for (let i = 0; i < tabMember.length; i++) {
+    console.log("tab[" + i + "] = " + tabMember[i].user.username);
+  }
+  let trouver = false;
+  let i = 0;
+  while (i < tabMember.length && !trouver) {
+    if (tabMember[i].user.username === name) {
+      trouver = true;
+      console.log("trouver");
+    } else {
+      i++;
+    }
+  }
+  if (trouver === true) return tabMember[i].user.id;
+  if (trouver === false) return "-1";
+}
 
 function DateParsing(message,jour,oclock,html){
   console.log('-------------------\n\n\n\n');
