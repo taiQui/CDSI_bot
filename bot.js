@@ -578,7 +578,7 @@ bot.on("message",(message)=>{
         message.channel.send('I hope you don\'t play against yourself');
       }
       let embP4 = new Discord.RichEmbed();
-      embP4.addField('Puissance 4','Player 1 : '+message.channel.name+'\nPlayer 2 : '+cmd[1]+'\nTo speak in playing put \'&\'before your message\nSend STOP to stop the game',false);
+      embP4.addField('Puissance 4','Player 1 : '+message.author.name+'\nPlayer 2 : '+cmd[1]+'\nTo speak in playing put \'&\'before your message\nSend STOP to stop the game',false);
       message.channel.send(embP4);
       message.channel.send('Game grid loading...');
       message.channel.fetchMessages({
