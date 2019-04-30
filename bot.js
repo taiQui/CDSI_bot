@@ -6,6 +6,7 @@ const bot = new Discord.Client();
 const penduFile = require("./pendu.js");
 const CasinoFile = require("./money.js");
 const VoteFile = require("./vote.js");
+const Puissance4File = require('./puissance4.js');
 
 
 
@@ -40,6 +41,7 @@ var Casino = new CasinoFile.Casino(bot);
 let voteArray = [];
 let vote = new VoteFile.Vote(bot);
 var HolidayMode = false;
+var P4 = null;
 var clock;
 
 //*********************//
@@ -90,7 +92,14 @@ bot.on("message",(message)=>{
   if(message.author.equals(bot.user)) { return }
   //if message doesn't begin by prefix
   if(!message.content.startsWith(prefix_com)){ return }
-
+  if(P4 !== null){
+    if(P4.isInGame() && (P4.controlPlaying(message.author.id))){
+      return;
+    }
+    if(!P4.isInGame()){
+      P4 = null;
+    }
+  }
   //we get string after the command
   // ex : !help hello -> we get "hello"
 
@@ -130,6 +139,7 @@ bot.on("message",(message)=>{
       embHelp.addField("!nextcoin","print when you will get next 100 coin");
       embHelp.addField("!roll","play like in casino");
       embHelp.addField("!rm(stat) [Pseudo RootMe]","Print root-me's point, if rmstat : print statistique");
+      embHelp.addField("!p4 name","Play Puissance 4 with your friends, put your own name to play in local");
       message.channel.send(embHelp);
       break;
     case "invit":
@@ -432,7 +442,7 @@ bot.on("message",(message)=>{
       let i = 0;
       let title = $("h4");
       let pt = $(".gris");
-      let number = $(".tl");
+      let numbelet embHelp = new Discord.RichEmbed();r = $(".tl");
 
       if (pt == "" || title == "" || number == ""){
         message.channel.send("User "+cmd[1]+" not found ! ");
@@ -547,6 +557,34 @@ bot.on("message",(message)=>{
         }
         edt(message,null,null,parseInt(cmd[1]));
       }
+      break;
+    case "p4":
+      if(!cmd[1]){
+        message.channel.send('Missed Id 2nd player');
+        return;
+      }
+      let player2 = getIdPerson(message,cmd[1]);
+      if(player2 === "-1"){
+        message.channel.send('Name not found');
+        return;
+      }
+      if (message.author.id === player2){
+        message.channel.send('I hope you don\'t play against yourself');
+      }
+      let embHelp = new Discord.RichEmbed();
+      embHelp.addField('Puissance 4','Player 1 : '+message.channel.name+'\nPlayer 2 : '+cmd[1]+'\nTo speak in playing put \'&\'before your message\nSend STOP to stop the game',false);
+      message.channel.send(embHelp);
+      message.channel.send('Game grid loading...');
+      message.channel.fetchMessages({
+        limit: 1
+      }).then(msg => {
+        let tab = msg.array();
+
+        mess = tab[0];
+        P4 = new puissance4File.Puissance4(bot);
+        P4.init(p1,p2,message.channel.name,mess);
+        P4.printGrid(message);
+      });
       break;
     default:
       message.channel.send("no match with this command !");
