@@ -563,6 +563,12 @@ bot.on("message",(message)=>{
         message.channel.send('Missed Id 2nd player');
         return;
       }
+      if(P4 !== null){
+        if(P4.isInGame()){
+          message.channel.send('Someone is currently playing');
+          return;
+        }
+      }
       let player2 = getIdPerson(message,cmd[1]);
       if(player2 === "-1"){
         message.channel.send('Name not found');
@@ -579,7 +585,7 @@ bot.on("message",(message)=>{
         limit: 1
       }).then(msg => {
         P4 = new Puissance4File.Puissance4(bot);
-        P4.init(p1,p2,message.channel.name,msg.array()[0]);
+        P4.init(message.author.id,player2,message.channel.name,msg.array()[0]);
         P4.printGrid(message);
       });
       break;
