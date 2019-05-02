@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 class Puissance4 {
   constructor(bot){
-    this.itemP1;
-    this.itemP2;
+    this.itemP1 = ":small_blue_diamond";
+    this.itemP2 = ":small_orange_diamond";
     this.P4_inGame = false;
     this.P4_GamePlayer1 = 0;
     this.P4_tourjoueur1 = true;
