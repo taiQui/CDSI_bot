@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 class Puissance4 {
   constructor(bot){
-
+    this.itemP1;
+    this.itemP2;
     this.P4_inGame = false;
     this.P4_GamePlayer1 = 0;
     this.P4_tourjoueur1 = true;
@@ -26,7 +27,7 @@ class Puissance4 {
     this.GrilleJeux = Array(10).fill().map(a => Array(10));
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
-        this.GrilleJeux[i][j] = "       ";
+        this.GrilleJeux[i][j] = ":black_small_square:";
       }
     }
   }
@@ -83,7 +84,7 @@ class Puissance4 {
         switch (msg.content) {
           case "1":
             if (this.findIndex(1 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(1 - 1)][1 - 1] = ":small_orange_diamond:";
+              this.GrilleJeux[this.findIndex(1 - 1)][1 - 1] = this.itemP2;
               console.log("NIQUEL");
             } else {
               msg.delete();
@@ -92,7 +93,7 @@ class Puissance4 {
             break;
           case "2":
             if (this.findIndex(2 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(2 - 1)][2 - 1] = ":small_orange_diamond:";
+              this.GrilleJeux[this.findIndex(2 - 1)][2 - 1] = this.itemP2;
             } else {
               msg.delete();
               return;
@@ -100,7 +101,7 @@ class Puissance4 {
             break;
           case "3":
             if (this.findIndex(3 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(3 - 1)][3 - 1] = ":small_orange_diamond:";
+              this.GrilleJeux[this.findIndex(3 - 1)][3 - 1] = this.itemP2;
             } else {
               msg.delete();
               return;
@@ -108,7 +109,7 @@ class Puissance4 {
             break;
           case "4":
             if (this.findIndex(4 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(4 - 1)][4 - 1] = ":small_orange_diamond:";
+              this.GrilleJeux[this.findIndex(4 - 1)][4 - 1] = this.itemP2;
             } else {
               msg.delete();
               return;
@@ -116,7 +117,7 @@ class Puissance4 {
             break;
           case "5":
             if (this.findIndex(5 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(5 - 1)][5 - 1] = ":small_orange_diamond:";
+              this.GrilleJeux[this.findIndex(5 - 1)][5 - 1] = this.itemP2;
             } else {
               msg.delete();
               return;
@@ -124,7 +125,7 @@ class Puissance4 {
             break;
           case "6":
             if (this.findIndex(6 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(6 - 1)][6 - 1] = ":small_orange_diamond:";
+              this.GrilleJeux[this.findIndex(6 - 1)][6 - 1] = this.itemP2;
             } else {
               msg.delete();
               return;
@@ -132,7 +133,7 @@ class Puissance4 {
             break;
           case "7":
             if (this.findIndex(7 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(7 - 1)][7 - 1] = ":small_orange_diamond:";
+              this.GrilleJeux[this.findIndex(7 - 1)][7 - 1] = this.itemP2;
             } else {
               msg.delete();
               return;
@@ -148,7 +149,7 @@ class Puissance4 {
         switch (msg.content) {
           case "1":
             if (this.findIndex(1 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(1 - 1)][1 - 1] = ":small_blue_diamond:";
+              this.GrilleJeux[this.findIndex(1 - 1)][1 - 1] = this.itemP1;
             } else {
               msg.delete();
               return;
@@ -156,7 +157,7 @@ class Puissance4 {
             break;
           case "2":
             if (this.findIndex(2 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(2 - 1)][2 - 1] = ":small_blue_diamond:";
+              this.GrilleJeux[this.findIndex(2 - 1)][2 - 1] = this.itemP1;
             } else {
               msg.delete();
               return;
@@ -164,7 +165,7 @@ class Puissance4 {
             break;
           case "3":
             if (this.findIndex(3 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(3 - 1)][3 - 1] = ":small_blue_diamond:";
+              this.GrilleJeux[this.findIndex(3 - 1)][3 - 1] = this.itemP1;
             } else {
               msg.delete();
               return;
@@ -172,7 +173,7 @@ class Puissance4 {
             break;
           case "4":
             if (this.findIndex(4 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(4 - 1)][4 - 1] = ":small_blue_diamond:";
+              this.GrilleJeux[this.findIndex(4 - 1)][4 - 1] = this.itemP1;
             } else {
               msg.delete();
               return;
@@ -180,7 +181,7 @@ class Puissance4 {
             break;
           case "5":
             if (this.findIndex(5 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(5 - 1)][5 - 1] = ":small_blue_diamond:";
+              this.GrilleJeux[this.findIndex(5 - 1)][5 - 1] = this.itemP1;
             } else {
               msg.delete();
               return;
@@ -188,7 +189,7 @@ class Puissance4 {
             break;
           case "6":
             if (this.findIndex(6 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(6 - 1)][6 - 1] = ":small_blue_diamond:";
+              this.GrilleJeux[this.findIndex(6 - 1)][6 - 1] = this.itemP1;
             } else {
               msg.delete();
               return;
@@ -196,7 +197,7 @@ class Puissance4 {
             break;
           case "7":
             if (this.findIndex(7 - 1) !== -1) {
-              this.GrilleJeux[this.findIndex(7 - 1)][7 - 1] = ":small_blue_diamond:";
+              this.GrilleJeux[this.findIndex(7 - 1)][7 - 1] = this.itemP1;
             } else {
               msg.delete();
               return;
@@ -330,7 +331,7 @@ class Puissance4 {
         "|" + this.GrilleJeux[4][0] + "|" + this.GrilleJeux[4][1] + "|" + this.GrilleJeux[4][2] + "|" + this.GrilleJeux[4][3] + "|" + this.GrilleJeux[4][4] + "|" + this.GrilleJeux[4][5] + "|" + this.GrilleJeux[4][6] + "|\n" +
 
         "|" + this.GrilleJeux[5][0] + "|" + this.GrilleJeux[5][1] + "|" + this.GrilleJeux[5][2] + "|" + this.GrilleJeux[5][3] + "|" + this.GrilleJeux[5][4] + "|" + this.GrilleJeux[5][5] + "|" + this.GrilleJeux[5][6] + "|\n" +
-        "   1" + "       2" + "      3" + "      4" + "      5" + "      6" + "      7" + "\n" + tour);
+        "   1" + "        2" + "       3" + "       4" + "       5" + "      6" + "       7" + "\n" + tour);
 
     } else {
       console.log("si faux");
@@ -345,7 +346,7 @@ class Puissance4 {
         "|" + this.GrilleJeux[4][0] + "|" + this.GrilleJeux[4][1] + "|" + this.GrilleJeux[4][2] + "|" + this.GrilleJeux[4][3] + "|" + this.GrilleJeux[4][4] + "|" + this.GrilleJeux[4][5] + "|" + this.GrilleJeux[4][6] + "|\n" +
 
         "|" + this.GrilleJeux[5][0] + "|" + this.GrilleJeux[5][1] + "|" + this.GrilleJeux[5][2] + "|" + this.GrilleJeux[5][3] + "|" + this.GrilleJeux[5][4] + "|" + this.GrilleJeux[5][5] + "|" + this.GrilleJeux[5][6] + "|\n" +
-        "   1" + "       2" + "      3" + "      4" + "      5" + "      6" + "      7" + "\n" + tour);
+        "   1" + "        2" + "       3" + "       4" + "       5" + "      6" + "       7" + "\n" + tour);
       message.channel.fetchMessages({
         limit: 1
       }).then(msg => {
@@ -360,7 +361,7 @@ class Puissance4 {
     let i = 5;
     let continuer = true;
     while (i >= 0 && continuer) {
-      if (this.GrilleJeux[i][message] === ":small_orange_diamond:" || this.GrilleJeux[i][message] === ":small_blue_diamond:") {
+      if (this.GrilleJeux[i][message] === this.itemP2 || this.GrilleJeux[i][message] === this.itemP1) {
         i--;
       } else {
         continuer = false;
@@ -375,14 +376,14 @@ class Puissance4 {
   testDiagonalMontante(){
     for (let i = 3; i < 6; i++) {
       for (let j = 0; j < 4; j++) {
-        if (this.GrilleJeux[i][j] === ":small_orange_diamond:" && this.GrilleJeux[i - 1][j + 1] === ":small_orange_diamond:" && this.GrilleJeux[i - 2][j + 2] === ":small_orange_diamond:" && this.GrilleJeux[i - 3][j + 3] === ":small_orange_diamond:") {
+        if (this.GrilleJeux[i][j] === this.itemP2 && this.GrilleJeux[i - 1][j + 1] === this.itemP2 && this.GrilleJeux[i - 2][j + 2] === this.itemP2 && this.GrilleJeux[i - 3][j + 3] === this.itemP2) {
           this.GrilleJeux[i][j] = ":small_red_triangle:";
           this.GrilleJeux[i - 1][j + 1] = ":small_red_triangle:";
           this.GrilleJeux[i - 2][j + 2] = ":small_red_triangle:";
           this.GrilleJeux[i - 3][j + 3] = ":small_red_triangle:";
 
           return 1;
-        } else if (this.GrilleJeux[i][j] === ":small_blue_diamond:" && this.GrilleJeux[i - 1][j + 1] === ":small_blue_diamond:" && this.GrilleJeux[i - 2][j + 2] === ":small_blue_diamond:" && this.GrilleJeux[i - 3][j + 3] === ":small_blue_diamond:") {
+        } else if (this.GrilleJeux[i][j] === this.itemP1 && this.GrilleJeux[i - 1][j + 1] === this.itemP1 && this.GrilleJeux[i - 2][j + 2] === this.itemP1 && this.GrilleJeux[i - 3][j + 3] === this.itemP1) {
           // this.GrilleJeux[i][j] = ":small_red_triangle:";
           // this.GrilleJeux[i-1][j+1] =":small_red_triangle:";
           // this.GrilleJeux[i-2][j+2] = ":small_red_triangle:";
@@ -396,13 +397,13 @@ class Puissance4 {
   testDiagonalDescendante() {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 4; j++) {
-        if (this.GrilleJeux[i][j] === ":small_orange_diamond:" && this.GrilleJeux[i + 1][j + 1] === ":small_orange_diamond:" && this.GrilleJeux[i + 2][j + 2] === ":small_orange_diamond:" && this.GrilleJeux[i + 3][j + 3] === ":small_orange_diamond:") {
+        if (this.GrilleJeux[i][j] === this.itemP2 && this.GrilleJeux[i + 1][j + 1] === this.itemP2 && this.GrilleJeux[i + 2][j + 2] === this.itemP2 && this.GrilleJeux[i + 3][j + 3] === this.itemP2) {
           this.GrilleJeux[i][j] = ":small_red_triangle:";
           this.GrilleJeux[i + 1][j + 1] = ":small_red_triangle:";
           this.GrilleJeux[i + 2][j + 2] = ":small_red_triangle:";
           this.GrilleJeux[i + 3][j + 3] = ":small_red_triangle:";
           return 1;
-        } else if (this.GrilleJeux[i][j] === ":small_blue_diamond:" && this.GrilleJeux[i + 1][j + 1] === ":small_blue_diamond:" && this.GrilleJeux[i + 2][j + 2] === ":small_blue_diamond:" && this.GrilleJeux[i + 3][j + 3] === ":small_blue_diamond:") {
+        } else if (this.GrilleJeux[i][j] === this.itemP1 && this.GrilleJeux[i + 1][j + 1] === this.itemP1 && this.GrilleJeux[i + 2][j + 2] === this.itemP1 && this.GrilleJeux[i + 3][j + 3] === this.itemP1) {
           this.GrilleJeux[i][j] = ":small_red_triangle:";
           this.GrilleJeux[i + 1][j + 1] = ":small_red_triangle:";
           this.GrilleJeux[i + 2][j + 2] = ":small_red_triangle:";
@@ -419,10 +420,10 @@ class Puissance4 {
     let countJ2 = 0;
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 7; j++) {
-        if (this.GrilleJeux[i][j] === ":small_orange_diamond:") {
+        if (this.GrilleJeux[i][j] === this.itemP2) {
           countJ1++;
           countJ2 = 0;
-        } else if (this.GrilleJeux[i][j] === ":small_blue_diamond:") {
+        } else if (this.GrilleJeux[i][j] === this.itemP1) {
           countJ2++;
           countJ1 = 0;
         } else {
@@ -460,10 +461,10 @@ class Puissance4 {
     let j = 0;
     for (let i = 0; i < 7; i++) {
       for (let j = 0; j < 6; j++) {
-        if (this.GrilleJeux[j][i] === ":small_orange_diamond:") {
+        if (this.GrilleJeux[j][i] === this.itemP2) {
           countJ1++;
           countJ2 = 0;
-        } else if (this.GrilleJeux[j][i] === ":small_blue_diamond:") {
+        } else if (this.GrilleJeux[j][i] === this.itemP1) {
           countJ2++;
           countJ1 = 0;
         } else {
@@ -495,7 +496,7 @@ class Puissance4 {
     let j = 0;
     while ((i < 6) && continuer) {
       while (j < 7 && continuer) {
-        if (this.GrilleJeux[i][j] !== ":small_orange_diamond:" && this.GrilleJeux[i][j] !== ":small_blue_diamond:") {
+        if (this.GrilleJeux[i][j] !== this.itemP2 && this.GrilleJeux[i][j] !== this.itemP1) {
           continuer = false;
         } else {
           j++;
