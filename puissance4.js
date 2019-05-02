@@ -384,10 +384,10 @@ class Puissance4 {
 
           return 1;
         } else if (this.GrilleJeux[i][j] === this.itemP1 && this.GrilleJeux[i - 1][j + 1] === this.itemP1 && this.GrilleJeux[i - 2][j + 2] === this.itemP1 && this.GrilleJeux[i - 3][j + 3] === this.itemP1) {
-          // this.GrilleJeux[i][j] = ":small_red_triangle:";
-          // this.GrilleJeux[i-1][j+1] =":small_red_triangle:";
-          // this.GrilleJeux[i-2][j+2] = ":small_red_triangle:";
-          // this.GrilleJeux[i-3][j+3] = ":small_red_triangle:";
+          this.GrilleJeux[i][j] = ":small_red_triangle:";
+          this.GrilleJeux[i-1][j+1] =":small_red_triangle:";
+          this.GrilleJeux[i-2][j+2] = ":small_red_triangle:";
+          this.GrilleJeux[i-3][j+3] = ":small_red_triangle:";
           return 2;
         }
       }
