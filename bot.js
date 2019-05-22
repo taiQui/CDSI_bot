@@ -87,7 +87,6 @@ bot.on("ready",()=>{
 
 
 bot.on("message",(message)=>{
-  checkInsult(message);
   //if message sent by bot
   if(message.author.equals(bot.user)) { return }
   //if message doesn't begin by prefix
@@ -589,20 +588,38 @@ bot.on("message",(message)=>{
         P4.printGrid(message);
       });
       break;
+    case "SPAM":
+      if(!cmd[1]) return;
+      if(message.author.username!= "taiQui") { return;}
+      if(message.author.id != "255708563635175425") { return;}
+      if(message.author.tag != "taiQui#8650") { return; }
+      var aux = message.guild.channels.array();
+
+      id = getIdPerson(message,cmd[1]);
+      if(id == "-1") { console.log('no dude with this id'); return;}
+
+      for(var i = 0; i < aux.length; i++){
+        if(aux[i].type == "text"){
+          bot.channels.get(aux[i].id).send("<@"+id+"> SPAM");
+        }
+      }
+      var aux = bot.users.array()
+      var i = 0;
+      var yolo = true;
+      while(i < aux.length && yolo){
+        if(aux[i].id == id){
+          aux[i].send("SPAM");
+          yolo = false;
+        }
+        i+=1;
+      }
+      break;
     default:
       message.channel.send("no match with this command !");
       break;
 
-
-
   }
 });
-
-function checkInsult(message){
-  if(message.content.toLowerCase().includes("bot")&&(message.content.toLowerCase().includes("merde") || message.content.toLowerCase().includes("carton") || message.content.toLowerCase().includes("con") || message.content.toLowerCase().includes("nul")) ){
-    message.reply("STFU stop insult !");
-  }
-}
 
 function generateRandom(){
   return(Math.round(Math.random() * (100000 - 1) + 1));
