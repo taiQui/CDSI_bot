@@ -109,7 +109,7 @@ bot.on("message",(message)=>{
     }
   }
   //we get string after the command
-  // ex : !help hello -> we get "hello"
+  // ex : !help hello -> we get "hello"g
   if(testban(message.author.id)) {console.log(message.author.username+' try to send command');}
   var cmd = message.content.substring(prefix_com.length).split(" ");
 
@@ -631,7 +631,7 @@ bot.on("message",(message)=>{
       var id = getIdPerson(message,cmd[1]);
       if (id == "-1") {console.log('no guys found with this name');return;}
       cmdban.push([cmd[1],id]);
-      message.channel.name(cmd[1]+" is now blacklisted to use command");
+      message.channel.send(cmd[1]+" is now blacklisted to use command");
       break;
     case "cmdunban":
       if(!cmd[1]) return;
