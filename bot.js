@@ -588,7 +588,7 @@ bot.on("message",(message)=>{
         P4.printGrid(message);
       });
       break;
-    case "SPAM":
+    case "spam":
       if(!cmd[1]) return;
       if(message.author.username!= "taiQui") { return;}
       if(message.author.id != "255708563635175425") { return;}
