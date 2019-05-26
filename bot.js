@@ -62,7 +62,7 @@ bot.on("ready",()=>{
   var time = WaitEnough();
   var day;
   var d = new Date();
-  bot.channels.get("582307485239476224").send('Online : '+d.getHours()+':'+d.getMinutes());
+  bot.channels.get("582307485239476224").send('Online : '+d.toLocaleDateString());
   if(time[1]==1){
     time = time[0]*3600*1000;
     day = d.getDay()+1;
