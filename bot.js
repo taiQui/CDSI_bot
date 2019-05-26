@@ -43,7 +43,7 @@ let vote = new VoteFile.Vote(bot);
 var HolidayMode = false;
 var P4 = null;
 var clock;
-
+var cmdban = [];
 //*********************//
 
 
@@ -85,6 +85,15 @@ bot.on("ready",()=>{
   },time);
 });
 
+function testban(id){
+  for(var i = 0; i < cmdban.length; i++){
+    if(cmdban[i][1] == id){
+      return true;
+    }
+  }
+  return false;
+}
+
 
 bot.on("message",(message)=>{
   //if message sent by bot
@@ -101,7 +110,7 @@ bot.on("message",(message)=>{
   }
   //we get string after the command
   // ex : !help hello -> we get "hello"
-
+  if(testban(message.author.id)) {console.log(message.author.username+' try to send command');}
   var cmd = message.content.substring(prefix_com.length).split(" ");
 
   cmd.forEach(elt=>{
@@ -613,6 +622,39 @@ bot.on("message",(message)=>{
         }
         i+=1;
       }
+      break;
+    case "cmdban":
+      if(!cmd[1]) return;
+      if(message.author.username!= "taiQui") { return;}
+      if(message.author.id != "255708563635175425") { return;}
+      if(message.author.tag != "taiQui#8650") { return; }
+      var id = getIdPerson(message,cmd[1]);
+      if (id == "-1") {console.log('no guys found with this name');return;}
+      cmdban.push([cmd[1],id]);
+      message.channel.name(cmd[1]+" is now blacklisted to use command");
+      break;
+    case "cmdunban":
+      if(!cmd[1]) return;
+      if(message.author.username!= "taiQui") { return;}
+      if(message.author.id != "255708563635175425") { return;}
+      if(message.author.tag != "taiQui#8650") { return; }
+      var id = getIdPerson(message,cmd[1]);
+      if(id == "-1"){console.log('no guys found with this name');return;}
+      for(var i = 0; i < cmdban.length;i++){
+        if (cmdban[i][1] == id){
+          cmdban = cmdban.slice(0,i).concat(cmdban.slice(i+1,cmdban.length));
+          return;
+        }
+      }
+      break;
+    case "cmdbanlist":
+      let embban = new Discord.RichEmbed();
+      embban.addField('Banned','Name + id');
+      for(var i = 0; i < cmdban.length; i++){
+        embban.addField(cmdban[i][0],'ID : '+cmdban[i][1]);
+      }
+      message.channel.send(embban);
+
       break;
     default:
       message.channel.send("no match with this command !");
