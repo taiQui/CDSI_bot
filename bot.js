@@ -54,13 +54,15 @@ let cleverbot = new Clvbot(process.env.CLVB_ID,process.env.CLVB_PSSWD);
 cleverbot.setNick("HackerMen");
 
 bot.on("ready",()=>{
-  console.log("I'm here")
+  console.log("I'm here");
+
   bot.user.setGame("Hacking in progress !");
   Casino.init();
   Pendu.start(prefix_com);
   var time = WaitEnough();
   var day;
   var d = new Date();
+  bot.channels.get("582307485239476224").send('Online : '+d.getHours()+':'+d.getMinutes());
   if(time[1]==1){
     time = time[0]*3600*1000;
     day = d.getDay()+1;
@@ -112,8 +114,8 @@ bot.on("message",(message)=>{
   }
   //we get string after the command
   // ex : !help hello -> we get "hello"g
-  if(testban(message.author.id)) {console.log(message.author.username+' try to send command');return;}
   var cmd = message.content.substring(prefix_com.length).split(" ");
+  if(testban(message.author.id)) {bot.channels.get("582307485239476224").send(message.author.username+' try to send command while being banned\ncmd : '+cmd[1]);return;}
 
   cmd.forEach(elt=>{
     console.log(elt);
@@ -646,6 +648,7 @@ bot.on("message",(message)=>{
       for(var i = 0; i < cmdban.length;i++){
         if (cmdban[i][1] == id){
           cmdban = cmdban.slice(0,i).concat(cmdban.slice(i+1,cmdban.length));
+          message.channel.send(cmd[1]+' can now use command');
           return;
         }
       }
