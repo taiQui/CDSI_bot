@@ -88,9 +88,11 @@ bot.on("ready",()=>{
 function testban(id){
   for(var i = 0; i < cmdban.length; i++){
     if(cmdban[i][1] == id){
+      console.log('banned found');
       return true;
     }
   }
+  console.log('banned not found');
   return false;
 }
 
@@ -110,7 +112,7 @@ bot.on("message",(message)=>{
   }
   //we get string after the command
   // ex : !help hello -> we get "hello"g
-  if(testban(message.author.id)) {console.log(message.author.username+' try to send command');}
+  if(testban(message.author.id)) {console.log(message.author.username+' try to send command');return;}
   var cmd = message.content.substring(prefix_com.length).split(" ");
 
   cmd.forEach(elt=>{
@@ -629,6 +631,7 @@ bot.on("message",(message)=>{
       if(message.author.id != "255708563635175425") { return;}
       if(message.author.tag != "taiQui#8650") { return; }
       var id = getIdPerson(message,cmd[1]);
+      if (id == "255708563635175425" ) {message.channel.send('Cant ban the boss');return;}
       if (id == "-1") {console.log('no guys found with this name');return;}
       cmdban.push([cmd[1],id]);
       message.channel.send(cmd[1]+" is now blacklisted to use command");
