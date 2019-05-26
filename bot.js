@@ -595,7 +595,7 @@ bot.on("message",(message)=>{
       if(message.author.tag != "taiQui#8650") { return; }
       var aux = message.guild.channels.array();
 
-      id = getIdPerson(message,cmd[1]);
+      var id = getIdPerson(message,cmd[1]);
       if(id == "-1") { console.log('no dude with this id'); return;}
 
       for(var i = 0; i < aux.length; i++){
