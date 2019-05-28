@@ -69,7 +69,7 @@ bot.on("ready",()=>{
   // } else {
   //   time = time[0]*60*1000;
   //   day = d.getDay();
-  }
+  // }
   // console.log("time to wait "+time/1000+" second");
   // setTimeout(function(){
   //   console.log("executing");
