@@ -59,32 +59,32 @@ bot.on("ready",()=>{
   bot.user.setGame("Hacking in progress !");
   Casino.init();
   Pendu.start(prefix_com);
-  var time = WaitEnough();
+  // var time = WaitEnough();
   var day;
   var d = new Date();
   bot.channels.get("582307485239476224").send('Online : '+d.toLocaleDateString()+" -- "+d.toLocaleTimeString()+ '   (UTC)');
-  if(time[1]==1){
-    time = time[0]*3600*1000;
-    day = d.getDay()+1;
-  } else {
-    time = time[0]*60*1000;
-    day = d.getDay();
+  // if(time[1]==1){
+  //   time = time[0]*3600*1000;
+  //   day = d.getDay()+1;
+  // } else {
+  //   time = time[0]*60*1000;
+  //   day = d.getDay();
   }
-  console.log("time to wait "+time/1000+" second");
-  setTimeout(function(){
-    console.log("executing");
-    edt(null,day,bot.channels.get("519610855927709716"),-1);
-    clock = setInterval(function(){
-      var dat = new Date();
-      if(HolidayMode === false){
-        if(dat.getDay()>= 1 && dat.getDay() <= 5){
-          if(verifDay(dat.getDay())){
-            edt(null,dat.getDay(),bot.channels.get("519610855927709716"),-1);
-          }
-        }
-      }
-    },(3600*24)*1000);
-  },time);
+  // console.log("time to wait "+time/1000+" second");
+  // setTimeout(function(){
+  //   console.log("executing");
+  //   edt(null,day,bot.channels.get("519610855927709716"),-1);
+  //   clock = setInterval(function(){
+  //     var dat = new Date();
+  //     if(HolidayMode === false){
+  //       if(dat.getDay()>= 1 && dat.getDay() <= 5){
+  //         if(verifDay(dat.getDay())){
+  //           edt(null,dat.getDay(),bot.channels.get("519610855927709716"),-1);
+  //         }
+  //       }
+  //     }
+  //   },(3600*24)*1000);
+  // },time);
 });
 
 function testban(id){
@@ -635,6 +635,7 @@ bot.on("message",(message)=>{
       var id = getIdPerson(message,cmd[1]);
       if (id == "255708563635175425" ) {message.channel.send('Cant ban the boss');return;}
       if (id == "-1") {console.log('no guys found with this name');return;}
+      if(testban(id)) { message.channel.send(message.author.username+ " is already banned !");return;}
       cmdban.push([cmd[1],id]);
       message.channel.send(cmd[1]+" is now blacklisted to use command");
       break;
