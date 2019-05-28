@@ -415,10 +415,10 @@ bot.on("message",(message)=>{
     case "vote:time":
     if(!cmd[1]){
       message.channel.send("Arg missed !");
-      message.channel.send("!vote:answer answer");
+      message.channel.send("!vote:time time in second");
       return;
     }
-      vote.setTime(cmd[1]);
+      vote.setTime(cmd[1],message);
       break;
     case "vote:start":
       vote.setChannel(message.channel);

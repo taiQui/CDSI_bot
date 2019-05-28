@@ -42,7 +42,7 @@ class Vote {
     },(this.time*1000)*60);
     this.channel.send("Vote : "+this.question);
     for(let i = 0 ; i < this.answer.length ; i++){
-      this.channel.send("choix "+i+ " : "+this.answer[i]);
+      this.channel.send("choix "+i+1+ " : "+this.answer[i]);
     }
     this.channel.send("Come on let's go vote ! --> $[choice]");
     this.channel.send(this.time + " minute to vote.");
@@ -119,7 +119,7 @@ class Vote {
     Channel = this.channel;
   }
 
-  setTime(time){
+  setTime(time,msg){
     if(Number.isInteger(time)){
       this.time = time;
     } else {
