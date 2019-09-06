@@ -20,6 +20,12 @@ const lineread = require("line-reader");
 
 
 //some variable
+
+let Master1FI = 1;
+let Master2FI = 2;
+let Master1FA = 3;
+let Master2FA = 4;
+
 let prefix_com = "!";
 class Exam {
   constructor(name,description,date,id){
@@ -37,7 +43,7 @@ class Exam {
 }
 let ArrayExam = [];
 let Pendu = new penduFile.Pendu(bot);
-var Casino = new CasinoFile.Casino(bot);
+// var Casino = new CasinoFile.Casino(bot);
 let voteArray = [];
 let vote = new VoteFile.Vote(bot);
 var HolidayMode = false;
@@ -57,7 +63,7 @@ bot.on("ready",()=>{
   console.log("I'm here");
 
   bot.user.setGame("Hacking in progress !");
-  Casino.init();
+  // Casino.init();
   Pendu.start(prefix_com);
   // var time = WaitEnough();
   var day;
@@ -146,12 +152,14 @@ bot.on("message",(message)=>{
       embHelp.addField("!vote:time","change time you need to vote",false);
       embHelp.addField("!vote:start","start vote !");
       embHelp.addField("!pendu","play !",false);
-      embHelp.addField("!coin","print number of your coin");
-      embHelp.addField("!jackpot","print jackpot");
-      embHelp.addField("!nextcoin","print when you will get next 100 coin");
-      embHelp.addField("!roll","play like in casino");
-      embHelp.addField("!rm(stat) [Pseudo RootMe]","Print root-me's point, if rmstat : print statistique");
+      // embHelp.addField("!coin","print number of your coin");
+      // embHelp.addField("!jackpot","print jackpot");
+      // embHelp.addField("!nextcoin","print when you will get next 100 coin");
+      // embHelp.addField("!roll","play like in casino");
+      embHelp.addField("!rm[stat] [Pseudo RootMe]","Print root-me's point, if rmstat : print statistique");
       embHelp.addField("!p4 name","Play Puissance 4 with your friends, put your own name to play in local");
+      embHelp.addField("!edt class [day]","Print Schedule for specified class\n   Master 1 FI => 1\n   Master 2 FI => 2\n   Master 1 FA => 3\n   Master 2 FA => 4");
+      embHelp.addField("!timer [hh:mm:ss]","Run a timer");
       message.channel.send(embHelp);
       break;
     case "invit":
@@ -383,18 +391,18 @@ bot.on("message",(message)=>{
       Casino.setMessage(message);
       Casino.Roulette(message.author.id+message.guild.id);
       break;
-    case "jackpot":
-      Casino.jackpotfonc(message,1);
-      break;
-    case "coin":
-      Casino.coin(message.author.id,message.guild.id,message);
-      break;
-    case "nextcoin":
-      Casino.nextCoin(message.author.id+message.guild.id,message);
-      break;
-    case "bailout":
-      Casino.bailOut();
-      break;
+    // case "jackpot":
+    //   Casino.jackpotfonc(message,1);
+    //   break;
+    // case "coin":
+    //   Casino.coin(message.author.id,message.guild.id,message);
+    //   break;
+    // case "nextcoin":
+    //   Casino.nextCoin(message.author.id+message.guild.id,message);
+    //   break;
+    // case "bailout":
+    //   Casino.bailOut();
+    //   break;
     case "vote:question":
       if(!cmd[1]){
         message.channel.send("Arg missed !");
@@ -509,15 +517,17 @@ bot.on("message",(message)=>{
     });
       break;
     case "edt":
-      if((Number.isInteger(parseInt(cmd[1]))) && cmd[1]){
-        if(parseInt(cmd[1])>=1 && parseInt(cmd[1])<= 5){
-          edt(message,parseInt(cmd[1]),null,-1);
+      if(!cmd[1]){ message.channel.send("Syntaxe Error =>  !help");return;}
+      if(cmd[1] !== "1" || cmd[1] !== "2" || cmd[1] !== "3" || cmd[1] !== "4"){message.channel.send("Syntaxe Error =>  !help");return;}
+      if((Number.isInteger(parseInt(cmd[2]))) && cmd[2]){
+        if(parseInt(cmd[2])>=1 && parseInt(cmd[2])<= 5){
+          edt(message,parseInt(cmd[2]),null,-1,parseInt(cmd[1]));
           return;
         } else {
           message.channel.send("not valid day ! [1-5] ");
         }
-      } else if(!cmd[1]) {
-        edt(message,null,null,-1);
+      } else if(!cmd[2]) {
+        edt(message,null,null,-1,parseInt(cmd[1]));
       } else {
         message.channel.send("not a number ! ");
         return;
@@ -555,21 +565,21 @@ bot.on("message",(message)=>{
       },(parseInt(cmd[1].split(':')[0]*3600)+parseInt(cmd[1].split(':')[1]*60)+parseInt(cmd[1].split(':')[2]))*1000);
       message.channel.send('Timer start !');
       break;
-    case "edtnext":
-      if(!cmd[1]){
-        edt(message,null,null,1);
-      } else {
-        if(isNaN(cmd[1])){
-          message.channel.send('Not a valid Number !');
-          return;
-        }
-        if(parseInt(cmd[1])>15 || parseInt(cmd[1])<=0){
-          message.channel.send('Not a valid number - [1-15]');
-          return;
-        }
-        edt(message,null,null,parseInt(cmd[1]));
-      }
-      break;
+    // case "edtnext":
+    //   if(!cmd[1]){
+    //     edt(message,null,null,1);
+    //   } else {
+    //     if(isNaN(cmd[1])){
+    //       message.channel.send('Not a valid Number !');
+    //       return;
+    //     }
+    //     if(parseInt(cmd[1])>15 || parseInt(cmd[1])<=0){
+    //       message.channel.send('Not a valid number - [1-15]');
+    //       return;
+    //     }
+    //     edt(message,null,null,parseInt(cmd[1]));
+    //   }
+    //   break;
     case "p4":
       if(!cmd[1]){
         message.channel.send('Missed Id 2nd player');
@@ -669,6 +679,57 @@ bot.on("message",(message)=>{
 
   }
 });
+// END OF EVENT MESSAGE
+
+bot.on('raw', packet => {
+    // We don't want this to run on unrelated packets
+    if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) return;
+    // Grab the channel to check the message from
+    const channel = bot.channels.get(packet.d.channel_id);
+    // There's no need to emit if the message is cached, because the event will fire anyway for that
+    if (channel.messages.has(packet.d.message_id)) return;
+    // Since we have confirmed the message is not cached, let's fetch it
+    channel.fetchMessage(packet.d.message_id).then(message => {
+        // Emojis can have identifiers of name:id format, so we have to account for that case as well
+        const emoji = packet.d.emoji.id ? `${packet.d.emoji.name}:${packet.d.emoji.id}` : packet.d.emoji.name;
+        // This gives us the reaction we need to emit the event properly, in top of the message object
+        const reaction = message.reactions.get(emoji);
+        // Adds the currently reacting user to the reaction's users collection.
+        if (reaction) reaction.users.set(packet.d.user_id, bot.users.get(packet.d.user_id));
+        // Check which type of event it is before emitting
+        if (packet.t === 'MESSAGE_REACTION_ADD') {
+            bot.emit('messageReactionAdd', reaction, bot.users.get(packet.d.user_id));
+        }
+        if (packet.t === 'MESSAGE_REACTION_REMOVE') {
+            bot.emit('messageReactionRemove', reaction, bot.users.get(packet.d.user_id));
+        }
+    });
+});
+
+bot.on("messageReactionAdd",(reaction,user)=>{
+  if(!user) return;
+  if(user.bot) return;
+  if(reaction.message.id == "619622989323042816"){
+    let role = reaction.message.guild.roles.find(r => r.name == "Master 1ère année");
+  } else if (reaction.message.id == "619623025557372951"){
+    let role = reaction.message.guild.roles.find(r => r.name == "Master 2ème année");
+  }
+  reaction.message.guild.member(user).addRole(role).catch(console.error);
+});
+
+bot.on("messageReactionRemove",(reaction,user)=>{
+  if(!user) return;
+  if(user.bot) return;
+  if(reaction.message.id == "619622989323042816"){
+    let role = reaction.message.guild.roles.find(r => r.name == "Master 1ère année");
+  } else if (reaction.message.id == "619623025557372951"){
+    let role = reaction.message.guild.roles.find(r => r.name == "Master 2ème année");
+  }
+  reaction.message.guild.member(user).removeRole(role).catch(console.error);
+});
+
+
+
 
 function generateRandom(){
   return(Math.round(Math.random() * (100000 - 1) + 1));
@@ -908,7 +969,7 @@ function DateParsing(message,jour,oclock,html){
 }
 
 
-function edt(message,jour,oclock,next){
+function edt(message,jour,oclock,next,classe){
   request({
     uri: "https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml",
     followAllRedirects: true
@@ -920,9 +981,22 @@ function edt(message,jour,oclock,next){
     var _useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1"
     var _submit ="Connexion";
     var sessionid = body.match(/jsessionid=[a-zA-Z0-9]+/g)[0].split("=")[1];
+    var username = "";
+    var password = "";
+    if(classe === Master1FI){
+      username = "";
+      password = "";
+    } else if (classe === Master2FI){
+      username = process.env.ISTVUSER;
+      password = process.env.ISTVPASS;
+    } else if (classe === Master1FA){
+
+    } else if (classe === Master2FA){
+
+    }
     var form_data = {
-      'username': process.env.ISTVUSER,
-      'password': process.env.ISTVPASS,
+      'username': username,
+      'password': password,
       'lt': _lt,
       'execution': _exec,
       '_eventId': 'submit',
@@ -984,7 +1058,7 @@ function edt(message,jour,oclock,next){
         request(option,function(erro,response,body){
 
             DateParsing(message,jour,oclock,html);
-      
+
           // console.log(erro);
           // console.log(response);
         });
