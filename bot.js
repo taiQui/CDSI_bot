@@ -713,11 +713,10 @@ bot.on("messageReactionAdd",(reaction,user)=>{
   console.log('type :'+reaction);
   let role = "";
   if(reaction.message.id == "619622989323042816"){
-    let role = reaction.message.guild.roles.find(r => r.name == "Master 1ère année");
+    reaction.message.guild.member(user).addRole("619596015615344669").catch(console.error);
   } else if (reaction.message.id == "619623025557372951"){
-    let role = reaction.message.guild.roles.find(r => r.name == "Master 2ème année");
+    reaction.message.guild.member(user).addRole("514021108484276224").catch(console.error);
   }
-  reaction.message.guild.member(user).addRole(role).catch(console.error);
 });
 
 bot.on("messageReactionRemove",(reaction,user)=>{
@@ -726,11 +725,11 @@ bot.on("messageReactionRemove",(reaction,user)=>{
   if(!reaction.message.channel.guild) return;
   let role = "";
   if(reaction.message.id == "619622989323042816"){
-    let role = reaction.message.guild.roles.find(r => r.name == "Master 1ère année");
+    reaction.message.guild.member(user).removeRole("619596015615344669").catch(console.error);
   } else if (reaction.message.id == "619623025557372951"){
-    let role = reaction.message.guild.roles.find(r => r.name == "Master 2ème année");
+    reaction.message.guild.member(user).removeRole("514021108484276224").catch(console.error);
   }
-  reaction.message.guild.member(user).removeRole(role).catch(console.error);
+
 });
 
 
