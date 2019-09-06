@@ -1029,8 +1029,7 @@ function edt(message,jour,oclock,next,classe){
       }
       console.log("status : "+resp.statusCode);
       if(next === -1){
-=
-          console.log('html : '+html);
+          // console.log('html : '+html);
           DateParsing(message,jour,oclock,bodyy);
 
       } else {
