@@ -982,8 +982,8 @@ function edt(message,jour,oclock,next){
             form: formdata
         };
         request(option,function(erro,response,body){
-          // console.log("\n\n\n\n\n\n");
-          // console.log('HTML : '+body);
+           console.log("\n\n\n\n\n\n");
+           console.log('HTML : '+body);
           request(option,function(errno,res,html){
             DateParsing(message,jour,oclock,html);
           });
@@ -993,6 +993,7 @@ function edt(message,jour,oclock,next){
       }
     });
   });
+  return;
 }
 
 function WaitEnough(){
