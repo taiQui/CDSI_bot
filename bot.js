@@ -709,6 +709,8 @@ bot.on('raw', packet => {
 bot.on("messageReactionAdd",(reaction,user)=>{
   if(!user) return;
   if(user.bot) return;
+  if(!reaction.message.channel.guild) return;
+  console.log('type :'+reaction);
   let role = "";
   if(reaction.message.id == "619622989323042816"){
     let role = reaction.message.guild.roles.find(r => r.name == "Master 1ère année");
@@ -721,6 +723,7 @@ bot.on("messageReactionAdd",(reaction,user)=>{
 bot.on("messageReactionRemove",(reaction,user)=>{
   if(!user) return;
   if(user.bot) return;
+  if(!reaction.message.channel.guild) return;
   let role = "";
   if(reaction.message.id == "619622989323042816"){
     let role = reaction.message.guild.roles.find(r => r.name == "Master 1ère année");
