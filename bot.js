@@ -939,6 +939,7 @@ function edt(message,jour,oclock,next){
     }
     var  option = {
         jar: true,
+        followAllRedirects: true,
         uri : 'https://cas.uphf.fr/cas/login?service=https%3A%2F%2Fvtmob.uphf.fr%2Fesup-vtclient-up4%2Fstylesheets%2Fdesktop%2Fwelcome.xhtml',
         method: 'POST',
         headers: header,
@@ -954,11 +955,10 @@ function edt(message,jour,oclock,next){
       }
       console.log("status : "+resp.statusCode);
       if(next === -1){
-        console.log('request url : '+resp.headers['location']);
-        request(resp.headers['location'], function(error, response, html) {
+=
           console.log('html : '+html);
-          DateParsing(message,jour,oclock,html);
-        });
+          DateParsing(message,jour,oclock,bodyy);
+
       } else {
         var header ={
           'Host': 'vtmob.uphf.fr',
@@ -982,11 +982,9 @@ function edt(message,jour,oclock,next){
             form: formdata
         };
         request(option,function(erro,response,body){
-           console.log("\n\n\n\n\n\n");
-           console.log('HTML : '+body);
-          request(option,function(errno,res,html){
+
             DateParsing(message,jour,oclock,html);
-          });
+      
           // console.log(erro);
           // console.log(response);
         });
