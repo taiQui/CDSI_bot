@@ -518,7 +518,7 @@ bot.on("message",(message)=>{
       break;
     case "edt":
       if(!cmd[1]){ message.channel.send("Syntaxe Error =>  !help");return;}
-      if(cmd[1] !== "1" || cmd[1] !== "2" || cmd[1] !== "3" || cmd[1] !== "4"){message.channel.send("Syntaxe Error =>  !help");return;}
+      if(cmd[1] !== "1" && cmd[1] !== "2" && cmd[1] !== "3" && cmd[1] !== "4"){message.channel.send("Syntaxe Error =>  !help");return;}
       if((Number.isInteger(parseInt(cmd[2]))) && cmd[2]){
         if(parseInt(cmd[2])>=1 && parseInt(cmd[2])<= 5){
           edt(message,parseInt(cmd[2]),null,-1,parseInt(cmd[1]));
