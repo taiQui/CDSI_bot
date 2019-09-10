@@ -874,7 +874,7 @@ function getIdPerson(message, name) {
   if (trouver === false) return "-1";
 }
 
-function DateParsing(message,jour,oclock,html){
+function DateParsing(message,jour,oclock,html,classe){
   console.log('-------------------\n\n\n\n');
   var test = html.match(/<td class="blank_column"><b>(.|\n|\r)*<tr class="even_row"><td class="blank_column" colspan="58">/gi);
   if(test === null){
@@ -888,6 +888,20 @@ function DateParsing(message,jour,oclock,html){
     }
   }
   var embedt = new Discord.RichEmbed();
+  switch(classe){
+    case Master1FI:
+      embedt.addField('Master 1 FI - Schedule !',"###############################");
+      break;
+    case Master2FI:
+      embedt.addField('Master 2 FI - Schedule !',"###############################");
+      break;
+    case Master1FA:
+      embedt.addField('Master 1 FA - Schedule !',"###############################");
+      break;
+    case Master2FA:
+      embedt.addField('Master 2 FA - Schedule !',"###############################");
+      break;
+  }
   var i = 0;
   var red = 0;
   while(i < test1.length -1 ){
@@ -1008,7 +1022,9 @@ function DateParsing(message,jour,oclock,html){
     }
     i++;
   }
+
   if(oclock === null){
+
     if(jour != null){
         if(embedt.fields.length > 0)
           message.channel.send(embedt);
@@ -1090,7 +1106,7 @@ function edt(message,jour,oclock,next,classe){
       console.log("status : "+resp.statusCode);
       if(next === -1){
           // console.log('html : '+html);
-          DateParsing(message,jour,oclock,bodyy);
+          DateParsing(message,jour,oclock,bodyy,classe);
 
       } else {
         var header ={
@@ -1116,7 +1132,7 @@ function edt(message,jour,oclock,next,classe){
         };
         request(option,function(erro,response,body){
 
-            DateParsing(message,jour,oclock,html);
+            DateParsing(message,jour,oclock,html,classe);
 
           // console.log(erro);
           // console.log(response);
