@@ -115,7 +115,11 @@ bot.on("message",(message)=>{
   if(bc.length > 0){
     for(let i = 0; i < bc.length; i++){
       if(bc[i][0] === message.author.id){
-        message.delete().then(msg=>console.log("message from "+msg.author.username+" deleted !")).catch(console.error);
+        if(bc[i][1]== null)
+          message.delete().then(msg=>console.log("message from "+msg.author.username+" deleted !")).catch(console.error);
+        else if(bc[i][1] == message.channel.id){
+          message.delete().then(msg=>console.log("message from "+msg.author.username+" deleted !")).catch(console.error);
+        }
         return;
       }
     }
