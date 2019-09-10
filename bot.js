@@ -1074,8 +1074,8 @@ function edt(message,jour,oclock,next,classe){
 function WaitEnough(){
   var d = new Date();
   var compt = 0;
-  if(d.getHours()!=6){
-    while(d.getHours()!= 6){
+  if(d.getHours()!=5){
+    while(d.getHours()!= 5){
       d.setHours(d.getHours()+1);
       compt++;
     }
