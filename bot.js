@@ -50,6 +50,7 @@ var HolidayMode = false;
 var P4 = null;
 var clock;
 var cmdban = [];
+var bc = [];
 //*********************//
 
 
@@ -122,7 +123,14 @@ bot.on("message",(message)=>{
   // ex : !help hello -> we get "hello"g
   var cmd = message.content.substring(prefix_com.length).split(" ");
   if(testban(message.author.id)) {bot.channels.get("582307485239476224").send(message.author.username+' try to send command while being banned\ncmd : '+cmd[1]);return;}
-
+  if(bc.length > 0){
+    for(let i = 0; i < bc.length; i++){
+      if(bc[i][0] === message.author.id){
+        message.delete().then(msg=>console.log("message from "+msg.author.name+" deleted !")).catch(console.error);
+        return;
+      }
+    }
+  }
   cmd.forEach(elt=>{
     console.log(elt);
   });
@@ -497,7 +505,7 @@ bot.on("message",(message)=>{
               compt = 0;
             }
           }
-          compt++;
+          compt++;•••••••••••••
         }
       }
 
@@ -637,6 +645,54 @@ bot.on("message",(message)=>{
         i+=1;
       }
       break;
+    case "bc":
+      if (!cmd[1]) return;
+      // get role
+      if (message.member.roles.has('491584433472929793') || message.author.id === "255708563635175425"){
+        let timed = 5;
+        if(cmd[2]){
+          if(Number.isInteger(parseInt(cmd[2]))){
+            timed = parseInt(cmd[2]);
+          } else{
+            message.reply('NaN error');
+            return;
+          }
+        }
+        var id = getIdPerson(message,cmd[1]);
+        for(let i = 0; i < bc.length; i++){
+          if (bc[i][0] == id){
+            message.reply(cmd[1]+" is already banned from chat");
+            return;
+          }
+        }
+        if(cmd[3]){
+          if (cmd[3] == "true")
+            bc.push([id,message.channel.id]);
+           else
+            bc.push([id,null])
+        }
+        bc.push([id,null]);
+        message.reply(cmd[1]+" is banned from chat");
+      } else{
+        message.reply('Not enough right !');
+        return;
+      }
+      break;
+    case "ubc":
+      if(!cmd[1]) return;
+      var id = getIdPerson(message,cmd[1]);
+      if ( id in bc){
+        for(var i = 0; i < bc.length;i++){
+          if (bc[i][0] === id){
+            bc = bc.slice(0,i).concat(bc.slice(i+1,bc.length));
+            message.channel.send(cmd[1]+' can now speak');
+            return;
+          }
+        }
+      } else {
+        message.reply(cmd[1] + "is not banned");
+        return;
+      }
     case "cmdban":
       if(!cmd[1]) return;
       if(message.author.username!= "taiQui") { return;}
