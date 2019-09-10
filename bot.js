@@ -112,6 +112,16 @@ bot.on("message",(message)=>{
   //if message sent by bot
   if(message.author.equals(bot.user)) { return }
   //if message doesn't begin by prefix
+  if(bc.length > 0){
+    for(let i = 0; i < bc.length; i++){
+      if(bc[i][0] === message.author.id){
+        message.delete().then(msg=>console.log("message from "+msg.author.username+" deleted !")).catch(console.error);
+        return;
+      }
+    }
+  } else {
+    console.log("no one is banned!");
+  }
   if(!message.content.startsWith(prefix_com)){ return }
   if(P4 !== null){
     if(P4.isInGame() && (P4.controlPlaying(message.author.id))){
@@ -125,16 +135,6 @@ bot.on("message",(message)=>{
   // ex : !help hello -> we get "hello"g
   var cmd = message.content.substring(prefix_com.length).split(" ");
   if(testban(message.author.id)) {bot.channels.get("582307485239476224").send(message.author.username+' try to send command while being banned\ncmd : '+cmd[1]);return;}
-  if(bc.length > 0){
-    for(let i = 0; i < bc.length; i++){
-      if(bc[i][0] === message.author.id){
-        message.delete().then(msg=>console.log("message from "+msg.author.username+" deleted !")).catch(console.error);
-        return;
-      }
-    }
-  } else {
-    console.log("no one is banned!");
-  }
   cmd.forEach(elt=>{
     console.log(elt);
   });
