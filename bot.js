@@ -80,12 +80,14 @@ bot.on("ready",()=>{
    console.log("time to wait "+time/1000+" second");
    setTimeout(function(){
      console.log("executing");
+     edt(null,day,bot.channels.get("519610855927709716"),-1,1);
      edt(null,day,bot.channels.get("519610855927709716"),-1,2);
      clock = setInterval(function(){
        var dat = new Date();
        if(HolidayMode === false){
          if(dat.getDay()>= 1 && dat.getDay() <= 5){
            if(verifDay(dat.getDay())){
+             edt(null,dat.getDay(),bot.channels.get("519610855927709716"),-1,1);
              edt(null,dat.getDay(),bot.channels.get("519610855927709716"),-1,2);
            }
          }
