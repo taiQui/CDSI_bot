@@ -65,7 +65,7 @@ bot.on("ready",()=>{
   bot.user.setGame("Hacking in progress !");
   // Casino.init();
   Pendu.start(prefix_com);
-  // var time = WaitEnough();
+  var time = WaitEnough();
   var day;
   var d = new Date();
   bot.channels.get("582307485239476224").send('Online : '+d.toLocaleDateString()+" -- "+d.toLocaleTimeString()+ '   (UTC)');
