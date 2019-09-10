@@ -69,28 +69,28 @@ bot.on("ready",()=>{
   var day;
   var d = new Date();
   bot.channels.get("582307485239476224").send('Online : '+d.toLocaleDateString()+" -- "+d.toLocaleTimeString()+ '   (UTC)');
-  // if(time[1]==1){
-  //   time = time[0]*3600*1000;
-  //   day = d.getDay()+1;
-  // } else {
-  //   time = time[0]*60*1000;
-  //   day = d.getDay();
-  // }
-  // console.log("time to wait "+time/1000+" second");
-  // setTimeout(function(){
-  //   console.log("executing");
-  //   edt(null,day,bot.channels.get("519610855927709716"),-1);
-  //   clock = setInterval(function(){
-  //     var dat = new Date();
-  //     if(HolidayMode === false){
-  //       if(dat.getDay()>= 1 && dat.getDay() <= 5){
-  //         if(verifDay(dat.getDay())){
-  //           edt(null,dat.getDay(),bot.channels.get("519610855927709716"),-1);
-  //         }
-  //       }
-  //     }
-  //   },(3600*24)*1000);
-  // },time);
+   if(time[1]==1){
+     time = time[0]*3600*1000;
+     day = d.getDay()+1;
+   } else {
+     time = time[0]*60*1000;
+     day = d.getDay();
+   }
+   console.log("time to wait "+time/1000+" second");
+   setTimeout(function(){
+     console.log("executing");
+     edt(null,day,bot.channels.get("519610855927709716"),-1,2);
+     clock = setInterval(function(){
+       var dat = new Date();
+       if(HolidayMode === false){
+         if(dat.getDay()>= 1 && dat.getDay() <= 5){
+           if(verifDay(dat.getDay())){
+             edt(null,dat.getDay(),bot.channels.get("519610855927709716"),-1,2);
+           }
+         }
+       }
+     },(3600*24)*1000);
+   },time);
 });
 
 function testban(id){
