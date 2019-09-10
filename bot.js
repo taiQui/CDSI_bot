@@ -126,7 +126,7 @@ bot.on("message",(message)=>{
   if(bc.length > 0){
     for(let i = 0; i < bc.length; i++){
       if(bc[i][0] === message.author.id){
-        message.delete().then(msg=>console.log("message from "+msg.author.name+" deleted !")).catch(console.error);
+        message.delete().then(msg=>console.log("message from "+msg.author.username+" deleted !")).catch(console.error);
         return;
       }
     }
