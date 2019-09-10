@@ -681,6 +681,9 @@ bot.on("message",(message)=>{
       } else{
         message.reply('Not enough right !');
       }
+      setTimeout(function(){
+        unban(id,message,cmd[1]);
+      },(timed*1000)*60);
       break;
     case "ubc":
       if(!cmd[1]) return;
@@ -1174,4 +1177,16 @@ function rep(message,msg){
 function verifDay(date1){
   var date = new Date();
   return((date.getDay() === date1)&&(date.getDay() >=1 && date.getDay()<=5));
+}
+
+function unban(id,message,name){
+  console.log('yolo');
+  for(var i = 0; i < bc.length;i++){
+    if (bc[i][0] === id){
+      bc = bc.slice(0,i).concat(bc.slice(i+1,bc.length));
+      message.channel.send(name+' can now speak');
+      return;
+    }
+
+  }
 }
