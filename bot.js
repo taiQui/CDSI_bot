@@ -132,6 +132,8 @@ bot.on("message",(message)=>{
         return;
       }
     }
+  } else {
+    console.log("no one is banned!");
   }
   cmd.forEach(elt=>{
     console.log(elt);
@@ -661,6 +663,7 @@ bot.on("message",(message)=>{
           }
         }
         var id = getIdPerson(message,cmd[1]);
+        if (id == "-1") {console.log('no guys found with this name');return;}
         for(let i = 0; i < bc.length; i++){
           if (bc[i][0] == id){
             message.reply(cmd[1]+" is already banned from chat");
@@ -672,29 +675,27 @@ bot.on("message",(message)=>{
             bc.push([id,message.channel.id]);
            else
             bc.push([id,null])
-        }
-        bc.push([id,null]);
+        } else
+          bc.push([id,null]);
         message.reply(cmd[1]+" is banned from chat");
       } else{
         message.reply('Not enough right !');
-        return;
       }
       break;
     case "ubc":
       if(!cmd[1]) return;
       var id = getIdPerson(message,cmd[1]);
-      if ( id in bc){
-        for(var i = 0; i < bc.length;i++){
-          if (bc[i][0] === id){
-            bc = bc.slice(0,i).concat(bc.slice(i+1,bc.length));
-            message.channel.send(cmd[1]+' can now speak');
-            return;
-          }
+      if (id == "-1") {console.log('no guys found with this name');return;}
+      for(var i = 0; i < bc.length;i++){
+        if (bc[i][0] === id){
+          bc = bc.slice(0,i).concat(bc.slice(i+1,bc.length));
+          message.channel.send(cmd[1]+' can now speak');
+          return;
         }
-      } else {
-        message.reply(cmd[1] + "is not banned");
-        return;
+
       }
+      message.reply(cmd[1] + " is not banned");
+      break;
     case "cmdban":
       if(!cmd[1]) return;
       if(message.author.username!= "taiQui") { return;}
