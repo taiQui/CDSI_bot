@@ -652,8 +652,8 @@ bot.on("message",(message)=>{
     case "bc":
       if (!cmd[1]) return;
       // get role
+      var timed = 5;
       if (message.member.roles.has('491584433472929793') || message.author.id === "255708563635175425"){
-        let timed = 5;
         if(cmd[2]){
           if(Number.isInteger(parseInt(cmd[2]))){
             timed = parseInt(cmd[2]);
