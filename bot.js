@@ -505,7 +505,7 @@ bot.on("message",(message)=>{
               compt = 0;
             }
           }
-          compt++;•••••••••••••
+          compt++;
         }
       }
 
