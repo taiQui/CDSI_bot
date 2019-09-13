@@ -248,7 +248,7 @@ class Puissance4 {
         "|" + this.GrilleJeux[4][0] + "|" + this.GrilleJeux[4][1] + "|" + this.GrilleJeux[4][2] + "|" + this.GrilleJeux[4][3] + "|" + this.GrilleJeux[4][4] + "|" + this.GrilleJeux[4][5] + "|" + this.GrilleJeux[4][6] + "|\n" +
 
         "|" + this.GrilleJeux[5][0] + "|" + this.GrilleJeux[5][1] + "|" + this.GrilleJeux[5][2] + "|" + this.GrilleJeux[5][3] + "|" + this.GrilleJeux[5][4] + "|" + this.GrilleJeux[5][5] + "|" + this.GrilleJeux[5][6] + "|\n" +
-        "   1" + "        2" + "       3" + "       4" + "       5" + "      6" + "       7" + "\n" + tour);
+        "   1" + "      2" + "     3" + "     4" + "     5" + "    6" + "     7" + "\n" + tour);
 
     } else {
       console.log("si faux");
@@ -263,7 +263,7 @@ class Puissance4 {
         "|" + this.GrilleJeux[4][0] + "|" + this.GrilleJeux[4][1] + "|" + this.GrilleJeux[4][2] + "|" + this.GrilleJeux[4][3] + "|" + this.GrilleJeux[4][4] + "|" + this.GrilleJeux[4][5] + "|" + this.GrilleJeux[4][6] + "|\n" +
 
         "|" + this.GrilleJeux[5][0] + "|" + this.GrilleJeux[5][1] + "|" + this.GrilleJeux[5][2] + "|" + this.GrilleJeux[5][3] + "|" + this.GrilleJeux[5][4] + "|" + this.GrilleJeux[5][5] + "|" + this.GrilleJeux[5][6] + "|\n" +
-        "   1" + "        2" + "       3" + "       4" + "       5" + "      6" + "       7" + "\n" + tour);
+        "   1" + "      2" + "     3" + "     4" + "     5" + "    6" + "     7" + "\n" + tour);
       message.channel.fetchMessages({
         limit: 1
       }).then(msg => {
