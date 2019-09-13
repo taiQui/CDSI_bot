@@ -173,7 +173,7 @@ bot.on("message",(message)=>{
       // embHelp.addField("!nextcoin","print when you will get next 100 coin");
       // embHelp.addField("!roll","play like in casino");
       embHelp.addField("!rm[stat] [Pseudo RootMe]","Print root-me's point, if rmstat : print statistique");
-      embHelp.addField("!p4 name","Play Puissance 4 with your friends, put your own name to play in local");
+      embHelp.addField("!p4 [name]","Play Puissance 4 with your friends, put your own name to play in local, put nothing to play vs master 6b3r IA");
       embHelp.addField("!edt class [day]","Print Schedule for specified class\n   Master 1 FI => 1\n   Master 2 FI => 2\n   Master 1 FA => 3\n   Master 2 FA => 4");
       embHelp.addField("!timer [hh:mm:ss]","Run a timer");
       message.channel.send(embHelp);
