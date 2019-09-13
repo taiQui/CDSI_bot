@@ -597,23 +597,24 @@ bot.on("message",(message)=>{
     //   }
     //   break;
     case "p4":
+      let bot_or_not = 0;
+      let player2;
       if(!cmd[1]){
-        message.channel.send('Missed Id 2nd player');
-        return;
-      }
-      if(P4 !== null){
-        if(P4.isInGame()){
-          message.channel.send('Someone is currently playing');
+        cmd[1] = "The BOT";
+        bot_or_not = 1;
+        player2 = "BOT";
+      } else {
+        if(P4 !== null){
+          if(P4.isInGame()){
+            message.channel.send('Someone is currently playing');
+            return;
+          }
+        }
+        player2 = getIdPerson(message,cmd[1]);
+        if(player2 === "-1"){
+          message.channel.send('Name not found');
           return;
         }
-      }
-      let player2 = getIdPerson(message,cmd[1]);
-      if(player2 === "-1"){
-        message.channel.send('Name not found');
-        return;
-      }
-      if (message.author.id === player2){
-        message.channel.send('I hope you don\'t play against yourself');
       }
       let embP4 = new Discord.RichEmbed();
       embP4.addField('Puissance 4','Player 1 : '+message.author.username+'\nPlayer 2 : '+cmd[1]+'\nTo speak in playing put \'&\'before your message\nSend STOP to stop the game',false);
@@ -623,7 +624,7 @@ bot.on("message",(message)=>{
         limit: 1
       }).then(msg => {
         P4 = new Puissance4File.Puissance4(bot);
-        P4.init(message.author.id,player2,message.channel.name,msg.array()[0]);
+        P4.init(message.author.id,player2,message.channel.name,msg.array()[0],bot_or_not);
         P4.printGrid(message);
       });
       break;
