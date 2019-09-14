@@ -560,9 +560,11 @@ class Puissance4 {
             if(this.test_align_BOT(i-1,grid_aux) == 1) score_tours[i-1] += 100;
             // console.log("DEBUG BOT - 5");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
-            // grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
-            // grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP2;
-            // if(this.test_win_USER(grid_aux) === 1) score_tours[i-1] -= 1000;
+            grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
+            if(this.findIndex(i-1,grid_aux) != -1){
+              grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP2;
+              if(this.test_win_USER(grid_aux) === 1) score_tours[i-1] -= 1000;
+            }
             //Test if there are user case next to here
             // if (this.test_align_USER(i-1,grid_aux) == 1) score_tours[i-1] += 100;
             // console.log("DEBUG BOT - 6");
