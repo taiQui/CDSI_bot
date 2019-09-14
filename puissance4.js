@@ -523,28 +523,29 @@ class Puissance4 {
           // console.log('----------------')
           // this.print(this.GrilleJeux);
           if(this.findIndex(i - 1,grid_aux) === -1) {
-            score_tours[i-1] -= 2000;
+            score_tours[i-1] -= 5000;
           } else {
             // console.log('Nombre de tours joué : '+this.turn_played()+"\n----------------------");
             // console.log("DEBUG BOT - 1");
 
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
-            if(this.test_win_BOT(grid_aux) === 1) score_tours[i-1]+=1000;
+            if(this.test_win_BOT(grid_aux) === 1) score_tours[i-1]+=2000;
             if(this.Full(grid_aux)) score_tours[i-1] += 5000;
             // console.log("DEBUG BOT - 2");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP2;
-            if(this.test_win_USER(grid_aux) === 1) score_tours[i-1] += 500;
+            if(this.test_win_USER(grid_aux) === 1) score_tours[i-1] += 1000;
             // console.log("DEBUG BOT - 3");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
             let before = this.test_align_plus(grid_aux);
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
             let after = this.test_align_plus(grid_aux);
-            if (after > before) score_tours[i-1] += 300;
+            if (after > before && after == 2) score_tours[i-1] += 100;
+            if (after > before && after == 3) score_tours[i-1] += 200;
             // console.log("DEBUG BOT - 4");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
-            if(this.test_align_BOT(i-1,grid_aux) == 1) score_tours[i-1] += 200;
+            if(this.test_align_BOT(i-1,grid_aux) == 1) score_tours[i-1] += 100;
             // console.log("DEBUG BOT - 5");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
