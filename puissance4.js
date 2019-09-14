@@ -545,7 +545,7 @@ class Puissance4 {
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
             let after = this.test_align_plus(grid_aux,2);
             if (after > before && after == 2) score_tours[i-1] += 200;
-            if (after > before && after == 3) score_tours[i-1] += 200;
+            if (after > before && after == 3) score_tours[i-1] += 300;
             // console.log("DEBUG BOT - 4");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
             //test if there as 2 or 3 case which are allign if user plays here
@@ -561,6 +561,8 @@ class Puissance4 {
             // console.log("DEBUG BOT - 5");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
+            grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP2;
+            if(this.test_win_USER(grid_aux) === 1) score_tours[i-1] -= 1000;
             //Test if there are user case next to here
             // if (this.test_align_USER(i-1,grid_aux) == 1) score_tours[i-1] += 100;
             // console.log("DEBUG BOT - 6");
@@ -570,9 +572,16 @@ class Puissance4 {
         let max = 0;
         let score_max = 0;
         for(let i = 0; i < 7 ;i++){
-          if(score_tours[i] > score_max){
-            score_max = score_tours[i];
-            max = i;
+          if(score_tours[i] >= score_max){
+            if (score_tours[i] > score_max){
+              score_max = score_tours[i];
+              max = i;
+            } else {
+              if(Math.floor(Math.random() * Math.floor(2))){
+                score_max = score_tours[i];
+                max = i;
+              }
+            }
           }
         }
         this.GrilleJeux[this.findIndex(max,this.GrilleJeux)][max] = this.itemP1;
