@@ -549,9 +549,9 @@ class Puissance4 {
             // console.log("DEBUG BOT - 4");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
             //test if there as 2 or 3 case which are allign if user plays here
-            let before = this.test_align_plus(grid_aux,1);
+            before = this.test_align_plus(grid_aux,1);
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP2;
-            let after = this.test_align_plus(grid_aux,1);
+            after = this.test_align_plus(grid_aux,1);
             if (after > before && after == 2) score_tours[i-1] += 100;
             if (after > before && after == 3) score_tours[i-1] += 200;
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
@@ -564,7 +564,7 @@ class Puissance4 {
             //Test if there are user case next to here
             if (this.test_align_USER(i-1,grid_aux) == 1) score_tours[i-1] += 100;
             // console.log("DEBUG BOT - 6");
-            
+
           }
         }
         let max = 0;
