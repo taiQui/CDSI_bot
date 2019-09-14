@@ -529,28 +529,42 @@ class Puissance4 {
             // console.log("DEBUG BOT - 1");
 
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
+            //test if bot win if he plays here
             if(this.test_win_BOT(grid_aux) === 1) score_tours[i-1]+=2000;
+            //test if map if full if he plays here
             if(this.Full(grid_aux)) score_tours[i-1] += 5000;
             // console.log("DEBUG BOT - 2");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP2;
+            //test if user win if user play here
             if(this.test_win_USER(grid_aux) === 1) score_tours[i-1] += 1000;
             // console.log("DEBUG BOT - 3");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
-            let before = this.test_align_plus(grid_aux);
+            //test if there 2 or 3 case which are align if bot plays here
+            let before = this.test_align_plus(grid_aux,2);
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
-            let after = this.test_align_plus(grid_aux);
-            if (after > before && after == 2) score_tours[i-1] += 100;
+            let after = this.test_align_plus(grid_aux,2);
+            if (after > before && after == 2) score_tours[i-1] += 200;
             if (after > before && after == 3) score_tours[i-1] += 200;
             // console.log("DEBUG BOT - 4");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
+            //test if there as 2 or 3 case which are allign if user plays here
+            let before = this.test_align_plus(grid_aux,1);
+            grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP2;
+            let after = this.test_align_plus(grid_aux,1);
+            if (after > before && after == 2) score_tours[i-1] += 100;
+            if (after > before && after == 3) score_tours[i-1] += 200;
+            grid_aux = this.GrilleJeux.map(arr => arr.slice());
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
+            //test if there are bot case next to here
             if(this.test_align_BOT(i-1,grid_aux) == 1) score_tours[i-1] += 100;
             // console.log("DEBUG BOT - 5");
             grid_aux = this.GrilleJeux.map(arr => arr.slice());
             grid_aux[this.findIndex(i-1,grid_aux)][i-1] = this.itemP1;
+            //Test if there are user case next to here
             if (this.test_align_USER(i-1,grid_aux) == 1) score_tours[i-1] += 100;
             // console.log("DEBUG BOT - 6");
+            
           }
         }
         let max = 0;
@@ -695,15 +709,24 @@ class Puissance4 {
     if(this.testHorizontale(grid) ===1) return 1;
     return 0;
   }
-  test_align_plus(grid){
+  test_align_plus(grid,player){
     let max = 0;
     let aux_max = 0;
     //horizontale
+    let enemie = "";
+    let ally = "";
+    if(player == 1){
+      enemie = this.itemP1;
+      ally = this.itemP2;
+    } else {
+      enemie = this.itemP2;
+      ally = this.itemP1;
+    }
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 7; j++) {
-        if (grid[i][j] === this.itemP2) {
+        if (grid[i][j] === enemie) {
           aux_max = 0;
-        } else if (grid[i][j] === this.itemP1) {
+        } else if (grid[i][j] === ally) {
           aux_max++;
         } else {
           aux_max = 0;
@@ -715,9 +738,9 @@ class Puissance4 {
     //verticale
     for (let i = 0; i < 7; i++) {
       for (let j = 0; j < 6; j++) {
-        if (grid[j][i] === this.itemP2) {
+        if (grid[j][i] === enemie) {
           aux_max = 0;
-        } else if (grid[j][i] === this.itemP1) {
+        } else if (grid[j][i] === ally) {
           aux_max++;
         } else {
           aux_max = 0;
@@ -729,10 +752,10 @@ class Puissance4 {
     //diag montante
     for (let i = 3; i < 6; i++) {
       for (let j = 0; j < 4; j++) {
-        if (grid[i][j] === this.itemP1) aux_max += 1;
-        if (grid[i - 1][j + 1] === this.itemP1) aux_max += 1;
-        if (grid[i - 2][j + 2] === this.itemP1) aux_max += 1;
-        if (grid[i - 3][j + 3] === this.itemP1) aux_max += 1;
+        if (grid[i][j] === ally) aux_max += 1;
+        if (grid[i - 1][j + 1] === ally) aux_max += 1;
+        if (grid[i - 2][j + 2] === ally) aux_max += 1;
+        if (grid[i - 3][j + 3] === ally) aux_max += 1;
       }
     }
     if (aux_max > max) max = aux_max;
@@ -740,15 +763,16 @@ class Puissance4 {
     //diag descen
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 4; j++) {
-        if (grid[i][j] === this.itemP1) aux_max += 1;
-        if (grid[i + 1][j + 1] === this.itemP1) aux_max += 1;
-        if (grid[i + 2][j + 2] === this.itemP1) aux_max += 1;
-        if (grid[i + 3][j + 3] === this.itemP1) aux_max += 1;
+        if (grid[i][j] === ally) aux_max += 1;
+        if (grid[i + 1][j + 1] === ally) aux_max += 1;
+        if (grid[i + 2][j + 2] === ally) aux_max += 1;
+        if (grid[i + 3][j + 3] === ally) aux_max += 1;
       }
     }
     if (aux_max > max) max = aux_max;
     return max;
   }
+  //if there is one turn played by me next to
   test_align_BOT(index,grid){
     let i = 5;
     let continuer = true;
@@ -781,6 +805,7 @@ class Puissance4 {
     }
     return 0;
   }
+  //if there is one turn played by users next to
   test_align_USER(index,grid){
     let i = 5;
     let continuer = true;
