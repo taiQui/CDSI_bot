@@ -1137,7 +1137,7 @@ function edt(message,jour,oclock,next,classe){
         };
         request(option,function(erro,response,body){
 
-            DateParsing(message,jour,oclock,html,classe);
+            DateParsing(message,jour,oclock,body,classe);
 
           // console.log(erro);
           // console.log(response);
