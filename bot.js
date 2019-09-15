@@ -1158,13 +1158,7 @@ function edt(message,jour,oclock,next,classe){
           method: 'GET',
           headers: header,
       };
-      request(option,function(erno,resp,html){
-        if("Déconnexion réussie" in html){
-          console.log('succès to sign out !');
-        } else {
-          console.log('Fail to sign out');
-        }
-      });
+
     });
 
   });
