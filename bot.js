@@ -175,6 +175,7 @@ bot.on("message",(message)=>{
       embHelp.addField("!rm[stat] [Pseudo RootMe]","Print root-me's point, if rmstat : print statistique");
       embHelp.addField("!p4 [name]","Play Puissance 4 with your friends, put your own name to play in local, put nothing to play vs master 6b3r IA");
       embHelp.addField("!edt class [day]","Print Schedule for specified class\n   Master 1 FI => 1\n   Master 2 FI => 2\n   Master 1 FA => 3\n   Master 2 FA => 4");
+      embHelp.addField("!edtnext class","Print next week schedule for specified class, same as edt for class");
       embHelp.addField("!timer [hh:mm:ss]","Run a timer");
       message.channel.send(embHelp);
       break;
@@ -581,21 +582,14 @@ bot.on("message",(message)=>{
       },(parseInt(cmd[1].split(':')[0]*3600)+parseInt(cmd[1].split(':')[1]*60)+parseInt(cmd[1].split(':')[2]))*1000);
       message.channel.send('Timer start !');
       break;
-    // case "edtnext":
-    //   if(!cmd[1]){
-    //     edt(message,null,null,1);
-    //   } else {
-    //     if(isNaN(cmd[1])){
-    //       message.channel.send('Not a valid Number !');
-    //       return;
-    //     }
-    //     if(parseInt(cmd[1])>15 || parseInt(cmd[1])<=0){
-    //       message.channel.send('Not a valid number - [1-15]');
-    //       return;
-    //     }
-    //     edt(message,null,null,parseInt(cmd[1]));
-    //   }
-    //   break;
+    case "edtnext":
+      if(!cmd[1]){
+        message.reply('Syntax Error => !help')
+      } else {
+        if(cmd[1] !== "1" && cmd[1] !== "2" && cmd[1] !== "3" && cmd[1] !== "4"){message.channel.send("Syntaxe Error =>  !help");return;}
+        edt(message,null,null,1,cmd[1]);
+      }
+      break;
     case "p4":
       let bot_or_not = 0;
       let player2;
@@ -1149,7 +1143,30 @@ function edt(message,jour,oclock,next,classe){
           // console.log(response);
         });
       }
+      // to disconnect
+      var header ={
+        'Host': 'portail.uphf.fr',
+        'Referer': 'https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1',
+        'Cookie': response.headers['set-cookie'],
+        'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.9'
+      }
+      var  option = {
+          jar: true,
+          followAllRedirects: true,
+          uri : 'https://portail.uphf.fr/uPortal/Logout',
+          method: 'GET',
+          headers: header,
+      };
+      request(option,function(erno,resp,html){
+        if("Déconnexion réussie" in html){
+          console.log('succès to sign out !');
+        } else {
+          console.log('Fail to sign out');
+        }
+      });
     });
+
   });
   return;
 }
