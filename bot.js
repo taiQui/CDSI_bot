@@ -587,7 +587,7 @@ bot.on("message",(message)=>{
         message.reply('Syntax Error => !help')
       } else {
         if(cmd[1] !== "1" && cmd[1] !== "2" && cmd[1] !== "3" && cmd[1] !== "4"){message.channel.send("Syntaxe Error =>  !help");return;}
-        edt(message,null,null,1,cmd[1]);
+        edt(message,null,null,1,parseInt(cmd[1]));
       }
       break;
     case "p4":
@@ -1118,7 +1118,7 @@ function edt(message,jour,oclock,next,classe){
           'Host': 'vtmob.uphf.fr',
           'Referer': 'https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml',
           'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1',
-          'Cookie': response.headers['set-cookie'],
+          'Cookie': resp.headers['set-cookie'],
           'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.9'
         }
         var formdata = {
@@ -1143,21 +1143,7 @@ function edt(message,jour,oclock,next,classe){
           // console.log(response);
         });
       }
-      // to disconnect
-      var header ={
-        'Host': 'portail.uphf.fr',
-        'Referer': 'https://vtmob.uphf.fr/esup-vtclient-up4/stylesheets/desktop/welcome.xhtml',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1',
-        'Cookie': response.headers['set-cookie'],
-        'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.9'
-      }
-      var  option = {
-          jar: true,
-          followAllRedirects: true,
-          uri : 'https://portail.uphf.fr/uPortal/Logout',
-          method: 'GET',
-          headers: header,
-      };
+
 
     });
 
