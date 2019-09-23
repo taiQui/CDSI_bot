@@ -98,31 +98,37 @@ bot.on("ready",()=>{
      },(3600*24)*1000);
    },time);
    dtime = Date.now();
-   bot.channels.get("625675545061097472").fetchMessage("625675699885309970").then(function(msg){
+   bot.channels.get("625675545061097472").fetchMessage("625696059179401246").then(function(msg){
      let schedule = new Edt.EDT(1);
      schedule.exec().then(function(emb){
        msg.edit("Edited : "+d.toLocaleTimeString()+" - "+d.toLocaleDateString()+"\n"+emb);
      });
    });
-   bot.channels.get("625675545061097472").fetchMessage("625675712296124426").then(function(msg){
+   bot.channels.get("625675545061097472").fetchMessage("625696067043983382").then(function(msg){
      let schedule = new Edt.EDT(2);
      schedule.exec().then(function(emb){
        msg.edit("Edited : "+d.toLocaleTimeString()+" - "+d.toLocaleDateString()+"\n"+emb);
      });
    });
+   bot.channels.get("625675545061097472").fetchMessage("625696053794177034").then(function(msg){
+     msg.edit("Edited : "+d.toLocaleTimeString()+" - "+d.toLocaleDateString());
+   });
    setInterval(function(){
      dtime = Date.now();
-     bot.channels.get("625675545061097472").fetchMessage("625675699885309970").then(function(msg){
+     bot.channels.get("625675545061097472").fetchMessage("625696059179401246").then(function(msg){
        let schedule = new Edt.EDT(1);
        schedule.exec().then(function(emb){
          msg.edit("Edited : "+d.toLocaleTimeString()+" - "+d.toLocaleDateString()+"\n"+emb);
        });
      });
-     bot.channels.get("625675545061097472").fetchMessage("625675712296124426").then(function(msg){
+     bot.channels.get("625675545061097472").fetchMessage("625696067043983382").then(function(msg){
        let schedule = new Edt.EDT(2);
        schedule.exec().then(function(emb){
          msg.edit("Edited : "+d.toLocaleTimeString()+" - "+d.toLocaleDateString()+"\n"+emb);
        });
+     });
+     bot.channels.get("625675545061097472").fetchMessage("625696053794177034").then(function(msg){
+       msg.edit("Edited : "+d.toLocaleTimeString()+" - "+d.toLocaleDateString());
      });
    },((3600*2)+600)*1000)
 });
