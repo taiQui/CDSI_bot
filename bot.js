@@ -99,6 +99,8 @@ bot.on("ready",()=>{
    },time);
    dtime = Date.now();
    setInterval(function(){
+     var dateinterval = new Date();
+     dateinterval.setHours(dateinterval.getHours()+2);
      dtime = Date.now();
      bot.channels.get("625675545061097472").fetchMessage("625696059179401246").then(function(msg){
        let schedule = new Edt.EDT(1);
@@ -113,7 +115,7 @@ bot.on("ready",()=>{
        });
      });
      bot.channels.get("625675545061097472").fetchMessage("625696053794177034").then(function(msg){
-       msg.edit("Edited : "+d.toLocaleTimeString()+" - "+d.toLocaleDateString());
+       msg.edit("Edited : "+dateinterval.toLocaleTimeString()+" - "+dateinterval.toLocaleDateString());
      });
    },((3600*2)+600)*1000)
 });
