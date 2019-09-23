@@ -72,7 +72,7 @@ bot.on("ready",()=>{
   var day;
   var d = new Date();
   d.setHours(d.getHours()+2);
-  bot.channels.get("582307485239476224").send('Online : '+d.toLocaleDateString()+" -- "+d.toLocaleTimeString()+ '   (UTC)');
+  bot.channels.get("582307485239476224").send('Online : '+d.toLocaleDateString()+" -- "+d.toLocaleTimeString()+ '   (UTC+2)');
    if(time[1]==1){
      time = time[0]*3600*1000;
      day = d.getDay()+1;
@@ -102,13 +102,13 @@ bot.on("ready",()=>{
      bot.channels.get("625675545061097472").fetchMessage("625675699885309970").then(function(msg){
        let schedule = new Edt.EDT(1);
        schedule.exec().then(function(emb){
-         msg.edit("Edited : "+d.toLocaleTimeString()+" - "d.toLocaleDateString()+"\n"+emb);
+         msg.edit("Edited : "+d.toLocaleTimeString()+" - "+d.toLocaleDateString()+"\n"+emb);
        });
      });
      bot.channels.get("625675545061097472").fetchMessage("625675712296124426").then(function(msg){
        let schedule = new Edt.EDT(2);
        schedule.exec().then(function(emb){
-         msg.edit("Edited : "+d.toLocaleTimeString()+" - "d.toLocaleDateString()+"\n"+emb);
+         msg.edit("Edited : "+d.toLocaleTimeString()+" - "+d.toLocaleDateString()+"\n"+emb);
        });
      });
    },((3600*2)+600)*1000)
