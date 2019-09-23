@@ -619,6 +619,7 @@ bot.on("message",(message)=>{
         message.reply('Can use this at this moment - time to wait approximately : '+time2wait+" minutes");
         return;
       }
+      dtime = Date.now();
       if(!cmd[1]){
         message.reply('Syntax Error => !help')
       } else {
