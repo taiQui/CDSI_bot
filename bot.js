@@ -7,7 +7,7 @@ const penduFile = require("./pendu.js");
 const CasinoFile = require("./money.js");
 const VoteFile = require("./vote.js");
 const Puissance4File = require('./puissance4.js');
-
+const Edt = require('./edt.js')
 
 
 //some library
@@ -51,6 +51,8 @@ var P4 = null;
 var clock;
 var cmdban = [];
 var bc = [];
+var dtime = Date.now();
+var etime;
 //*********************//
 
 
@@ -69,6 +71,7 @@ bot.on("ready",()=>{
   var time = WaitEnough();
   var day;
   var d = new Date();
+  d.setHours(d.getHours()+2);
   bot.channels.get("582307485239476224").send('Online : '+d.toLocaleDateString()+" -- "+d.toLocaleTimeString()+ '   (UTC)');
    if(time[1]==1){
      time = time[0]*3600*1000;
@@ -94,6 +97,21 @@ bot.on("ready",()=>{
        }
      },(3600*24)*1000);
    },time);
+   setInterval(function(){
+     dtime = Date.now();
+     bot.channels.get("625675545061097472").fetchMessage("625675699885309970").then(function(msg){
+       let schedule = new Edt.EDT(1);
+       schedule.exec().then(function(emb){
+         msg.edit("Edited : "+d.toLocaleTimeString()+" - "d.toLocaleDateString()+"\n"+emb);
+       });
+     });
+     bot.channels.get("625675545061097472").fetchMessage("625675712296124426").then(function(msg){
+       let schedule = new Edt.EDT(2);
+       schedule.exec().then(function(emb){
+         msg.edit("Edited : "+d.toLocaleTimeString()+" - "d.toLocaleDateString()+"\n"+emb);
+       });
+     });
+   },((3600*2)+600)*1000)
 });
 
 function testban(id){
@@ -534,6 +552,8 @@ bot.on("message",(message)=>{
     });
       break;
     case "edt":
+      message.reply('edt not available now - probably maintenance');
+      return;
       if(!cmd[1]){ message.channel.send("Syntaxe Error =>  !help");return;}
       if(cmd[1] !== "1" && cmd[1] !== "2" && cmd[1] !== "3" && cmd[1] !== "4"){message.channel.send("Syntaxe Error =>  !help");return;}
       if((Number.isInteger(parseInt(cmd[2]))) && cmd[2]){
@@ -583,6 +603,18 @@ bot.on("message",(message)=>{
       message.channel.send('Timer start !');
       break;
     case "edtnext":
+      etime = Date.now();
+      if(((etime - dtime)/1000.0)/60.0 < 35 ) {
+        let time2wait = 35 - ((etime - dtime)/1000.0)/60.0)
+        message.reply('Can use this at this moment - time to wait approximately : '+time2wait+" minutes");
+
+        return;
+      }
+      if(((etime - dtime)/1000.0)/60.0 > 90){
+        let time2wait = 120 - ((etime - dtime)/1000.0)/60.0)
+        message.reply('Can use this at this moment - time to wait approximately : '+time2wait+" minutes");
+        return;
+      }
       if(!cmd[1]){
         message.reply('Syntax Error => !help')
       } else {
