@@ -97,6 +97,7 @@ bot.on("ready",()=>{
        }
      },(3600*24)*1000);
    },time);
+   dtime = Date.now();
    setInterval(function(){
      dtime = Date.now();
      bot.channels.get("625675545061097472").fetchMessage("625696059179401246").then(function(msg){
