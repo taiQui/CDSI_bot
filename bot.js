@@ -605,13 +605,13 @@ bot.on("message",(message)=>{
     case "edtnext":
       etime = Date.now();
       if(((etime - dtime)/1000.0)/60.0 < 35 ) {
-        let time2wait = 35 - ((etime - dtime)/1000.0)/60.0)
+        let time2wait = 35 - (((etime - dtime)/1000.0)/60.0);
         message.reply('Can use this at this moment - time to wait approximately : '+time2wait+" minutes");
 
         return;
       }
       if(((etime - dtime)/1000.0)/60.0 > 90){
-        let time2wait = 120 - ((etime - dtime)/1000.0)/60.0)
+        let time2wait = 120 - (((etime - dtime)/1000.0)/60.0);
         message.reply('Can use this at this moment - time to wait approximately : '+time2wait+" minutes");
         return;
       }
