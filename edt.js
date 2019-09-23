@@ -7,6 +7,7 @@ let Master2FA = 4;
 
 class EDT {
   constructor(classe){
+    this.classe = classe;
     if(classe === Master1FI){
       this.username = process.env.ISTVUM1;
       this.password = process.env.ISTVPM1;
@@ -45,7 +46,7 @@ class EDT {
         var _useragent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) \\ Gecko/20100101 Firefox/40.1"
         var _submit ="Connexion";
         var sessionid = body.match(/jsessionid=[a-zA-Z0-9]+/g)[0].split("=")[1];
-        
+
         var form_data = {
           'username': Username,
           'password': Password,
@@ -92,10 +93,10 @@ class EDT {
       });
     });
   }
-  parsing(html){
+  parsing(html,classe){
      var oclock = null;
      var jour = null;
-     var classe = 2;
+
      console.log('-------------------\n\n\n\n');
      var test = html.match(/<td class="blank_column"><b>(.|\n|\r)*<tr class="even_row"><td class="blank_column" colspan="58">/gi);
      if(test === null){
@@ -273,7 +274,7 @@ class EDT {
       obj.edt_requests(obj.username,obj.password).then(function(val){
         console.log('requests done ! ');
         console.log('trying parsing');
-        var emb = obj.parsing(val);
+        var emb = obj.parsing(val,obj.classe);
         console.log("parsing done !");
         resolve(emb);
       }).catch(function(err){
