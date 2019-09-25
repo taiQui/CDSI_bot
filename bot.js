@@ -112,7 +112,7 @@ bot.on("ready",()=>{
      bot.channels.get("625675545061097472").fetchMessage("625696053794177034").then(function(msg){
        msg.edit("Edited : "+dateinterval.toLocaleTimeString()+" - "+dateinterval.toLocaleDateString());
      });
-   },((3600*3)+600)*1000);
+   },((3600*6)+600)*1000);
    //Edt 2
    setInterval(function(){
      var dateinterval = new Date();
@@ -630,7 +630,7 @@ bot.on("message",(message)=>{
         return;
       }
       if(((etime - dtime)/1000.0)/60.0 > 90){
-        let time2wait = 240 - (((etime - dtime)/1000.0)/60.0);
+        let time2wait = 420 - (((etime - dtime)/1000.0)/60.0);
         message.reply('Can use this at this moment - time to wait approximately : '+time2wait+" minutes");
         return;
       }
