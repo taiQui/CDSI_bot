@@ -98,6 +98,7 @@ bot.on("ready",()=>{
      },(3600*24)*1000);
    },time);
    dtime = Date.now();
+   //edt 1
    setInterval(function(){
      var dateinterval = new Date();
      dateinterval.setHours(dateinterval.getHours()+2);
@@ -108,16 +109,28 @@ bot.on("ready",()=>{
          msg.edit(emb);
        });
      });
-     bot.channels.get("625675545061097472").fetchMessage("625696067043983382").then(function(msg){
+     bot.channels.get("625675545061097472").fetchMessage("625696053794177034").then(function(msg){
+       msg.edit("Edited : "+dateinterval.toLocaleTimeString()+" - "+dateinterval.toLocaleDateString());
+     });
+   },((3600*3)+600)*1000);
+   //Edt 2
+   setInterval(function(){
+     var dateinterval = new Date();
+     dateinterval.setHours(dateinterval.getHours()+2);
+     dtime = Date.now();
+     bot.channels.get("625675545061097472").fetchMessage("626330064333701121").then(function(msg){
        let schedule = new Edt.EDT(2);
        schedule.exec().then(function(emb){
          msg.edit(emb);
        });
      });
-     bot.channels.get("625675545061097472").fetchMessage("625696053794177034").then(function(msg){
+     bot.channels.get("625675545061097472").fetchMessage("625696067043983382").then(function(msg){
        msg.edit("Edited : "+dateinterval.toLocaleTimeString()+" - "+dateinterval.toLocaleDateString());
      });
-   },((3600*2)+600)*1000)
+   },((3600*7)+600)*1000);
+
+
+
 });
 
 function testban(id){
@@ -617,7 +630,7 @@ bot.on("message",(message)=>{
         return;
       }
       if(((etime - dtime)/1000.0)/60.0 > 90){
-        let time2wait = 120 - (((etime - dtime)/1000.0)/60.0);
+        let time2wait = 240 - (((etime - dtime)/1000.0)/60.0);
         message.reply('Can use this at this moment - time to wait approximately : '+time2wait+" minutes");
         return;
       }
