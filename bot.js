@@ -53,6 +53,7 @@ var cmdban = [];
 var bc = [];
 var dtime = Date.now();
 var etime;
+var yolooo = true;
 //*********************//
 
 
@@ -118,16 +119,30 @@ bot.on("ready",()=>{
      var dateinterval = new Date();
      dateinterval.setHours(dateinterval.getHours()+2);
      dtime = Date.now();
-     bot.channels.get("625675545061097472").fetchMessage("626330064333701121").then(function(msg){
+     bot.channels.get("625675545061097472").fetchMessage("631869467902738432").then(function(msg){
        let schedule = new Edt.EDT(2);
        schedule.exec().then(function(emb){
          msg.edit(emb);
        });
      });
-     bot.channels.get("625675545061097472").fetchMessage("625696067043983382").then(function(msg){
+     bot.channels.get("625675545061097472").fetchMessage("626330134940745728").then(function(msg){
        msg.edit("Edited : "+dateinterval.toLocaleTimeString()+" - "+dateinterval.toLocaleDateString());
      });
    },((3600*7)+600)*1000);
+   setInterval(function(){
+     var dateinterval = new Date();
+     dateinterval.setHours(dateinterval.getHours()+2);
+     dtime = Date.now();
+     bot.channels.get("625675545061097472").fetchMessage("631869982178934784").then(function(msg){
+       let schedule = new Edt.EDT(4);
+       schedule.exec().then(function(emb){
+         msg.edit(emb);
+       });
+     });
+     bot.channels.get("625675545061097472").fetchMessage("631869955402629160").then(function(msg){
+       msg.edit("Edited : "+dateinterval.toLocaleTimeString()+" - "+dateinterval.toLocaleDateString());
+     });
+   },((3600*8)+600)*1000);
 
 
 
@@ -630,7 +645,7 @@ bot.on("message",(message)=>{
         return;
       }
       if(((etime - dtime)/1000.0)/60.0 > 90){
-        let time2wait = 420 - (((etime - dtime)/1000.0)/60.0);
+        let time2wait = (60*8) - (((etime - dtime)/1000.0)/60.0);
         message.reply('Can use this at this moment - time to wait approximately : '+time2wait+" minutes");
         return;
       }

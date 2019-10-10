@@ -17,7 +17,8 @@ class EDT {
     } else if(classe == Master1FA){
 
     } else if(classe == Master2FA){
-
+      this.username = process.env.MAUBUSER;
+      this.password = process.env.MAUBPASS;
     }
   }
 
@@ -113,15 +114,23 @@ class EDT {
      switch(classe){
        case Master1FI:
          embedt.addField('Master 1 FI - Schedule !',"###############################");
+         // RED
+         embedt.setColor('#FD2D00')
          break;
        case Master2FI:
          embedt.addField('Master 2 FI - Schedule !',"###############################");
+         // WHITE
+         embedt.setColor('#FFFFFF')
          break;
        case Master1FA:
          embedt.addField('Master 1 FA - Schedule !',"###############################");
+         // GREEN
+         embedt.setColor('#46FE00')
          break;
        case Master2FA:
          embedt.addField('Master 2 FA - Schedule !',"###############################");
+         // BLUE
+         embedt.setColor('#01F2FF')
          break;
      }
      var i = 0;
