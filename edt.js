@@ -18,7 +18,7 @@ class EDT {
 
     } else if(classe == Master2FA){
       this.username = process.env.MAUBUSER;
-      this.password = process.env.MAUBPASS;
+      this.password = process.env.MAUPASS;
     }
   }
 
